@@ -665,7 +665,7 @@ function generateReport(workspace, now) {
   const reportPath = path.join(workspace, "outputs", "reports", "weekly-pipeline-report.md");
   const metricsPath = path.join(workspace, "outputs", "reports", "metrics.csv");
 
-  fs.writeFileSync(reportPath, renderReport(metrics, accounts, drafts, outcomes, now));
+  fs.writeFileSync(reportPath, renderReport(metrics, accounts, drafts, outcomes, contacts, now));
   fs.writeFileSync(metricsPath, renderMetricsCsv(metrics));
 
   writeJsonl(path.join(workspace, "state", "events.jsonl"), events);
@@ -951,6 +951,7 @@ function validateWorkspace(workspace) {
   const outcomes = readOutcomes(workspace);
   const events = readEvents(workspace);
   const errors = [];
+  const reportBody = fs.readFileSync(path.join(workspace, "outputs", "reports", "weekly-pipeline-report.md"), "utf8");
 
   for (const account of accounts) {
     if (!account.id || !account.name || !account.website) errors.push(`Invalid account record: ${JSON.stringify(account)}`);
@@ -1003,6 +1004,16 @@ function validateWorkspace(workspace) {
     if (["sent_manual", "replied", "meeting_booked"].includes(outcome.manual_status) && draft?.status !== "approved") {
       errors.push(`outcome ${outcome.draft_id} has ${outcome.manual_status} but draft is not approved`);
     }
+  }
+
+  if (!reportBody.includes("## Next-Week Recommendations")) {
+    errors.push("weekly-pipeline-report.md is missing Next-Week Recommendations");
+  }
+  if (!reportBody.includes("| Priority | Recommendation | Why it matters | Evidence |")) {
+    errors.push("weekly-pipeline-report.md is missing recommendation evidence table");
+  }
+  if (!reportBody.includes("These recommendations are generated from the current local state")) {
+    errors.push("weekly-pipeline-report.md does not explain recommendation source");
   }
 
   if (events.length === 0) errors.push("events.jsonl has no audit events");
@@ -2196,8 +2207,9 @@ This is a draft only. The MVP has no send action and no external side effects.
 `;
 }
 
-function renderReport(metrics, accounts, drafts, outcomes, now) {
+function renderReport(metrics, accounts, drafts, outcomes, contacts, now) {
   const segmentRows = segmentSummary(accounts, drafts, outcomes);
+  const recommendations = buildWeeklyRecommendations(metrics, accounts, drafts, contacts, segmentRows);
   return `# Weekly Pipeline Report
 
 Generated: ${now}
@@ -2281,17 +2293,101 @@ ${metrics.follow_ups_due > 0 ? `- Drafts needing operator review before manual s
 - Drafts rejected from use without a new review cycle: ${metrics.drafts_rejected}.
 - Accounts still missing buyer/contact context: ${metrics.accounts_without_contacts}.
 
-## Recommended Next Actions
+## Next-Week Recommendations
 
-1. Review revised drafts before manual use.
-2. Add contact names and prior interaction context before using any draft.
-3. Keep \`inputs/outcomes.csv\` updated after manually controlled outreach activity.
-4. Keep disqualified automation requests out of the pipeline unless the use case becomes supervised and compliant.
+These recommendations are generated from the current local state and should be reviewed by the operator before changing the next sprint.
+
+| Priority | Recommendation | Why it matters | Evidence |
+| --- | --- | --- | --- |
+${recommendations.map((item, index) => `| ${index + 1} | ${item.recommendation} | ${item.rationale} | ${item.evidence} |`).join("\n")}
 
 ## Data Caveats
 
 ${metrics.warnings.length > 0 ? metrics.warnings.map((warning) => `- ${warning}`).join("\n") : "- No additional caveats beyond fixture data and manually recorded outcomes."}
 `;
+}
+
+function buildWeeklyRecommendations(metrics, accounts, drafts, contacts, segmentRows) {
+  const activeDrafts = drafts.filter((draft) => draft.status !== "superseded");
+  const recommendations = [];
+  const editedDrafts = activeDrafts.filter((draft) => draft.status === "edited");
+  const needsReviewDrafts = activeDrafts.filter((draft) => draft.status === "needs_review");
+  const approvedDrafts = activeDrafts.filter((draft) => draft.status === "approved");
+  const rejectedAccounts = accounts.filter((account) => account.status === "rejected");
+  const highFitNeedsReview = accounts.filter((account) => account.fit_score >= 75 && account.status === "needs_review" && account.disqualifiers.length === 0);
+  const accountsWithContacts = new Set(contacts.map((contact) => contact.account_id));
+  const accountsMissingContacts = accounts.filter((account) => !accountsWithContacts.has(account.id));
+  const bestSegment = [...segmentRows].sort((left, right) => {
+    if (right.meetings !== left.meetings) return right.meetings - left.meetings;
+    if (right.replies !== left.replies) return right.replies - left.replies;
+    return right.average_score - left.average_score;
+  })[0];
+
+  if (editedDrafts.length > 0) {
+    recommendations.push({
+      recommendation: `Revise or close ${editedDrafts.length} edited draft${editedDrafts.length === 1 ? "" : "s"}.`,
+      rationale: "Edited drafts are work-in-progress; they should either become reviewed revisions or be rejected so the queue stays trustworthy.",
+      evidence: `${countLabel(metrics.drafts_edited, "edited draft")}, ${countLabel(metrics.draft_revisions, "revision")} created`
+    });
+  }
+
+  if (needsReviewDrafts.length > 0) {
+    recommendations.push({
+      recommendation: `Review the next ${Math.min(5, needsReviewDrafts.length)} highest-fit draft${Math.min(5, needsReviewDrafts.length) === 1 ? "" : "s"} before any manual outreach.`,
+      rationale: "Drafts in needs_review are the largest controllable throughput bottleneck and cannot be used until a human approves, edits, or rejects them.",
+      evidence: `${countLabel(metrics.follow_ups_due, "draft")} waiting for review`
+    });
+  }
+
+  if (accountsMissingContacts.length > 0) {
+    recommendations.push({
+      recommendation: `Add buyer/contact context for ${Math.min(10, accountsMissingContacts.length)} account${Math.min(10, accountsMissingContacts.length) === 1 ? "" : "s"} before expanding the target list.`,
+      rationale: "Draft quality depends on a confirmed recipient; missing contacts create verification work and weaker personalization.",
+      evidence: `${metrics.accounts_with_contacts}/${metrics.accounts_imported} accounts have contacts (${metrics.contact_coverage_rate})`
+    });
+  }
+
+  if (highFitNeedsReview.length > 0) {
+    recommendations.push({
+      recommendation: `Prioritize account review for ${highFitNeedsReview.length} high-fit account${highFitNeedsReview.length === 1 ? "" : "s"}.`,
+      rationale: "High-fit accounts need an explicit human decision before their drafts can be approved for manual use.",
+      evidence: `${countLabel(metrics.high_fit_accounts, "high-fit account")}; ${countLabel(metrics.accounts_approved, "account")} approved`
+    });
+  }
+
+  if (approvedDrafts.length > metrics.manual_sends_recorded) {
+    recommendations.push({
+      recommendation: "Update manual outcome tracking for approved drafts after operator-controlled activity.",
+      rationale: "The report can only calculate reply and meeting rates from outcomes that are manually recorded in inputs/outcomes.csv.",
+      evidence: `${countLabel(metrics.drafts_approved, "approved draft")}, ${countLabel(metrics.manual_sends_recorded, "manual send")} recorded`
+    });
+  }
+
+  if (bestSegment && bestSegment.accounts > 0) {
+    recommendations.push({
+      recommendation: `Use ${bestSegment.segment} as the next sprint learning segment unless new client constraints say otherwise.`,
+      rationale: "Segment focus improves comparability and makes next-week quality and conversion changes easier to interpret.",
+      evidence: `${countLabel(bestSegment.accounts, "account")}, ${bestSegment.average_score} avg score, ${countLabel(bestSegment.replies, "reply")}, ${countLabel(bestSegment.meetings, "meeting")}`
+    });
+  }
+
+  if (rejectedAccounts.length > 0) {
+    recommendations.push({
+      recommendation: "Keep rejected or automation-risk accounts out of the next active follow-up queue.",
+      rationale: "The MVP's trust boundary depends on rejecting risky automation requests instead of trying to convert them into outbound volume.",
+      evidence: countLabel(rejectedAccounts.length, "rejected account")
+    });
+  }
+
+  if (recommendations.length === 0) {
+    recommendations.push({
+      recommendation: "Run another small batch with the same ICP and compare quality scores before adding integrations.",
+      rationale: "The current queue has no urgent local bottleneck, so the next learning should come from repeatability.",
+      evidence: `${metrics.accounts_imported} accounts, ${metrics.drafts_generated} drafts, ${metrics.event_count} audit events`
+    });
+  }
+
+  return recommendations.slice(0, 5);
 }
 
 function renderQualityReport(evaluation) {
@@ -3561,6 +3657,10 @@ function csvCell(value) {
 function rate(numerator, denominator) {
   if (denominator === 0) return "unavailable";
   return `${Math.round((numerator / denominator) * 100)}%`;
+}
+
+function countLabel(count, noun) {
+  return `${count} ${noun}${count === 1 ? "" : "s"}`;
 }
 
 function roundedMean(values) {

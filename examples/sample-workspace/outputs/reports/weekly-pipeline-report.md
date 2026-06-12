@@ -89,12 +89,17 @@ The fixture sprint imported 25 accounts, generated 14 high-fit lead briefs, and 
 - Drafts rejected from use without a new review cycle: 1.
 - Accounts still missing buyer/contact context: 15.
 
-## Recommended Next Actions
+## Next-Week Recommendations
 
-1. Review revised drafts before manual use.
-2. Add contact names and prior interaction context before using any draft.
-3. Keep `inputs/outcomes.csv` updated after manually controlled outreach activity.
-4. Keep disqualified automation requests out of the pipeline unless the use case becomes supervised and compliant.
+These recommendations are generated from the current local state and should be reviewed by the operator before changing the next sprint.
+
+| Priority | Recommendation | Why it matters | Evidence |
+| --- | --- | --- | --- |
+| 1 | Revise or close 1 edited draft. | Edited drafts are work-in-progress; they should either become reviewed revisions or be rejected so the queue stays trustworthy. | 1 edited draft, 1 revision created |
+| 2 | Review the next 5 highest-fit drafts before any manual outreach. | Drafts in needs_review are the largest controllable throughput bottleneck and cannot be used until a human approves, edits, or rejects them. | 21 drafts waiting for review |
+| 3 | Add buyer/contact context for 10 accounts before expanding the target list. | Draft quality depends on a confirmed recipient; missing contacts create verification work and weaker personalization. | 10/25 accounts have contacts (40%) |
+| 4 | Prioritize account review for 12 high-fit accounts. | High-fit accounts need an explicit human decision before their drafts can be approved for manual use. | 14 high-fit accounts; 2 accounts approved |
+| 5 | Use solo_consultant as the next sprint learning segment unless new client constraints say otherwise. | Segment focus improves comparability and makes next-week quality and conversion changes easier to interpret. | 7 accounts, 79 avg score, 1 reply, 1 meeting |
 
 ## Data Caveats
 
