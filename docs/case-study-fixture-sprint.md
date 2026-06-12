@@ -15,6 +15,10 @@ npm run fixture
 npm run check
 ```
 
+Guided review:
+
+- `docs/demo-walkthrough.md`
+
 Fixture workspace:
 
 - `examples/sample-workspace/inputs/targets.csv`

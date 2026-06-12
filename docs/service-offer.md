@@ -133,6 +133,7 @@ The public fixture sprint demonstrates the workflow on fictional accounts:
 
 Sample proof files:
 
+- `docs/demo-walkthrough.md`
 - `docs/case-study-fixture-sprint.md`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
 - `examples/sample-workspace/outputs/console/index.html`

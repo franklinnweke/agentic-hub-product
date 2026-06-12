@@ -43,6 +43,7 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 - `docs/product-plan.md` - product strategy, positioning, packaging, monetization.
 - `docs/prd.md` - product requirements document for the first shippable version.
 - `docs/workflow-pack-architecture.md` - workflow-pack design, inputs, outputs, guardrails.
+- `docs/demo-walkthrough.md` - 3-5 minute reviewer path through the generated proof artifacts.
 - `docs/case-study-fixture-sprint.md` - sanitized case study for the runnable fixture sprint.
 - `docs/service-offer.md` - service offer and pricing page draft for the pipeline sprint.
 - `docs/roadmap.md` - 48-hour, 30-day, and 90-day implementation path.
@@ -68,7 +69,7 @@ The first runnable slice is a local, inspectable CLI. It uses Node.js built-ins 
 
 1. Run `npm run fixture`.
 2. Open `examples/sample-workspace/outputs/console/index.html`.
-3. Review the queue, filters, lead briefs, draft artifacts, weekly report, state files, and run logs.
+3. Follow `docs/demo-walkthrough.md` to inspect the queue, filters, lead briefs, draft artifacts, weekly report, state files, and run logs.
 
 ![Agentic Hub operator console](examples/sample-workspace/outputs/screenshots/operator-console.jpg)
 
@@ -115,7 +116,7 @@ The fixture writes:
 
 The sample sprint imports 25 fictional accounts, loads 10 local contact records and 6 prior interaction notes, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report plus static operator console with draft type mix. The MVP deliberately does not include any send command or external side effect.
 
-Read the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
+Read the guided proof path in `docs/demo-walkthrough.md` and the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
 
 Implementation stack: Node.js ESM with plain files. This keeps the workflow easy to run now and leaves a clean path toward a TypeScript web console later.
 
