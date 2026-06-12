@@ -1,10 +1,9 @@
 # Follow-Up Draft: Brightlane Creative
 
-Approval status: `needs_review`
-Draft type: first_touch
-Review note: Revision created for another review cycle.
-Revision of: `draft_brightlane_creative_first_touch`
-Revision changes: Add an agency-specific proof point and keep the ask low-pressure.
+Approval status: `superseded`
+Draft type: warm_follow_up
+Review note: Needs agency-specific proof point before use.
+Superseded at: 2026-06-11T22:46:30.000Z
 
 ## Account / Contact Context
 
@@ -15,32 +14,31 @@ Revision changes: Add an agency-specific proof point and keep the ask low-pressu
 - Contact context: Operator-provided agency decision-maker for pipeline process and referral analytics
 - Contact source: fixture contacts (confidence: medium)
 
+## Prior Interaction Context
+
+- Interaction: Andre asked for a short example of how an agency referral pipeline report would look after a discovery call.
+- Interaction source: interaction_acct_brightlane_creative
+
 ## Subject Options
 
-- Pipeline sprint idea for Brightlane Creative
-- Evidence-backed follow-up workflow
+- Following up on Brightlane Creative
+- Next step from our notes
 
 ## Message Draft
 
 Hi Andre,
 
-I noticed Brightlane Creative looks like a fit for a supervised pipeline sprint based on this workspace note: Eight-person web agency with project-based leads.
+Following up on prior context for Brightlane Creative: Andre asked for a short example of how an agency referral pipeline report would look after a discovery call.
 I am using Andre Lewis (Managing Partner) as the tentative recipient from local contact context: Operator-provided agency decision-maker for pipeline process and referral analytics.
+Prior context from the workspace: Andre asked for a short example of how an agency referral pipeline report would look after a discovery call.
 
 Lead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.
 
-The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.
+The useful next step from the local notes is: Send a concise follow-up with one agency-specific proof point and offer a three-account sample. Nothing is sent automatically.
 
-Would it be worth comparing this against your current follow-up process for a few accounts?
+Would it be worth taking the next step from here?
 
 Franklin
-
----
-
-Operator revision notes:
-Add an agency-specific proof point and keep the ask low-pressure.
-
-Revision reminder: verify recipient, proof point, and send context before approving.
 
 ## Personalization Evidence
 
@@ -58,7 +56,7 @@ Operator-selected after manual review
 
 ## Next Action If No Reply
 
-Wait 5 business days, then draft one low-pressure follow-up only if still relevant.
+Send a concise follow-up with one agency-specific proof point and offer a three-account sample.
 
 ## Approval Gate
 

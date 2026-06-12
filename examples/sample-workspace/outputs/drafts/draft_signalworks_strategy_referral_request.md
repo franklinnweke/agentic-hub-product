@@ -1,7 +1,7 @@
 # Follow-Up Draft: SignalWorks Strategy
 
 Approval status: `needs_review`
-Draft type: first_touch
+Draft type: referral_request
 Review note: None yet
 
 ## Account / Contact Context
@@ -13,23 +13,29 @@ Review note: None yet
 - Contact context: Operator-provided owner of warm founder referral workflow
 - Contact source: fixture contacts (confidence: medium)
 
+## Prior Interaction Context
+
+- Interaction: Nora mentioned warm founder referrals as the best source of qualified consulting opportunities.
+- Interaction source: interaction_acct_signalworks_strategy
+
 ## Subject Options
 
-- Pipeline sprint idea for SignalWorks Strategy
-- Evidence-backed follow-up workflow
+- Specific referral question
+- Referral fit for SignalWorks Strategy
 
 ## Message Draft
 
 Hi Nora,
 
-I noticed SignalWorks Strategy looks like a fit for a supervised pipeline sprint based on this workspace note: Independent strategy consultant with warm founder referrals.
+I am using this referral context for SignalWorks Strategy: Nora mentioned warm founder referrals as the best source of qualified consulting opportunities.
 I am using Nora Patel (Principal) as the tentative recipient from local contact context: Operator-provided owner of warm founder referral workflow.
+Prior context from the workspace: Nora mentioned warm founder referrals as the best source of qualified consulting opportunities.
 
 Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.
 
-The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.
+The useful starting point would be a narrow referral ask with clear context and no pressure. Nothing is sent automatically.
 
-Would it be worth comparing this against your current follow-up process for a few accounts?
+Would one specific introduction be reasonable if the fit looks right?
 
 Franklin
 
@@ -49,7 +55,7 @@ Operator-selected after manual review
 
 ## Next Action If No Reply
 
-Wait 5 business days, then draft one low-pressure follow-up only if still relevant.
+Ask for one specific referral profile rather than broad introductions.
 
 ## Approval Gate
 

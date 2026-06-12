@@ -1,7 +1,7 @@
 # Follow-Up Draft: Cedar Grant Partners
 
 Approval status: `rejected`
-Draft type: first_touch
+Draft type: meeting_recap
 Review note: Compliance-sensitive segment needs legal review before drafting.
 
 ## Account / Contact Context
@@ -13,23 +13,29 @@ Review note: Compliance-sensitive segment needs legal review before drafting.
 - Contact context: Operator-provided relationship owner with compliance-sensitive follow-up needs
 - Contact source: fixture contacts (confidence: medium)
 
+## Prior Interaction Context
+
+- Interaction: Prior conversation focused on deadline-sensitive grant follow-ups and compliance-safe language.
+- Interaction source: interaction_acct_cedar_grant_partners
+
 ## Subject Options
 
-- Pipeline sprint idea for Cedar Grant Partners
-- Evidence-backed follow-up workflow
+- Recap and next step for Cedar Grant Partners
+- Quick recap
 
 ## Message Draft
 
 Hi Elena,
 
-I noticed Cedar Grant Partners looks like a fit for a supervised pipeline sprint based on this workspace note: Grant writing consultancy with many warm relationships.
+Thanks again for the conversation. I captured this recap context for Cedar Grant Partners: Prior conversation focused on deadline-sensitive grant follow-ups and compliance-safe language.
 I am using Elena Brooks (Principal Consultant) as the tentative recipient from local contact context: Operator-provided relationship owner with compliance-sensitive follow-up needs.
+Prior context from the workspace: Prior conversation focused on deadline-sensitive grant follow-ups and compliance-safe language.
 
 Lead with a human-reviewed follow-up queue for deadline-sensitive relationship workflows.
 
-The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.
+A useful next step would be to confirm the recap, review the proposed next action, and decide whether a small local sprint is worth testing. Nothing is sent automatically.
 
-Would it be worth comparing this against your current follow-up process for a few accounts?
+Does that match your read, and should I turn it into a small next-step plan?
 
 Franklin
 
@@ -49,7 +55,7 @@ Operator-selected after manual review
 
 ## Next Action If No Reply
 
-Wait 5 business days, then draft one low-pressure follow-up only if still relevant.
+Recap the compliance concern and ask whether legal review is needed before any draft is used.
 
 ## Approval Gate
 

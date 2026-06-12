@@ -11,6 +11,10 @@ Review note: None yet
 - Segment: professional_services
 - Contact: Unknown; operator must confirm before use.
 
+## Prior Interaction Context
+
+- No prior interaction context provided; this draft is treated as a first touch.
+
 ## Subject Options
 
 - Pipeline sprint idea for CorePath Systems
@@ -21,6 +25,7 @@ Review note: None yet
 Hi,
 
 I noticed CorePath Systems looks like a fit for a supervised pipeline sprint based on this workspace note: Systems integrator with enterprise service retainers.
+
 
 
 Lead with evidence-backed lead briefs and review-gated drafts for professional services operators.

@@ -121,9 +121,11 @@ Format: Markdown.
 Required fields:
 
 - recipient/context
+- draft type
 - subject options
 - message draft
 - personalization evidence
+- prior interaction context when available
 - approval status
 - risk flags
 - suggested send window
@@ -333,4 +335,3 @@ The proof must show evidence, review states, and analytics.
 - one analytics report
 - sanitized case study published
 - clear service offer and pricing page draft
-

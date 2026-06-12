@@ -19,6 +19,7 @@ Fixture workspace:
 
 - `examples/sample-workspace/inputs/targets.csv`
 - `examples/sample-workspace/inputs/contacts.csv`
+- `examples/sample-workspace/inputs/previous_interactions.md`
 - `examples/sample-workspace/config/icp.md`
 - `examples/sample-workspace/outputs/lead-briefs/`
 - `examples/sample-workspace/outputs/drafts/`
@@ -40,17 +41,21 @@ The CSV contains 25 fictional accounts. Twenty-four are plausible service-busine
 
 The contacts CSV contains 10 local, operator-provided tentative buyer records. These are not scraped or enriched from live systems; they exist to show how human-provided contact context flows into briefs and drafts.
 
+The previous-interactions file contains 6 local, operator-provided notes that turn eligible drafts into warm follow-ups, meeting recaps, stale-opportunity revives, and referral requests. These notes are fixture data, not inbox scraping.
+
 ## Workflow
 
 1. Ingest targets into local JSON state.
 2. Capture evidence from the target CSV and operator notes.
-3. Score each account against the configured ICP.
-4. Generate Markdown lead briefs.
-5. Generate follow-up drafts only for eligible accounts.
-6. Apply explicit human review states to accounts and drafts.
-7. Record one manual outcome after operator-controlled outreach outside Agentic Hub.
-8. Generate an analytics report from local state.
-9. Run deterministic fixture-quality checks.
+3. Load local contact and prior-interaction context.
+4. Score each account against the configured ICP.
+5. Generate Markdown lead briefs.
+6. Generate follow-up drafts only for eligible accounts.
+7. Select draft type from local interaction context when available.
+8. Apply explicit human review states to accounts and drafts.
+9. Record one manual outcome after operator-controlled outreach outside Agentic Hub.
+10. Generate an analytics report from local state.
+11. Run deterministic fixture-quality checks.
 
 ## After
 
@@ -58,8 +63,14 @@ The fixture produces:
 
 - 25 lead briefs
 - 10 local contact records
+- 6 local previous-interaction records
 - 24 initial follow-up drafts
 - 1 revised follow-up draft
+- 18 first-touch draft records
+- 2 warm follow-up draft records
+- 2 meeting recap draft records
+- 2 stale opportunity revive draft records
+- 1 referral request draft record
 - 1 rejected automation-risk account
 - 1 approved draft
 - 1 edited draft
@@ -83,6 +94,7 @@ The proof is not that an agent can generate a cold email. The proof is that the 
 - every account has preserved evidence
 - every score is inspectable
 - local contact context is visible before draft approval
+- prior interaction context changes draft type without connecting to an inbox
 - risky automation requests are rejected
 - every draft requires human review
 - edited drafts can produce revised drafts without losing the original
@@ -98,12 +110,12 @@ That makes the project portfolio-grade because a reviewer can inspect the inputs
 - No credentials are required.
 - No browser automation is used in the fixture.
 - Contact context comes from local fixture data.
+- Prior interaction context comes from local fixture data.
 - Draft approval does not imply sending.
 - Manual outcomes are recorded only after operator-controlled activity outside Agentic Hub.
 
 ## Remaining Gaps
 
-- Buyer/contact names are still missing.
 - Real public-source research is not implemented yet.
 - There is no local operator console or screenshot-driven UI yet.
 

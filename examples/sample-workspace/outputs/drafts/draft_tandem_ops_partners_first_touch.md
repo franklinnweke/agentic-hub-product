@@ -11,6 +11,10 @@ Review note: None yet
 - Segment: solo_consultant
 - Contact: Unknown; operator must confirm before use.
 
+## Prior Interaction Context
+
+- No prior interaction context provided; this draft is treated as a first touch.
+
 ## Subject Options
 
 - Pipeline sprint idea for Tandem Ops Partners
@@ -21,6 +25,7 @@ Review note: None yet
 Hi,
 
 I noticed Tandem Ops Partners looks like a fit for a supervised pipeline sprint based on this workspace note: Two-person ops consultancy with relationship-heavy pipeline.
+
 
 
 Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.

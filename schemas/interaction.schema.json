@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentic-hub.local/schemas/interaction.schema.json",
+  "title": "Agentic Hub Previous Interaction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "account_id",
+    "draft_type",
+    "summary",
+    "last_interaction_at",
+    "next_action",
+    "source",
+    "confidence",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^interaction_[a-z0-9_]+$"
+    },
+    "account_id": {
+      "type": "string",
+      "pattern": "^acct_[a-z0-9_]+$"
+    },
+    "draft_type": {
+      "type": "string",
+      "enum": [
+        "first_touch",
+        "warm_follow_up",
+        "meeting_recap",
+        "stale_opportunity_revive",
+        "referral_request"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "last_interaction_at": {
+      "type": "string"
+    },
+    "next_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

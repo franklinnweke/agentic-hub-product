@@ -66,6 +66,12 @@
     "contact_role": {
       "type": "string"
     },
+    "interaction_id": {
+      "type": "string"
+    },
+    "interaction_summary": {
+      "type": "string"
+    },
     "evidence_ids": {
       "type": "array",
       "items": {

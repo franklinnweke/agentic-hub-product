@@ -1,7 +1,7 @@
 # Follow-Up Draft: Harbor IT Advisors
 
 Approval status: `edited`
-Draft type: first_touch
+Draft type: stale_opportunity_revive
 Review note: Needs stronger managed IT renewal context before use.
 
 ## Account / Contact Context
@@ -13,23 +13,29 @@ Review note: Needs stronger managed IT renewal context before use.
 - Contact context: Operator-provided buyer for managed IT renewal and referral pipeline discipline
 - Contact source: fixture contacts (confidence: medium)
 
+## Prior Interaction Context
+
+- Interaction: Renewal follow-up idea was discussed last month but stalled before a concrete next step.
+- Interaction source: interaction_acct_harbor_it_advisors
+
 ## Subject Options
 
-- Pipeline sprint idea for Harbor IT Advisors
-- Evidence-backed follow-up workflow
+- Still worth revisiting?
+- Reviving Harbor IT Advisors
 
 ## Message Draft
 
 Hi Marcus,
 
-I noticed Harbor IT Advisors looks like a fit for a supervised pipeline sprint based on this workspace note: Managed IT advisory firm with high-ticket retainers.
+I am resurfacing Harbor IT Advisors because the workspace shows a stale opportunity: Renewal follow-up idea was discussed last month but stalled before a concrete next step.
 I am using Marcus Lee (Managing Director) as the tentative recipient from local contact context: Operator-provided buyer for managed IT renewal and referral pipeline discipline.
+Prior context from the workspace: Renewal follow-up idea was discussed last month but stalled before a concrete next step.
 
 Lead with a local pipeline sprint for professional services teams that connects research quality, follow-up review, and weekly analytics.
 
-The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.
+The useful starting point would be a low-pressure check-in that confirms whether the problem is still active before proposing anything. Nothing is sent automatically.
 
-Would it be worth comparing this against your current follow-up process for a few accounts?
+Is this still worth revisiting, or should I close the loop for now?
 
 Franklin
 
@@ -49,7 +55,7 @@ Operator-selected after manual review
 
 ## Next Action If No Reply
 
-Wait 5 business days, then draft one low-pressure follow-up only if still relevant.
+Ask whether renewal follow-up discipline is still worth revisiting this quarter.
 
 ## Approval Gate
 

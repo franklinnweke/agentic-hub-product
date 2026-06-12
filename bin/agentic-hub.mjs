@@ -18,6 +18,7 @@ const REQUIRED_CONTACT_COLUMNS = ["account_id", "name", "role", "context", "sour
 const REQUIRED_OUTCOME_COLUMNS = ["draft_id", "account_id", "manual_status", "sent_at", "reply_at", "meeting_at", "notes"];
 const ACCOUNT_REVIEW_STATUSES = ["approved", "rejected", "needs_more_info"];
 const DRAFT_REVIEW_STATUSES = ["approved", "edited", "rejected"];
+const DRAFT_TYPES = ["first_touch", "warm_follow_up", "meeting_recap", "stale_opportunity_revive", "referral_request"];
 const OUTCOME_STATUSES = ["sent_manual", "replied", "meeting_booked", "no_reply", "stale"];
 const SCORE_WEIGHTS = {
   icp_match: 30,
@@ -186,6 +187,11 @@ function initWorkspace(workspace, now, options = {}) {
     starterContactsCsv(),
     preserveExisting
   );
+  writeFileIfAllowed(
+    path.join(workspace, "inputs", "previous_interactions.md"),
+    starterPreviousInteractions(),
+    preserveExisting
+  );
 
   appendRunLog(workspace, {
     run_id: runId("init", now),
@@ -193,7 +199,7 @@ function initWorkspace(workspace, now, options = {}) {
     pack: "workspace",
     command: "init",
     input_files: [],
-    output_files: ["README.md", "inputs/targets.csv", "inputs/contacts.csv", "inputs/outcomes.csv", "config/icp.md", "config/offer.md"],
+    output_files: ["README.md", "inputs/targets.csv", "inputs/contacts.csv", "inputs/previous_interactions.md", "inputs/outcomes.csv", "config/icp.md", "config/offer.md"],
     status: "completed",
     warnings: [],
     errors: []
@@ -212,6 +218,7 @@ function ingestTargets(workspace, now) {
   const rows = parseCsv(fs.readFileSync(targetPath, "utf8"));
   validateTargetRows(rows);
   const contacts = readContactsInput(workspace, now);
+  const interactions = readPreviousInteractionsInput(workspace, now);
 
   const accounts = [];
   const evidence = [];
@@ -238,6 +245,7 @@ function ingestTargets(workspace, now) {
   writeJson(path.join(workspace, "state", "accounts.json"), accounts);
   writeJson(path.join(workspace, "state", "evidence.json"), evidence);
   writeJson(path.join(workspace, "state", "contacts.json"), contacts);
+  writeJson(path.join(workspace, "state", "interactions.json"), interactions);
   writeJsonl(path.join(workspace, "state", "events.jsonl"), events);
 
   appendRunLog(workspace, {
@@ -245,14 +253,14 @@ function ingestTargets(workspace, now) {
     timestamp: now,
     pack: "lead-gen",
     command: "ingest",
-    input_files: ["inputs/targets.csv", "inputs/contacts.csv"],
-    output_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json", "state/events.jsonl"],
+    input_files: ["inputs/targets.csv", "inputs/contacts.csv", "inputs/previous_interactions.md"],
+    output_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json", "state/interactions.json", "state/events.jsonl"],
     status: "completed",
     warnings: accounts.filter((account) => account.confidence === "low").map((account) => `${account.id} has low confidence`),
     errors: []
   });
 
-  console.log(`Ingested ${accounts.length} accounts, ${contacts.length} contacts, and ${evidence.length} evidence items.`);
+  console.log(`Ingested ${accounts.length} accounts, ${contacts.length} contacts, ${interactions.length} interactions, and ${evidence.length} evidence items.`);
 }
 
 function generateBriefs(workspace, now) {
@@ -297,6 +305,7 @@ function generateDrafts(workspace, now) {
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const evidence = readJson(path.join(workspace, "state", "evidence.json"));
   const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
+  const interactions = readJson(path.join(workspace, "state", "interactions.json"), []);
   const events = readEvents(workspace);
   const drafts = [];
   const skipped = [];
@@ -309,7 +318,8 @@ function generateDrafts(workspace, now) {
 
     const accountEvidence = evidence.filter((item) => item.account_id === account.id);
     const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
-    const draft = buildDraft(account, accountEvidence, accountContacts, now);
+    const interaction = interactions.find((item) => item.account_id === account.id);
+    const draft = buildDraft(account, accountEvidence, accountContacts, interaction, now);
     drafts.push(draft);
     const draftPath = path.join(workspace, "outputs", "drafts", `${draft.id}.md`);
     fs.writeFileSync(draftPath, renderDraft(account, draft, accountEvidence, accountContacts));
@@ -326,7 +336,7 @@ function generateDrafts(workspace, now) {
     timestamp: now,
     pack: "follow-ups",
     command: "generate-drafts",
-    input_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json", "outputs/lead-briefs/*.md"],
+    input_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json", "state/interactions.json", "outputs/lead-briefs/*.md"],
     output_files: ["state/drafts.json", ...drafts.map((draft) => `outputs/drafts/${draft.id}.md`)],
     status: "completed",
     warnings: skipped,
@@ -561,13 +571,14 @@ function generateReport(workspace, now) {
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const drafts = readJson(path.join(workspace, "state", "drafts.json"), []);
   const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
+  const interactions = readJson(path.join(workspace, "state", "interactions.json"), []);
   const outcomes = readOutcomes(workspace);
   const events = readEvents(workspace);
   events.push(eventFor("report", "weekly-pipeline-report", "analytics_report_generated", now, {
     output_file: "outputs/reports/weekly-pipeline-report.md",
     metrics_file: "outputs/reports/metrics.csv"
   }));
-  const metrics = buildMetrics(accounts, drafts, events, outcomes, contacts);
+  const metrics = buildMetrics(accounts, drafts, events, outcomes, contacts, interactions);
   const reportPath = path.join(workspace, "outputs", "reports", "weekly-pipeline-report.md");
   const metricsPath = path.join(workspace, "outputs", "reports", "metrics.csv");
 
@@ -581,7 +592,7 @@ function generateReport(workspace, now) {
     timestamp: now,
     pack: "analytics",
     command: "report",
-    input_files: ["state/accounts.json", "state/drafts.json", "state/contacts.json", "state/events.jsonl", "inputs/outcomes.csv"],
+    input_files: ["state/accounts.json", "state/drafts.json", "state/contacts.json", "state/interactions.json", "state/events.jsonl", "inputs/outcomes.csv"],
     output_files: ["outputs/reports/weekly-pipeline-report.md", "outputs/reports/metrics.csv"],
     status: "completed",
     warnings: metrics.warnings,
@@ -599,6 +610,7 @@ function validateWorkspace(workspace) {
     "state/accounts.json",
     "state/evidence.json",
     "state/contacts.json",
+    "state/interactions.json",
     "state/drafts.json",
     "state/events.jsonl",
     "logs/runs.jsonl",
@@ -613,6 +625,7 @@ function validateWorkspace(workspace) {
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const evidence = readJson(path.join(workspace, "state", "evidence.json"));
   const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
+  const interactions = readJson(path.join(workspace, "state", "interactions.json"), []);
   const drafts = readJson(path.join(workspace, "state", "drafts.json"));
   const outcomes = readOutcomes(workspace);
   const events = readEvents(workspace);
@@ -631,6 +644,12 @@ function validateWorkspace(workspace) {
     if (!contact.account_id || !accounts.some((account) => account.id === contact.account_id)) errors.push(`Contact references unknown account ${contact.account_id}`);
     if (!contact.name || !contact.role) errors.push(`Invalid contact record: ${JSON.stringify(contact)}`);
     if (!["low", "medium", "high"].includes(contact.confidence)) errors.push(`Contact ${contact.name} has invalid confidence ${contact.confidence}`);
+  }
+
+  for (const interaction of interactions) {
+    if (!interaction.account_id || !accounts.some((account) => account.id === interaction.account_id)) errors.push(`Interaction references unknown account ${interaction.account_id}`);
+    if (!DRAFT_TYPES.includes(interaction.draft_type)) errors.push(`Interaction ${interaction.account_id} has invalid draft_type ${interaction.draft_type}`);
+    if (!interaction.summary || !interaction.next_action) errors.push(`Interaction ${interaction.account_id} is missing summary or next_action`);
   }
 
   for (const draft of drafts) {
@@ -656,7 +675,7 @@ function validateWorkspace(workspace) {
   if (events.length === 0) errors.push("events.jsonl has no audit events");
   if (errors.length > 0) throw new Error(`Validation failed:\n- ${errors.join("\n- ")}`);
 
-  console.log(`Validation passed: ${accounts.length} accounts, ${contacts.length} contacts, ${evidence.length} evidence items, ${drafts.length} drafts, ${outcomes.length} outcomes, ${events.length} events.`);
+  console.log(`Validation passed: ${accounts.length} accounts, ${contacts.length} contacts, ${interactions.length} interactions, ${evidence.length} evidence items, ${drafts.length} drafts, ${outcomes.length} outcomes, ${events.length} events.`);
 }
 
 function regenerateLeadBrief(workspace, account, now) {
@@ -791,6 +810,44 @@ function readContactsInput(workspace, now) {
     }));
 }
 
+function readPreviousInteractionsInput(workspace, now) {
+  const filePath = path.join(workspace, "inputs", "previous_interactions.md");
+  if (!fs.existsSync(filePath)) return [];
+  const input = fs.readFileSync(filePath, "utf8");
+  const sections = input.split(/^##\s+/m).slice(1);
+  return sections.map((section) => parseInteractionSection(section, now)).filter(Boolean);
+}
+
+function parseInteractionSection(section, now) {
+  const lines = section.split(/\r?\n/);
+  const accountId = lines.shift()?.trim();
+  if (!accountId || accountId.startsWith("Example")) return null;
+  const fields = {};
+  for (const line of lines) {
+    const match = line.match(/^-\s*([a-z_]+):\s*(.*)$/);
+    if (match) fields[match[1]] = match[2].trim();
+  }
+  const draftType = fields.draft_type || "first_touch";
+  if (!DRAFT_TYPES.includes(draftType)) {
+    throw new Error(`previous_interactions.md section ${accountId} has invalid draft_type ${draftType}`);
+  }
+  if (!fields.summary || !fields.next_action) {
+    throw new Error(`previous_interactions.md section ${accountId} must include summary and next_action`);
+  }
+  return {
+    id: `interaction_${slug(accountId)}`,
+    account_id: accountId,
+    draft_type: draftType,
+    summary: fields.summary,
+    last_interaction_at: fields.last_interaction_at || "",
+    next_action: fields.next_action,
+    source: fields.source || "inputs/previous_interactions.md",
+    confidence: fields.confidence || "medium",
+    created_at: now,
+    updated_at: now
+  };
+}
+
 function applyContactsToAccounts(accounts, contacts, now) {
   const accountsWithContacts = new Set(contacts.map((contact) => contact.account_id));
   for (const account of accounts) {
@@ -907,50 +964,87 @@ function suggestedAngle(row, disqualifiers) {
   return `Lead with evidence-backed lead briefs and review-gated drafts for ${segment} operators.`;
 }
 
-function buildDraft(account, evidence, contacts, now) {
+function buildDraft(account, evidence, contacts, interaction, now) {
   const primaryEvidence = evidence.slice(0, 3);
   const bestPersonalization = primaryEvidence.find((item) => item.source_type === "operator_note") ?? primaryEvidence[1] ?? primaryEvidence[0];
   const primaryContact = selectPrimaryContact(contacts);
+  const draftType = interaction?.draft_type ?? "first_touch";
   const risk_flags = [];
   if (account.confidence !== "high") risk_flags.push(`Confidence is ${account.confidence}; operator should verify before sending.`);
   if (account.missing_information.length > 0) risk_flags.push(`Missing: ${account.missing_information.join("; ")}`);
   if (!primaryContact) risk_flags.push("No named buyer/contact in contacts.csv; operator must confirm recipient.");
+  if (interaction?.confidence === "low") risk_flags.push("Prior interaction context is low confidence; operator should verify before use.");
 
   const body = [
     primaryContact ? `Hi ${primaryContact.name.split(/\s+/)[0]},` : "Hi,",
     "",
-    `I noticed ${account.name} looks like a fit for a supervised pipeline sprint based on this workspace note: ${bestPersonalization?.claim ?? "the target list shows a relevant workflow."}`,
+    openingLineForDraftType(draftType, account, bestPersonalization, interaction),
     primaryContact ? `I am using ${primaryContact.name} (${primaryContact.role}) as the tentative recipient from local contact context: ${primaryContact.context}.` : "",
+    interaction ? `Prior context from the workspace: ${interaction.summary}` : "",
     "",
     `${account.suggested_angle}`,
     "",
-    "The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.",
+    askForDraftType(draftType, interaction),
     "",
-    "Would it be worth comparing this against your current follow-up process for a few accounts?",
+    questionForDraftType(draftType),
     "",
     "Franklin"
   ].join("\n");
 
   return {
-    id: `draft_${account.id.replace(/^acct_/, "")}_first_touch`,
+    id: `draft_${account.id.replace(/^acct_/, "")}_${draftType}`,
     account_id: account.id,
-    draft_type: "first_touch",
-    subject_options: [
-      `Pipeline sprint idea for ${account.name}`,
-      "Evidence-backed follow-up workflow"
-    ],
+    draft_type: draftType,
+    subject_options: subjectOptionsForDraftType(draftType, account),
     body,
     status: "needs_review",
     contact_id: primaryContact?.id ?? "",
     contact_name: primaryContact?.name ?? "",
     contact_role: primaryContact?.role ?? "",
+    interaction_id: interaction?.id ?? "",
+    interaction_summary: interaction?.summary ?? "",
     evidence_ids: primaryEvidence.map((item) => item.id),
     risk_flags,
     suggested_send_window: "Operator-selected after manual review",
-    next_action_if_no_reply: "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
+    next_action_if_no_reply: interaction?.next_action ?? "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
     created_at: now,
     updated_at: now
   };
+}
+
+function openingLineForDraftType(draftType, account, evidence, interaction) {
+  if (draftType === "warm_follow_up") return `Following up on prior context for ${account.name}: ${interaction.summary}`;
+  if (draftType === "meeting_recap") return `Thanks again for the conversation. I captured this recap context for ${account.name}: ${interaction.summary}`;
+  if (draftType === "stale_opportunity_revive") return `I am resurfacing ${account.name} because the workspace shows a stale opportunity: ${interaction.summary}`;
+  if (draftType === "referral_request") return `I am using this referral context for ${account.name}: ${interaction.summary}`;
+  return `I noticed ${account.name} looks like a fit for a supervised pipeline sprint based on this workspace note: ${evidence?.claim ?? "the target list shows a relevant workflow."}`;
+}
+
+function askForDraftType(draftType, interaction) {
+  if (draftType === "meeting_recap") return "A useful next step would be to confirm the recap, review the proposed next action, and decide whether a small local sprint is worth testing. Nothing is sent automatically.";
+  if (draftType === "stale_opportunity_revive") return "The useful starting point would be a low-pressure check-in that confirms whether the problem is still active before proposing anything. Nothing is sent automatically.";
+  if (draftType === "referral_request") return "The useful starting point would be a narrow referral ask with clear context and no pressure. Nothing is sent automatically.";
+  if (draftType === "warm_follow_up") return `The useful next step from the local notes is: ${interaction.next_action} Nothing is sent automatically.`;
+  return "The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.";
+}
+
+function questionForDraftType(draftType) {
+  if (draftType === "meeting_recap") return "Does that match your read, and should I turn it into a small next-step plan?";
+  if (draftType === "stale_opportunity_revive") return "Is this still worth revisiting, or should I close the loop for now?";
+  if (draftType === "referral_request") return "Would one specific introduction be reasonable if the fit looks right?";
+  if (draftType === "warm_follow_up") return "Would it be worth taking the next step from here?";
+  return "Would it be worth comparing this against your current follow-up process for a few accounts?";
+}
+
+function subjectOptionsForDraftType(draftType, account) {
+  const options = {
+    first_touch: [`Pipeline sprint idea for ${account.name}`, "Evidence-backed follow-up workflow"],
+    warm_follow_up: [`Following up on ${account.name}`, "Next step from our notes"],
+    meeting_recap: [`Recap and next step for ${account.name}`, "Quick recap"],
+    stale_opportunity_revive: [`Still worth revisiting?`, `Reviving ${account.name}`],
+    referral_request: [`Specific referral question`, `Referral fit for ${account.name}`]
+  };
+  return options[draftType] ?? options.first_touch;
 }
 
 function selectPrimaryContact(contacts) {
@@ -978,7 +1072,7 @@ function reviseDraftBody(body, changes) {
   ].join("\n");
 }
 
-function buildMetrics(accounts, drafts, events, outcomes = [], contacts = []) {
+function buildMetrics(accounts, drafts, events, outcomes = [], contacts = [], interactions = []) {
   const highFitAccounts = accounts.filter((account) => account.fit_score >= 75 && account.disqualifiers.length === 0);
   const approvedAccounts = accounts.filter((account) => account.status === "approved");
   const rejectedAccounts = accounts.filter((account) => account.status === "rejected");
@@ -998,6 +1092,13 @@ function buildMetrics(accounts, drafts, events, outcomes = [], contacts = []) {
     accounts_with_contacts: new Set(contacts.map((contact) => contact.account_id)).size,
     accounts_without_contacts: Math.max(0, accounts.length - new Set(contacts.map((contact) => contact.account_id)).size),
     contact_coverage_rate: rate(new Set(contacts.map((contact) => contact.account_id)).size, accounts.length),
+    interactions_loaded: interactions.length,
+    accounts_with_interactions: new Set(interactions.map((interaction) => interaction.account_id)).size,
+    interaction_coverage_rate: rate(new Set(interactions.map((interaction) => interaction.account_id)).size, accounts.length),
+    draft_type_counts: DRAFT_TYPES.map((type) => ({
+      type,
+      count: drafts.filter((draft) => draft.draft_type === type).length
+    })),
     accounts_approved: approvedAccounts.length,
     accounts_rejected: rejectedAccounts.length,
     average_fit_score: accounts.length === 0 ? 0 : Math.round(accounts.reduce((sum, account) => sum + account.fit_score, 0) / accounts.length),
@@ -1105,6 +1206,10 @@ ${revisionBlock ? revisionBlock : ""}
 - Segment: ${account.segment}
 ${contactBlock}
 
+## Prior Interaction Context
+
+${draft.interaction_summary ? `- Interaction: ${draft.interaction_summary}\n- Interaction source: ${draft.interaction_id || "state/interactions.json"}` : "- No prior interaction context provided; this draft is treated as a first touch."}
+
 ## Subject Options
 
 ${draft.subject_options.map((subject) => `- ${subject}`).join("\n")}
@@ -1155,6 +1260,9 @@ The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${m
 | Contacts loaded | ${metrics.contacts_loaded} |
 | Accounts with contacts | ${metrics.accounts_with_contacts} |
 | Contact coverage | ${metrics.contact_coverage_rate} |
+| Interactions loaded | ${metrics.interactions_loaded} |
+| Accounts with interactions | ${metrics.accounts_with_interactions} |
+| Interaction coverage | ${metrics.interaction_coverage_rate} |
 | High-fit accounts | ${metrics.high_fit_accounts} |
 | Drafts generated | ${metrics.drafts_generated} |
 | Accounts approved | ${metrics.accounts_approved} |
@@ -1175,7 +1283,14 @@ The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${m
 - Average fit score: ${metrics.average_fit_score}/100.
 - High-fit denominator: accounts with score >= 75 and no disqualifiers.
 - Contact coverage: ${metrics.accounts_with_contacts}/${metrics.accounts_imported} accounts have local buyer/contact context.
+- Interaction coverage: ${metrics.accounts_with_interactions}/${metrics.accounts_imported} accounts have local prior-interaction context.
 - Low-confidence or disqualified accounts should be rejected or clarified before any draft is written.
+
+## Draft Type Mix
+
+| Draft type | Count |
+| --- | ---: |
+${metrics.draft_type_counts.map((row) => `| ${row.type} | ${row.count} |`).join("\n")}
 
 ## Follow-Up Queue Health
 
@@ -1232,6 +1347,9 @@ function renderMetricsCsv(metrics) {
     ["contacts_loaded", metrics.contacts_loaded, "inputs/contacts.csv rows", "Local operator-provided context"],
     ["accounts_with_contacts", metrics.accounts_with_contacts, "accounts imported", "Accounts with at least one contact row"],
     ["contact_coverage_rate", metrics.contact_coverage_rate, "accounts imported", "Accounts with contacts divided by accounts imported"],
+    ["interactions_loaded", metrics.interactions_loaded, "inputs/previous_interactions.md sections", "Local operator-provided prior context"],
+    ["accounts_with_interactions", metrics.accounts_with_interactions, "accounts imported", "Accounts with prior-interaction context"],
+    ["interaction_coverage_rate", metrics.interaction_coverage_rate, "accounts imported", "Accounts with interactions divided by accounts imported"],
     ["average_fit_score", metrics.average_fit_score, "accounts scored", "Rounded whole number"],
     ["high_fit_accounts", metrics.high_fit_accounts, "accounts scored", "Score >= 75 and no disqualifiers"],
     ["drafts_generated", metrics.drafts_generated, "eligible accounts", "Disqualified and low-score accounts skipped"],
@@ -1308,6 +1426,21 @@ function starterOutcomesCsv() {
 function starterContactsCsv() {
   return `account_id,name,role,context,source,confidence
 acct_example_consulting_co,Example Buyer,Founder,Operator-provided tentative buyer for local review only,manual,medium
+`;
+}
+
+function starterPreviousInteractions() {
+  return `# Previous Interactions
+
+Add one section per account when prior context exists.
+
+## acct_example_consulting_co
+- draft_type: warm_follow_up
+- summary: Example prior note for local fixture review.
+- last_interaction_at: 2026-06-01
+- next_action: Confirm whether a small supervised pipeline sprint is still useful.
+- source: manual
+- confidence: medium
 `;
 }
 

@@ -1,7 +1,7 @@
 # Follow-Up Draft: Orbit Founder Office
 
 Approval status: `needs_review`
-Draft type: first_touch
+Draft type: meeting_recap
 Review note: None yet
 
 ## Account / Contact Context
@@ -11,23 +11,29 @@ Review note: None yet
 - Segment: founder_led_b2b
 - Contact: Unknown; operator must confirm before use.
 
+## Prior Interaction Context
+
+- Interaction: Demo notes and investor update follow-ups were discussed as the highest-friction context sources.
+- Interaction source: interaction_acct_orbit_founder_office
+
 ## Subject Options
 
-- Pipeline sprint idea for Orbit Founder Office
-- Evidence-backed follow-up workflow
+- Recap and next step for Orbit Founder Office
+- Quick recap
 
 ## Message Draft
 
 Hi,
 
-I noticed Orbit Founder Office looks like a fit for a supervised pipeline sprint based on this workspace note: Founder-led software team with customer discovery calls in docs.
+Thanks again for the conversation. I captured this recap context for Orbit Founder Office: Demo notes and investor update follow-ups were discussed as the highest-friction context sources.
 
+Prior context from the workspace: Demo notes and investor update follow-ups were discussed as the highest-friction context sources.
 
 Lead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.
 
-The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.
+A useful next step would be to confirm the recap, review the proposed next action, and decide whether a small local sprint is worth testing. Nothing is sent automatically.
 
-Would it be worth comparing this against your current follow-up process for a few accounts?
+Does that match your read, and should I turn it into a small next-step plan?
 
 Franklin
 
@@ -48,7 +54,7 @@ Operator-selected after manual review
 
 ## Next Action If No Reply
 
-Wait 5 business days, then draft one low-pressure follow-up only if still relevant.
+Recap the workflow gaps and suggest a small follow-up cockpit sample.
 
 ## Approval Gate
 

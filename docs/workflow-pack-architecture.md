@@ -45,13 +45,16 @@ workspace/
   inputs/
     targets.csv
     contacts.csv
-    previous-interactions.md
+    previous_interactions.md
   outputs/
     lead-briefs/
     drafts/
     reports/
   state/
     accounts.json
+    contacts.json
+    interactions.json
+    evidence.json
     drafts.json
     events.jsonl
   logs/
@@ -77,6 +80,8 @@ Use local files before a database.
 Recommended files:
 
 - `state/accounts.json`
+- `state/contacts.json`
+- `state/interactions.json`
 - `state/evidence.json`
 - `state/drafts.json`
 - `state/events.jsonl`
@@ -187,4 +192,3 @@ The sellable unit is not the agent. It is the workflow outcome:
 - improved conversion insight
 
 The agent is the machinery. The artifact is what the buyer trusts.
-

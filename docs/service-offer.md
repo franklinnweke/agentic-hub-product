@@ -37,7 +37,7 @@ Deliverables:
 - transparent fit scoring
 - missing-information and disqualifier flags
 - suggested outreach angles
-- human-review follow-up drafts
+- human-review follow-up drafts using local contact and prior-interaction context when provided
 - approval queue state
 - weekly analytics report
 - next-sprint recommendations
@@ -102,8 +102,8 @@ Without a workflow, follow-ups slip, lead quality is hard to compare, and generi
 ### What You Get
 
 - Lead briefs that explain why each account is or is not worth pursuing.
-- Drafts that use only available evidence and start in human review.
-- Analytics that show throughput, review status, manual outcomes, and bottlenecks.
+- Drafts that use only available evidence, local contact context, and local prior-interaction notes before starting in human review.
+- Analytics that show throughput, review status, draft type mix, manual outcomes, and bottlenecks.
 - Local artifacts you can inspect: CSV, JSON, Markdown, and audit logs.
 
 ### What It Will Not Do
@@ -120,8 +120,10 @@ The public fixture sprint demonstrates the workflow on fictional accounts:
 
 - 25 lead briefs
 - 10 local contact records
+- 6 local previous-interaction notes
 - 24 initial follow-up drafts
 - 1 revised follow-up draft
+- draft types across first touch, warm follow-up, meeting recap, stale opportunity revive, and referral request
 - 1 rejected risky automation request
 - 1 manually recorded meeting outcome
 - 210 audit events
