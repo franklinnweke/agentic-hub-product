@@ -1,6 +1,8 @@
 # Agentic Hub
 
-Agentic Hub is a reusable Codex workflow-pack system for high-trust revenue operations: lead research, human-approved follow-ups, and analytics.
+Agentic Hub is a personal lead-gen, outreach, wiki, and analytics system built as reusable Codex workflow packs.
+
+It is designed as both a portfolio project and a productizable operating system for high-trust revenue workflows: lead research, human-approved follow-ups, and pipeline analytics.
 
 The product is intentionally not an autonomous spam tool. It is a supervised operating layer that helps a solo operator or small team find better prospects, prepare better context, draft better follow-ups, and measure what is working without handing outbound judgment to an agent.
 
@@ -62,4 +64,3 @@ Build a local proof that can run on a curated list of 25 target companies:
 3. Produce a lead brief with evidence, fit score, and suggested angle.
 4. Draft a follow-up sequence that requires human approval.
 5. Generate an analytics report showing workflow throughput and quality.
-
