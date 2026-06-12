@@ -11,6 +11,7 @@ const WORKSPACE_DIRS = [
   "outputs/reports",
   "outputs/console",
   "outputs/screenshots",
+  "outputs/handoff",
   "state",
   "logs"
 ];
@@ -67,6 +68,9 @@ function main() {
         break;
       case "console":
         generateConsole(workspace, now);
+        break;
+      case "export":
+        exportHandoff(workspace, flags, now);
         break;
       case "run":
         if (flags.fresh) {
@@ -140,11 +144,13 @@ Commands:
   record-outcome    Record a manual outcome after operator-controlled activity
   report            Generate a weekly analytics report from local state
   console           Generate a static local operator console from local state
+  export            Build a client-safe handoff bundle without raw state/logs
   run               Execute init, ingest, briefs, drafts, report, and validate
   validate          Check the local workspace for MVP completeness and guardrails
 
 Options:
   --workspace PATH   Workspace folder to read/write
+  --out PATH         Output folder for export; defaults to outputs/handoff
   --now ISO_DATE     Fixed timestamp for deterministic fixture runs
   --fresh            With run, clear generated outputs/state/logs and outcomes before execution
   --account ID       Account id for review-account
@@ -645,6 +651,83 @@ function generateConsole(workspace, now) {
   console.log(`Generated operator console: ${relative(workspace, consolePath)}`);
 }
 
+function exportHandoff(workspace, flags, now) {
+  ensureWorkspaceDirs(workspace);
+  validateWorkspace(workspace);
+
+  const accounts = readJson(path.join(workspace, "state", "accounts.json"));
+  const drafts = readJson(path.join(workspace, "state", "drafts.json"), []);
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
+  const interactions = readJson(path.join(workspace, "state", "interactions.json"), []);
+  const outcomes = readOutcomes(workspace);
+  const events = readEvents(workspace);
+  const metrics = buildMetrics(accounts, drafts, events, outcomes, contacts, interactions);
+  const outDir = path.resolve(flags.out ?? path.join(workspace, "outputs", "handoff"));
+  const copiedFiles = [];
+
+  fs.rmSync(outDir, { recursive: true, force: true });
+  fs.mkdirSync(outDir, { recursive: true });
+
+  copiedFiles.push(...copyTree(path.join(workspace, "outputs", "lead-briefs"), path.join(outDir, "lead-briefs")));
+  copiedFiles.push(...copyTree(path.join(workspace, "outputs", "drafts"), path.join(outDir, "drafts")));
+  copiedFiles.push(...copyTree(path.join(workspace, "outputs", "reports"), path.join(outDir, "reports")));
+  copiedFiles.push(...copyTree(path.join(workspace, "outputs", "console"), path.join(outDir, "console")));
+  copiedFiles.push(...copyTree(path.join(workspace, "outputs", "screenshots"), path.join(outDir, "screenshots")));
+
+  const manifest = {
+    generated_at: now,
+    generated_by: "agentic-hub export",
+    workspace_name: path.basename(workspace),
+    included_files: [...copiedFiles, "README.md", "manifest.json"].sort(),
+    excluded_by_default: [
+      "inputs/",
+      "state/",
+      "logs/"
+    ],
+    guardrails: [
+      "No outbound sending is implemented.",
+      "No form submission is implemented.",
+      "No credentials are included.",
+      "Raw local state and run logs are excluded by default."
+    ],
+    metrics: {
+      accounts_imported: metrics.accounts_imported,
+      lead_briefs: metrics.accounts_researched,
+      drafts_generated: metrics.drafts_generated,
+      drafts_approved: metrics.drafts_approved,
+      drafts_edited: metrics.drafts_edited,
+      drafts_rejected: metrics.drafts_rejected,
+      draft_revisions: metrics.draft_revisions,
+      manual_sends_recorded: metrics.manual_sends_recorded,
+      replies: metrics.replies,
+      meetings_booked: metrics.meetings_booked
+    }
+  };
+
+  fs.writeFileSync(path.join(outDir, "README.md"), renderHandoffReadme(manifest));
+  fs.writeFileSync(path.join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
+
+  appendRunLog(workspace, {
+    run_id: runId("export", now),
+    timestamp: now,
+    pack: "workspace",
+    command: "export",
+    input_files: [
+      "outputs/lead-briefs/",
+      "outputs/drafts/",
+      "outputs/reports/",
+      "outputs/console/",
+      "outputs/screenshots/"
+    ],
+    output_files: [relative(workspace, outDir)],
+    status: "completed",
+    warnings: ["inputs/, state/, and logs/ are excluded from the handoff bundle by default."],
+    errors: []
+  });
+
+  console.log(`Exported handoff bundle: ${relative(workspace, outDir)}`);
+}
+
 function validateWorkspace(workspace) {
   ensureWorkspaceDirs(workspace);
   const requiredFiles = [
@@ -747,7 +830,7 @@ function ensureWorkspaceDirs(workspace) {
 }
 
 function resetGeneratedWorkspaceFiles(workspace) {
-  for (const generatedDir of ["outputs/lead-briefs", "outputs/drafts", "outputs/reports", "outputs/console", "state", "logs"]) {
+  for (const generatedDir of ["outputs/lead-briefs", "outputs/drafts", "outputs/reports", "outputs/console", "outputs/handoff", "state", "logs"]) {
     fs.rmSync(path.join(workspace, generatedDir), { recursive: true, force: true });
   }
   fs.rmSync(path.join(workspace, "inputs", "outcomes.csv"), { force: true });
@@ -756,6 +839,24 @@ function resetGeneratedWorkspaceFiles(workspace) {
 function writeFileIfAllowed(filePath, body, preserveExisting) {
   if (preserveExisting && fs.existsSync(filePath)) return;
   fs.writeFileSync(filePath, body);
+}
+
+function copyTree(sourceDir, targetDir, bundleRoot = path.dirname(targetDir)) {
+  if (!fs.existsSync(sourceDir)) return [];
+  const copied = [];
+  fs.mkdirSync(targetDir, { recursive: true });
+  for (const entry of fs.readdirSync(sourceDir, { withFileTypes: true })) {
+    const sourcePath = path.join(sourceDir, entry.name);
+    const targetPath = path.join(targetDir, entry.name);
+    if (entry.isDirectory()) {
+      copied.push(...copyTree(sourcePath, targetPath, bundleRoot));
+    } else if (entry.isFile()) {
+      fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+      fs.copyFileSync(sourcePath, targetPath);
+      copied.push(path.relative(bundleRoot, targetPath).replaceAll(path.sep, "/"));
+    }
+  }
+  return copied;
 }
 
 function validateTargetRows(rows) {
@@ -2142,6 +2243,57 @@ node ../../bin/agentic-hub.mjs console --workspace .
 Open \`outputs/console/index.html\` locally to inspect the review queue without a server.
 
 No command sends messages, submits forms, uses credentials, or mutates external systems.
+`;
+}
+
+function renderHandoffReadme(manifest) {
+  return `# Agentic Hub Handoff Bundle
+
+Generated: ${manifest.generated_at}
+
+This folder contains client-facing artifacts from a supervised pipeline sprint. It is intended for review and delivery, not as the full internal workspace.
+
+## Included
+
+- \`lead-briefs/\` - evidence-backed account briefs
+- \`drafts/\` - human-review follow-up drafts
+- \`reports/weekly-pipeline-report.md\` - weekly operating report
+- \`reports/metrics.csv\` - report metrics in CSV form
+- \`console/index.html\` - static local review console
+- \`screenshots/\` - rendered proof assets when available
+- \`manifest.json\` - bundle metadata and guardrails
+
+## Excluded By Default
+
+${manifest.excluded_by_default.map((item) => `- \`${item}\``).join("\n")}
+
+Raw inputs, local state, and logs may contain private or sensitive client context. Share them only when explicitly requested and approved.
+
+## Guardrails
+
+${manifest.guardrails.map((item) => `- ${item}`).join("\n")}
+
+## Summary Metrics
+
+| Metric | Value |
+| --- | ---: |
+| Accounts imported | ${manifest.metrics.accounts_imported} |
+| Lead briefs | ${manifest.metrics.lead_briefs} |
+| Drafts generated | ${manifest.metrics.drafts_generated} |
+| Drafts approved | ${manifest.metrics.drafts_approved} |
+| Drafts edited | ${manifest.metrics.drafts_edited} |
+| Drafts rejected | ${manifest.metrics.drafts_rejected} |
+| Draft revisions | ${manifest.metrics.draft_revisions} |
+| Manual sends recorded | ${manifest.metrics.manual_sends_recorded} |
+| Replies | ${manifest.metrics.replies} |
+| Meetings booked | ${manifest.metrics.meetings_booked} |
+
+## Suggested Review Path
+
+1. Open \`console/index.html\`.
+2. Read \`reports/weekly-pipeline-report.md\`.
+3. Review selected lead briefs and drafts.
+4. Confirm any draft manually before using it outside Agentic Hub.
 `;
 }
 

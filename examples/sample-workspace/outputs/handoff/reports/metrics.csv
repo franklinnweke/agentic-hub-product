@@ -1,0 +1,27 @@
+metric,value,denominator,notes
+accounts_imported,25,targets.csv rows,
+accounts_researched,25,accounts imported,Fixture uses user-provided data only
+accounts_scored,25,accounts imported,
+contacts_loaded,10,inputs/contacts.csv rows,Local operator-provided context
+accounts_with_contacts,10,accounts imported,Accounts with at least one contact row
+contact_coverage_rate,40%,accounts imported,Accounts with contacts divided by accounts imported
+interactions_loaded,6,inputs/previous_interactions.md sections,Local operator-provided prior context
+accounts_with_interactions,6,accounts imported,Accounts with prior-interaction context
+interaction_coverage_rate,24%,accounts imported,Accounts with interactions divided by accounts imported
+average_fit_score,74,accounts scored,Rounded whole number
+high_fit_accounts,14,accounts scored,Score >= 75 and no disqualifiers
+drafts_generated,25,eligible accounts,Disqualified and low-score accounts skipped
+accounts_approved,2,accounts imported,Manual review state
+accounts_rejected,1,accounts imported,Manual review state
+drafts_approved,1,drafts generated,Manual review state
+drafts_edited,1,drafts generated,Manual review state
+drafts_rejected,1,drafts generated,Manual review state
+drafts_superseded,1,drafts generated,Superseded by a revised draft
+draft_revisions,1,drafts generated,Revision records created from edited drafts
+follow_ups_due,21,drafts generated,Drafts in needs_review
+manual_sends_recorded,1,inputs/outcomes.csv rows,Recorded after manual operator activity outside Agentic Hub
+stale_conversations,0,known conversations,Manual outcome status
+replies,1,manual sends recorded,Manual outcome status or reply_at
+meetings_booked,1,manual sends recorded,Manual outcome status or meeting_at
+reply_rate,100%,manual sends recorded,Replies divided by manual sends recorded
+meeting_rate,100%,manual sends recorded,Meetings divided by manual sends recorded

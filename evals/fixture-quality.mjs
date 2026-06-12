@@ -15,6 +15,8 @@ const outcomes = readCsv("inputs/outcomes.csv");
 const report = readText("outputs/reports/weekly-pipeline-report.md");
 const operatorConsole = readText("outputs/console/index.html");
 const screenshotPath = path.join(workspace, "outputs/screenshots/operator-console.jpg");
+const handoffManifest = readJson("outputs/handoff/manifest.json");
+const handoffReadme = readText("outputs/handoff/README.md");
 
 expect(accounts.length >= 25, "fixture should include at least 25 accounts");
 expect(contacts.length >= 10, "fixture should include at least 10 local contact records");
@@ -47,6 +49,13 @@ expect(fs.existsSync(screenshotPath), "fixture should include an operator consol
 if (fs.existsSync(screenshotPath)) {
   expect(fs.statSync(screenshotPath).size > 100_000, "operator console screenshot should be a real rendered image artifact");
 }
+expect(handoffReadme.includes("Agentic Hub Handoff Bundle"), "handoff bundle should include a README");
+expect(handoffManifest.included_files.includes("reports/weekly-pipeline-report.md"), "handoff manifest should include the weekly report");
+expect(handoffManifest.included_files.includes("console/index.html"), "handoff manifest should include the static console");
+expect(handoffManifest.included_files.includes("screenshots/operator-console.jpg"), "handoff manifest should include the console screenshot");
+expect(!handoffManifest.included_files.some((file) => file.startsWith("inputs/") || file.startsWith("state/") || file.startsWith("logs/")), "handoff manifest must not include raw inputs, state, or logs by default");
+expect(!fs.existsSync(path.join(workspace, "outputs/handoff/state")), "handoff bundle must not include raw state");
+expect(!fs.existsSync(path.join(workspace, "outputs/handoff/logs")), "handoff bundle must not include run logs");
 
 if (failures.length > 0) {
   console.error("Fixture quality eval failed:");

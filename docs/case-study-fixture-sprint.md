@@ -30,6 +30,7 @@ Fixture workspace:
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
+- `examples/sample-workspace/outputs/handoff/`
 - `examples/sample-workspace/state/`
 - `examples/sample-workspace/logs/runs.jsonl`
 
@@ -62,7 +63,8 @@ The previous-interactions file contains 6 local, operator-provided notes that tu
 9. Record one manual outcome after operator-controlled outreach outside Agentic Hub.
 10. Generate an analytics report from local state.
 11. Generate a static local operator console from local state.
-12. Run deterministic fixture-quality checks.
+12. Export a client-safe handoff bundle without raw inputs, state, or logs.
+13. Run deterministic fixture-quality checks.
 
 ## After
 
@@ -88,6 +90,7 @@ The fixture produces:
 - 1 weekly pipeline report
 - 1 static operator console
 - 1 rendered operator console screenshot
+- 1 client-safe handoff bundle
 
 Example artifacts:
 
@@ -97,6 +100,7 @@ Example artifacts:
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
+- `examples/sample-workspace/outputs/handoff/README.md`
 
 ## Why It Matters
 
@@ -112,6 +116,7 @@ The proof is not that an agent can generate a cold email. The proof is that the 
 - outcomes are manually recorded with a clear denominator
 - analytics reconciles with local state
 - the operator console can be opened as a local file without credentials or a server
+- the handoff bundle excludes raw inputs, state, and logs by default
 
 That makes the project portfolio-grade because a reviewer can inspect the inputs, state, artifacts, logs, and evals from a normal GitHub checkout.
 

@@ -78,21 +78,23 @@ Only record outcomes after the client/operator manually sends or follows up outs
 node ./bin/agentic-hub.mjs record-outcome --workspace ../client-sprint-workspace --draft draft_example_first_touch_rev1 --status replied --sent-at 2026-06-12 --reply-at 2026-06-13 --note "Recorded manually after operator-controlled outreach."
 node ./bin/agentic-hub.mjs report --workspace ../client-sprint-workspace
 node ./bin/agentic-hub.mjs console --workspace ../client-sprint-workspace
+node ./bin/agentic-hub.mjs export --workspace ../client-sprint-workspace
 node ./bin/agentic-hub.mjs validate --workspace ../client-sprint-workspace
 ```
 
 ## 6. Deliver The Sprint Pack
 
-Default private deliverables:
+Default private handoff:
 
-- reviewed lead briefs
-- reviewed draft queue
-- weekly pipeline report
-- local operator console
-- next-sprint recommendation
-- notes on missing data, disqualified accounts, and draft rewrite rate
+- `outputs/handoff/README.md`
+- `outputs/handoff/manifest.json`
+- `outputs/handoff/lead-briefs/`
+- `outputs/handoff/drafts/`
+- `outputs/handoff/reports/`
+- `outputs/handoff/console/`
+- `outputs/handoff/screenshots/`
 
-Do not deliver raw state or logs if they contain sensitive data unless the client explicitly asks for them.
+The export bundle excludes raw `inputs/`, `state/`, and `logs/` by default. Do not deliver raw state or logs if they contain sensitive data unless the client explicitly asks for them.
 
 ## 7. Publish Sanitized Proof
 

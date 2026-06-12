@@ -100,6 +100,7 @@ node ./bin/agentic-hub.mjs review-draft --workspace ./workspace --draft draft_ex
 node ./bin/agentic-hub.mjs record-outcome --workspace ./workspace --draft draft_example_consulting_co_first_touch_rev1 --status replied --sent-at 2026-06-12 --reply-at 2026-06-13 --note "Recorded manually after operator-controlled outreach."
 node ./bin/agentic-hub.mjs report --workspace ./workspace
 node ./bin/agentic-hub.mjs console --workspace ./workspace
+node ./bin/agentic-hub.mjs export --workspace ./workspace
 ```
 
 The fixture writes:
@@ -109,6 +110,7 @@ The fixture writes:
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md` - analytics report.
 - `examples/sample-workspace/outputs/console/index.html` - static local operator console for review queue inspection.
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg` - rendered console screenshot for GitHub review.
+- `examples/sample-workspace/outputs/handoff/` - client-safe handoff bundle that excludes raw inputs, state, and logs by default.
 - `examples/sample-workspace/inputs/contacts.csv` - local operator-provided buyer/contact context.
 - `examples/sample-workspace/inputs/previous_interactions.md` - local operator-provided prior interaction context for warm follow-ups, recaps, revives, and referrals.
 - `examples/sample-workspace/inputs/outcomes.csv` - manually recorded outcomes after operator-controlled activity outside Agentic Hub.

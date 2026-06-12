@@ -1,0 +1,62 @@
+# Follow-Up Draft: Cedar Grant Partners
+
+Approval status: `rejected`
+Draft type: meeting_recap
+Review note: Compliance-sensitive segment needs legal review before drafting.
+
+## Account / Contact Context
+
+- Account: Cedar Grant Partners
+- Website: https://cedar-grants.example
+- Segment: professional_services
+- Contact: Elena Brooks, Principal Consultant
+- Contact context: Operator-provided relationship owner with compliance-sensitive follow-up needs
+- Contact source: fixture contacts (confidence: medium)
+
+## Prior Interaction Context
+
+- Interaction: Prior conversation focused on deadline-sensitive grant follow-ups and compliance-safe language.
+- Interaction source: interaction_acct_cedar_grant_partners
+
+## Subject Options
+
+- Recap and next step for Cedar Grant Partners
+- Quick recap
+
+## Message Draft
+
+Hi Elena,
+
+Thanks again for the conversation. I captured this recap context for Cedar Grant Partners: Prior conversation focused on deadline-sensitive grant follow-ups and compliance-safe language.
+I am using Elena Brooks (Principal Consultant) as the tentative recipient from local contact context: Operator-provided relationship owner with compliance-sensitive follow-up needs.
+Prior context from the workspace: Prior conversation focused on deadline-sensitive grant follow-ups and compliance-safe language.
+
+Lead with a human-reviewed follow-up queue for deadline-sensitive relationship workflows.
+
+A useful next step would be to confirm the recap, review the proposed next action, and decide whether a small local sprint is worth testing. Nothing is sent automatically.
+
+Does that match your read, and should I turn it into a small next-step plan?
+
+Franklin
+
+## Personalization Evidence
+
+- [ev_cedar_grant_partners_website] Website listed for account: https://cedar-grants.example
+- [ev_cedar_grant_partners_segment] Segment from target list: professional_services
+- [ev_cedar_grant_partners_note_1] Grant writing consultancy with many warm relationships.
+
+## Risk Flags
+
+- Missing: Recent public proof beyond operator notes
+
+## Suggested Send Window
+
+Operator-selected after manual review
+
+## Next Action If No Reply
+
+Recap the compliance concern and ask whether legal review is needed before any draft is used.
+
+## Approval Gate
+
+This is a draft only. The MVP has no send action and no external side effects.

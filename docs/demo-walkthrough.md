@@ -24,6 +24,9 @@ The fixture is deterministic and local-first. It uses fictional `.example` accou
 3. `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
    - Confirms throughput, contact coverage, interaction coverage, draft type mix, manual outcome rates, bottlenecks, and recommended next actions.
 
+4. `examples/sample-workspace/outputs/handoff/README.md`
+   - Shows the client-safe bundle that includes artifacts while excluding raw `inputs/`, `state/`, and `logs/` by default.
+
 ## The Story To Notice
 
 Agentic Hub is not an email generator. It is a supervised operating loop:
@@ -37,6 +40,7 @@ Agentic Hub is not an email generator. It is a supervised operating loop:
 7. Human review can approve, edit, reject, or revise drafts.
 8. Manual outcomes are recorded only after operator-controlled activity outside Agentic Hub.
 9. Analytics reports reconcile local state into a weekly operating readout.
+10. Export creates a client-safe handoff bundle without raw workspace internals.
 
 ## Proof Points
 

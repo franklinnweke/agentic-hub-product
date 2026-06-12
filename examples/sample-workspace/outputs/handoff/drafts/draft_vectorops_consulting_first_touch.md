@@ -1,0 +1,61 @@
+# Follow-Up Draft: VectorOps Consulting
+
+Approval status: `needs_review`
+Draft type: first_touch
+Review note: None yet
+
+## Account / Contact Context
+
+- Account: VectorOps Consulting
+- Website: https://vectorops.example
+- Segment: solo_consultant
+- Contact: Ian Foster, Founder
+- Contact context: Operator-provided decision-maker for SaaS founder outreach workflow
+- Contact source: fixture contacts (confidence: medium)
+
+## Prior Interaction Context
+
+- No prior interaction context provided; this draft is treated as a first touch.
+
+## Subject Options
+
+- Pipeline sprint idea for VectorOps Consulting
+- Evidence-backed follow-up workflow
+
+## Message Draft
+
+Hi Ian,
+
+I noticed VectorOps Consulting looks like a fit for a supervised pipeline sprint based on this workspace note: Operations consultant serving SaaS founders.
+I am using Ian Foster (Founder) as the tentative recipient from local contact context: Operator-provided decision-maker for SaaS founder outreach workflow.
+
+
+Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.
+
+The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.
+
+Would it be worth comparing this against your current follow-up process for a few accounts?
+
+Franklin
+
+## Personalization Evidence
+
+- [ev_vectorops_consulting_website] Website listed for account: https://vectorops.example
+- [ev_vectorops_consulting_segment] Segment from target list: solo_consultant
+- [ev_vectorops_consulting_note_1] Operations consultant serving SaaS founders.
+
+## Risk Flags
+
+- Missing: Recent public proof beyond operator notes
+
+## Suggested Send Window
+
+Operator-selected after manual review
+
+## Next Action If No Reply
+
+Wait 5 business days, then draft one low-pressure follow-up only if still relevant.
+
+## Approval Gate
+
+This is a draft only. The MVP has no send action and no external side effects.

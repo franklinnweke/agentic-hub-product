@@ -14,6 +14,7 @@ Deliverables:
 - first follow-up draft for approved accounts
 - stale-opportunity review if prior context is provided
 - weekly analytics report
+- client-safe handoff bundle
 - next-sprint recommendations
 
 Positioning:
@@ -184,5 +185,5 @@ A prospect is a bad fit if:
 Use these artifacts for the first permissioned sprint:
 
 1. `templates/pipeline-sprint-intake.md` - qualify the client, define the permission boundary, and collect target/contact/prior-interaction context.
-2. `docs/permissioned-pilot-runbook.md` - run the local workflow without sending, submitting forms, scraping private systems, or using credentials.
+2. `docs/permissioned-pilot-runbook.md` - run the local workflow and export a client-safe handoff without sending, submitting forms, scraping private systems, or using credentials.
 3. `templates/before-after-proof.md` - publish sanitized proof only after the client approves what can be shown.

@@ -41,6 +41,7 @@ Deliverables:
 - approval queue state
 - weekly analytics report
 - static local operator console
+- client-safe handoff bundle
 - next-sprint recommendations
 
 ## Pricing Draft
@@ -106,6 +107,7 @@ Without a workflow, follow-ups slip, lead quality is hard to compare, and generi
 - Drafts that use only available evidence, local contact context, and local prior-interaction notes before starting in human review.
 - Analytics that show throughput, review status, draft type mix, manual outcomes, and bottlenecks.
 - Local artifacts you can inspect: CSV, JSON, Markdown, HTML, and audit logs.
+- Handoff folder excludes raw inputs, state, and logs unless explicitly approved.
 
 ### What It Will Not Do
 
@@ -138,6 +140,7 @@ Sample proof files:
 - `docs/permissioned-pilot-runbook.md`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
+- `examples/sample-workspace/outputs/handoff/README.md`
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
 - `examples/sample-workspace/outputs/lead-briefs/acct_northstar_ops_studio.md`
 - `examples/sample-workspace/outputs/drafts/draft_northstar_ops_studio_first_touch.md`
