@@ -40,6 +40,7 @@ Deliverables:
 - human-review follow-up drafts using local contact and prior-interaction context when provided
 - approval queue state
 - weekly analytics report
+- static local operator console
 - next-sprint recommendations
 
 ## Pricing Draft
@@ -104,7 +105,7 @@ Without a workflow, follow-ups slip, lead quality is hard to compare, and generi
 - Lead briefs that explain why each account is or is not worth pursuing.
 - Drafts that use only available evidence, local contact context, and local prior-interaction notes before starting in human review.
 - Analytics that show throughput, review status, draft type mix, manual outcomes, and bottlenecks.
-- Local artifacts you can inspect: CSV, JSON, Markdown, and audit logs.
+- Local artifacts you can inspect: CSV, JSON, Markdown, HTML, and audit logs.
 
 ### What It Will Not Do
 
@@ -127,12 +128,14 @@ The public fixture sprint demonstrates the workflow on fictional accounts:
 - 1 rejected risky automation request
 - 1 manually recorded meeting outcome
 - 210 audit events
+- 1 static operator console
 - deterministic fixture evals
 
 Sample proof files:
 
 - `docs/case-study-fixture-sprint.md`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
+- `examples/sample-workspace/outputs/console/index.html`
 - `examples/sample-workspace/outputs/lead-briefs/acct_northstar_ops_studio.md`
 - `examples/sample-workspace/outputs/drafts/draft_northstar_ops_studio_first_touch.md`
 

@@ -50,6 +50,7 @@ workspace/
     lead-briefs/
     drafts/
     reports/
+    console/
   state/
     accounts.json
     contacts.json

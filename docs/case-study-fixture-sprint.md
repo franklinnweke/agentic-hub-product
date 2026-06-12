@@ -24,6 +24,7 @@ Fixture workspace:
 - `examples/sample-workspace/outputs/lead-briefs/`
 - `examples/sample-workspace/outputs/drafts/`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
+- `examples/sample-workspace/outputs/console/index.html`
 - `examples/sample-workspace/state/`
 - `examples/sample-workspace/logs/runs.jsonl`
 
@@ -55,7 +56,8 @@ The previous-interactions file contains 6 local, operator-provided notes that tu
 8. Apply explicit human review states to accounts and drafts.
 9. Record one manual outcome after operator-controlled outreach outside Agentic Hub.
 10. Generate an analytics report from local state.
-11. Run deterministic fixture-quality checks.
+11. Generate a static local operator console from local state.
+12. Run deterministic fixture-quality checks.
 
 ## After
 
@@ -79,6 +81,7 @@ The fixture produces:
 - 1 manually recorded meeting outcome
 - 210 audit events
 - 1 weekly pipeline report
+- 1 static operator console
 
 Example artifacts:
 
@@ -86,6 +89,7 @@ Example artifacts:
 - `examples/sample-workspace/outputs/drafts/draft_northstar_ops_studio_first_touch.md`
 - `examples/sample-workspace/outputs/lead-briefs/acct_quickscale_outreach.md`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
+- `examples/sample-workspace/outputs/console/index.html`
 
 ## Why It Matters
 
@@ -100,6 +104,7 @@ The proof is not that an agent can generate a cold email. The proof is that the 
 - edited drafts can produce revised drafts without losing the original
 - outcomes are manually recorded with a clear denominator
 - analytics reconciles with local state
+- the operator console can be opened as a local file without credentials or a server
 
 That makes the project portfolio-grade because a reviewer can inspect the inputs, state, artifacts, logs, and evals from a normal GitHub checkout.
 

@@ -13,6 +13,7 @@ const interactions = readJson("state/interactions.json");
 const drafts = readJson("state/drafts.json");
 const outcomes = readCsv("inputs/outcomes.csv");
 const report = readText("outputs/reports/weekly-pipeline-report.md");
+const operatorConsole = readText("outputs/console/index.html");
 
 expect(accounts.length >= 25, "fixture should include at least 25 accounts");
 expect(contacts.length >= 10, "fixture should include at least 10 local contact records");
@@ -38,6 +39,9 @@ expect(report.includes("## Draft Type Mix"), "report should include draft type m
 expect(report.includes("No outbound sending is implemented"), "report should state that outbound sending is not implemented");
 expect(report.includes("Denominator: manually recorded sends"), "report should name the outcome denominator");
 expect(!report.includes("autonomously sent"), "report should not imply autonomous sending");
+expect(operatorConsole.includes("Agentic Hub Operator Console"), "operator console should render the product surface");
+expect(operatorConsole.includes("No send command"), "operator console should state the no-send boundary");
+expect(operatorConsole.includes("workspace-data"), "operator console should embed local workspace data for file-based inspection");
 
 if (failures.length > 0) {
   console.error("Fixture quality eval failed:");

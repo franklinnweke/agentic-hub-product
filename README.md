@@ -87,6 +87,7 @@ node ./bin/agentic-hub.mjs revise-draft --workspace ./workspace --draft draft_ex
 node ./bin/agentic-hub.mjs review-draft --workspace ./workspace --draft draft_example_consulting_co_first_touch_rev1 --status approved --note "Human approved revised draft."
 node ./bin/agentic-hub.mjs record-outcome --workspace ./workspace --draft draft_example_consulting_co_first_touch_rev1 --status replied --sent-at 2026-06-12 --reply-at 2026-06-13 --note "Recorded manually after operator-controlled outreach."
 node ./bin/agentic-hub.mjs report --workspace ./workspace
+node ./bin/agentic-hub.mjs console --workspace ./workspace
 ```
 
 The fixture writes:
@@ -94,6 +95,7 @@ The fixture writes:
 - `examples/sample-workspace/outputs/lead-briefs/` - evidence-backed account briefs.
 - `examples/sample-workspace/outputs/drafts/` - follow-up drafts that start in `needs_review`.
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md` - analytics report.
+- `examples/sample-workspace/outputs/console/index.html` - static local operator console for review queue inspection.
 - `examples/sample-workspace/inputs/contacts.csv` - local operator-provided buyer/contact context.
 - `examples/sample-workspace/inputs/previous_interactions.md` - local operator-provided prior interaction context for warm follow-ups, recaps, revives, and referrals.
 - `examples/sample-workspace/inputs/outcomes.csv` - manually recorded outcomes after operator-controlled activity outside Agentic Hub.
@@ -102,7 +104,7 @@ The fixture writes:
 
 ### Example Output
 
-The sample sprint imports 25 fictional accounts, loads 10 local contact records and 6 prior interaction notes, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report with draft type mix. The MVP deliberately does not include any send command or external side effect.
+The sample sprint imports 25 fictional accounts, loads 10 local contact records and 6 prior interaction notes, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report plus static operator console with draft type mix. The MVP deliberately does not include any send command or external side effect.
 
 Read the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
 

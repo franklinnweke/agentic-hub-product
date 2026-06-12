@@ -151,6 +151,19 @@ Required fields:
 - conversion by segment
 - quality notes
 
+### Operator Console
+
+Format: static HTML generated from local workspace state.
+
+Required fields:
+
+- account review queue
+- draft status filters
+- draft type filters
+- contact and prior-interaction coverage
+- artifact links to lead briefs, drafts, and reports
+- explicit no-send boundary
+
 ## Functional Requirements
 
 ### FR1: Workspace Setup

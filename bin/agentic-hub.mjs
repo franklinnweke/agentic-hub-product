@@ -9,6 +9,7 @@ const WORKSPACE_DIRS = [
   "outputs/lead-briefs",
   "outputs/drafts",
   "outputs/reports",
+  "outputs/console",
   "state",
   "logs"
 ];
@@ -63,6 +64,9 @@ function main() {
       case "report":
         generateReport(workspace, now);
         break;
+      case "console":
+        generateConsole(workspace, now);
+        break;
       case "run":
         if (flags.fresh) {
           resetGeneratedWorkspaceFiles(workspace);
@@ -72,6 +76,7 @@ function main() {
         generateBriefs(workspace, now);
         generateDrafts(workspace, now);
         generateReport(workspace, now);
+        generateConsole(workspace, now);
         validateWorkspace(workspace);
         break;
       case "validate":
@@ -133,6 +138,7 @@ Commands:
   revise-draft      Create a new needs_review draft version from an edited draft
   record-outcome    Record a manual outcome after operator-controlled activity
   report            Generate a weekly analytics report from local state
+  console           Generate a static local operator console from local state
   run               Execute init, ingest, briefs, drafts, report, and validate
   validate          Check the local workspace for MVP completeness and guardrails
 
@@ -602,6 +608,42 @@ function generateReport(workspace, now) {
   console.log(`Generated analytics report: ${relative(workspace, reportPath)}`);
 }
 
+function generateConsole(workspace, now) {
+  ensureWorkspaceDirs(workspace);
+  const accounts = readJson(path.join(workspace, "state", "accounts.json"));
+  const drafts = readJson(path.join(workspace, "state", "drafts.json"), []);
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
+  const interactions = readJson(path.join(workspace, "state", "interactions.json"), []);
+  const outcomes = readOutcomes(workspace);
+  const events = readEvents(workspace);
+  const metrics = buildMetrics(accounts, drafts, events, outcomes, contacts, interactions);
+  const consolePath = path.join(workspace, "outputs", "console", "index.html");
+
+  fs.writeFileSync(consolePath, renderConsoleHtml({
+    generated_at: now,
+    metrics,
+    accounts,
+    drafts,
+    contacts,
+    interactions,
+    outcomes
+  }));
+
+  appendRunLog(workspace, {
+    run_id: runId("console", now),
+    timestamp: now,
+    pack: "workspace",
+    command: "console",
+    input_files: ["state/accounts.json", "state/drafts.json", "state/contacts.json", "state/interactions.json", "inputs/outcomes.csv"],
+    output_files: ["outputs/console/index.html"],
+    status: "completed",
+    warnings: [],
+    errors: []
+  });
+
+  console.log(`Generated operator console: ${relative(workspace, consolePath)}`);
+}
+
 function validateWorkspace(workspace) {
   ensureWorkspaceDirs(workspace);
   const requiredFiles = [
@@ -615,7 +657,8 @@ function validateWorkspace(workspace) {
     "state/events.jsonl",
     "logs/runs.jsonl",
     "outputs/reports/weekly-pipeline-report.md",
-    "outputs/reports/metrics.csv"
+    "outputs/reports/metrics.csv",
+    "outputs/console/index.html"
   ];
   const missing = requiredFiles.filter((file) => !fs.existsSync(path.join(workspace, file)));
   if (missing.length > 0) {
@@ -1338,6 +1381,691 @@ ${metrics.warnings.length > 0 ? metrics.warnings.map((warning) => `- ${warning}`
 `;
 }
 
+function renderConsoleHtml(model) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agentic Hub Operator Console</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #161616;
+      --muted: #64615c;
+      --line: #ded9d0;
+      --surface: #f7f5ef;
+      --panel: #fffdf8;
+      --accent: #1f7a5f;
+      --warn: #b65f2a;
+      --bad: #9d3131;
+      --good: #256f48;
+      --focus: #242424;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: rgba(31, 122, 95, 0.45);
+      text-underline-offset: 3px;
+    }
+
+    .shell {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
+
+    aside {
+      border-right: 1px solid var(--line);
+      padding: 28px 22px;
+      background: #eeebe3;
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: auto;
+    }
+
+    main {
+      padding: 28px 32px 40px;
+      min-width: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.05;
+      font-weight: 760;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(31, 122, 95, 0.13);
+      flex: 0 0 auto;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0 0 28px;
+    }
+
+    .side-section {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+
+    .side-section h2 {
+      margin: 0 0 12px;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 740;
+    }
+
+    .filter-stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      border-radius: 8px;
+      min-height: 36px;
+      padding: 8px 10px;
+      font: inherit;
+      cursor: pointer;
+      transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+    }
+
+    button:hover {
+      border-color: #b9b2a5;
+      transform: translateY(-1px);
+    }
+
+    button.active {
+      background: var(--ink);
+      color: #fffdf8;
+      border-color: var(--ink);
+    }
+
+    .filter-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      width: 100%;
+      gap: 10px;
+    }
+
+    .count {
+      color: inherit;
+      opacity: 0.72;
+      font-size: 12px;
+    }
+
+    .topline {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    .topline h2 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 780;
+    }
+
+    .topline p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 700px;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .artifact-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: end;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(110px, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--panel);
+      margin-bottom: 24px;
+    }
+
+    .metric {
+      padding: 16px;
+      min-height: 92px;
+      border-right: 1px solid var(--line);
+    }
+
+    .metric:last-child {
+      border-right: 0;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1;
+      font-weight: 780;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 390px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-head h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .search {
+      width: min(320px, 42vw);
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px 10px;
+      font: inherit;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 760;
+      background: #faf8f3;
+    }
+
+    tr {
+      cursor: pointer;
+      transition: background 150ms ease;
+    }
+
+    tbody tr:hover,
+    tbody tr.selected {
+      background: #f1eee6;
+    }
+
+    .cell-main {
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin-top: 4px;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      min-height: 24px;
+      padding: 3px 8px;
+      font-size: 12px;
+      white-space: nowrap;
+      background: #fff;
+    }
+
+    .badge.good {
+      color: var(--good);
+      border-color: rgba(37, 111, 72, 0.28);
+    }
+
+    .badge.warn {
+      color: var(--warn);
+      border-color: rgba(182, 95, 42, 0.3);
+    }
+
+    .badge.bad {
+      color: var(--bad);
+      border-color: rgba(157, 49, 49, 0.28);
+    }
+
+    .detail {
+      position: sticky;
+      top: 28px;
+    }
+
+    .detail-body {
+      padding: 18px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .detail h3 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.15;
+    }
+
+    .detail p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 13px;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 10px;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+
+    .detail-row span:first-child {
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      transition: border-color 150ms ease, transform 150ms ease;
+    }
+
+    .actions a:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 1080px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .metrics {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .detail {
+        position: static;
+      }
+    }
+
+    @media (max-width: 680px) {
+      main {
+        padding: 22px 16px 32px;
+      }
+
+      .topline {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .topline h2 {
+        font-size: 28px;
+      }
+
+      .artifact-links {
+        justify-content: start;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .metric {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .panel-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      th:nth-child(3),
+      td:nth-child(3) {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand">
+        <h1>Agentic Hub</h1>
+        <span class="status-dot" aria-label="local workflow ready"></span>
+      </div>
+      <p class="meta">Static operator console generated from local workspace files. No send command, credentials, forms, or external mutations are present.</p>
+
+      <section class="side-section" aria-label="Draft status filters">
+        <h2>Draft Status</h2>
+        <div class="filter-stack" id="statusFilters"></div>
+      </section>
+
+      <section class="side-section" aria-label="Draft type filters">
+        <h2>Draft Type</h2>
+        <div class="filter-stack" id="typeFilters"></div>
+      </section>
+    </aside>
+
+    <main>
+      <div class="topline">
+        <div>
+          <h2>Review Queue</h2>
+          <p>Lead briefs, draft states, contact coverage, and prior-interaction context are joined from local JSON, CSV, and Markdown artifacts.</p>
+        </div>
+        <nav class="artifact-links" aria-label="Primary artifacts">
+          <a href="../reports/weekly-pipeline-report.md">Weekly report</a>
+          <a href="../reports/metrics.csv">Metrics CSV</a>
+        </nav>
+      </div>
+
+      <section class="metrics" aria-label="Workflow metrics">
+        <div class="metric"><span>Accounts</span><strong>${model.metrics.accounts_imported}</strong></div>
+        <div class="metric"><span>High fit</span><strong>${model.metrics.high_fit_accounts}</strong></div>
+        <div class="metric"><span>Drafts</span><strong>${model.metrics.drafts_generated}</strong></div>
+        <div class="metric"><span>Needs review</span><strong>${model.metrics.follow_ups_due}</strong></div>
+        <div class="metric"><span>Contacts</span><strong>${model.metrics.contact_coverage_rate}</strong></div>
+        <div class="metric"><span>Interactions</span><strong>${model.metrics.interaction_coverage_rate}</strong></div>
+      </section>
+
+      <section class="workspace">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Drafts and Accounts</h3>
+            <input class="search" id="search" type="search" placeholder="Search accounts, segments, draft types">
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 34%">Account</th>
+                <th style="width: 16%">Score</th>
+                <th style="width: 18%">Draft</th>
+                <th style="width: 18%">Status</th>
+                <th style="width: 14%">Context</th>
+              </tr>
+            </thead>
+            <tbody id="queueRows"></tbody>
+          </table>
+        </div>
+
+        <aside class="panel detail" aria-label="Selected account detail">
+          <div class="detail-body" id="detail"></div>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script id="workspace-data" type="application/json">${jsonForHtml(model)}</script>
+  <script>
+    const DATA = JSON.parse(document.getElementById('workspace-data').textContent);
+    const state = { status: 'all', type: 'all', query: '', selected: '' };
+    const accountsById = new Map(DATA.accounts.map(function(account) { return [account.id, account]; }));
+    const contactsByAccount = groupBy(DATA.contacts, 'account_id');
+    const interactionsByAccount = groupBy(DATA.interactions, 'account_id');
+    const activeDrafts = DATA.drafts.filter(function(draft) { return draft.status !== 'superseded'; });
+
+    function groupBy(rows, key) {
+      return rows.reduce(function(result, row) {
+        const value = row[key] || '';
+        if (!result[value]) result[value] = [];
+        result[value].push(row);
+        return result;
+      }, {});
+    }
+
+    function label(value) {
+      return String(value || '').replace(/_/g, ' ');
+    }
+
+    function badgeClass(status) {
+      if (status === 'approved' || status === 'meeting_booked') return 'good';
+      if (status === 'edited' || status === 'needs_review') return 'warn';
+      if (status === 'rejected') return 'bad';
+      return '';
+    }
+
+    function filteredDrafts() {
+      return activeDrafts.filter(function(draft) {
+        const account = accountsById.get(draft.account_id) || {};
+        const text = [account.name, account.segment, label(draft.draft_type), label(draft.status), draft.contact_name, draft.interaction_summary].join(' ').toLowerCase();
+        return (state.status === 'all' || draft.status === state.status)
+          && (state.type === 'all' || draft.draft_type === state.type)
+          && (!state.query || text.includes(state.query));
+      });
+    }
+
+    function renderFilters() {
+      const statusCounts = countBy(activeDrafts, 'status');
+      const typeCounts = countBy(activeDrafts, 'draft_type');
+      document.getElementById('statusFilters').innerHTML = filterButton('status', 'all', 'All', activeDrafts.length)
+        + Object.keys(statusCounts).sort().map(function(value) {
+          return filterButton('status', value, label(value), statusCounts[value]);
+        }).join('');
+      document.getElementById('typeFilters').innerHTML = filterButton('type', 'all', 'All', activeDrafts.length)
+        + Object.keys(typeCounts).sort().map(function(value) {
+          return filterButton('type', value, label(value), typeCounts[value]);
+        }).join('');
+      document.querySelectorAll('[data-filter-kind]').forEach(function(button) {
+        button.addEventListener('click', function() {
+          state[button.dataset.filterKind] = button.dataset.filterValue;
+          render();
+        });
+      });
+    }
+
+    function filterButton(kind, value, text, count) {
+      const active = state[kind] === value ? ' active' : '';
+      return '<button class="filter-button' + active + '" data-filter-kind="' + kind + '" data-filter-value="' + value + '"><span>' + escapeHtml(text) + '</span><span class="count">' + count + '</span></button>';
+    }
+
+    function countBy(rows, key) {
+      return rows.reduce(function(result, row) {
+        const value = row[key] || 'unknown';
+        result[value] = (result[value] || 0) + 1;
+        return result;
+      }, {});
+    }
+
+    function renderRows() {
+      const rows = filteredDrafts();
+      if (!state.selected || !rows.some(function(draft) { return draft.id === state.selected; })) {
+        state.selected = rows[0] ? rows[0].id : '';
+      }
+      document.getElementById('queueRows').innerHTML = rows.map(function(draft) {
+        const account = accountsById.get(draft.account_id) || {};
+        const hasContact = draft.contact_name ? 'Contact' : 'No contact';
+        const hasInteraction = draft.interaction_summary ? 'Interaction' : 'First touch';
+        const selected = draft.id === state.selected ? ' class="selected"' : '';
+        return '<tr' + selected + ' data-draft-id="' + draft.id + '">'
+          + '<td><div class="cell-main">' + escapeHtml(account.name || draft.account_id) + '</div><div class="sub">' + escapeHtml(account.segment || '') + '</div></td>'
+          + '<td><span class="badge ' + scoreClass(account.fit_score) + '">' + (account.fit_score || 0) + '/100</span></td>'
+          + '<td><div class="cell-main">' + escapeHtml(label(draft.draft_type)) + '</div><div class="sub">' + escapeHtml(draft.id) + '</div></td>'
+          + '<td><span class="badge ' + badgeClass(draft.status) + '">' + escapeHtml(label(draft.status)) + '</span></td>'
+          + '<td><div class="sub">' + escapeHtml(hasContact) + '</div><div class="sub">' + escapeHtml(hasInteraction) + '</div></td>'
+          + '</tr>';
+      }).join('');
+      document.querySelectorAll('[data-draft-id]').forEach(function(row) {
+        row.addEventListener('click', function() {
+          state.selected = row.dataset.draftId;
+          render();
+        });
+      });
+    }
+
+    function scoreClass(score) {
+      if (score >= 75) return 'good';
+      if (score >= 50) return 'warn';
+      return 'bad';
+    }
+
+    function renderDetail() {
+      const draft = activeDrafts.find(function(item) { return item.id === state.selected; });
+      const detail = document.getElementById('detail');
+      if (!draft) {
+        detail.innerHTML = '<h3>No matching drafts</h3><p>Adjust filters or search to restore the review queue.</p>';
+        return;
+      }
+      const account = accountsById.get(draft.account_id) || {};
+      const contacts = contactsByAccount[draft.account_id] || [];
+      const interactions = interactionsByAccount[draft.account_id] || [];
+      detail.innerHTML = '<div><h3>' + escapeHtml(account.name || draft.account_id) + '</h3><p>' + escapeHtml(account.suggested_angle || '') + '</p></div>'
+        + '<div class="actions"><a href="../lead-briefs/' + encodeURIComponent(draft.account_id) + '.md">Lead brief</a><a href="../drafts/' + encodeURIComponent(draft.id) + '.md">Draft artifact</a></div>'
+        + '<div class="detail-list">'
+        + detailRow('Account status', label(account.status))
+        + detailRow('Draft status', label(draft.status))
+        + detailRow('Draft type', label(draft.draft_type))
+        + detailRow('Fit score', String(account.fit_score || 0) + '/100')
+        + detailRow('Contact', contacts.length ? contacts.map(function(contact) { return contact.name + ', ' + contact.role; }).join('; ') : 'Operator must confirm recipient')
+        + detailRow('Prior context', interactions.length ? interactions[0].summary : 'No prior interaction context')
+        + detailRow('Risk flags', draft.risk_flags.length ? draft.risk_flags.join('; ') : 'None beyond required human review')
+        + detailRow('Next action', draft.next_action_if_no_reply || account.recommended_next_action || '')
+        + '</div>';
+    }
+
+    function detailRow(labelText, value) {
+      return '<div class="detail-row"><span>' + escapeHtml(labelText) + '</span><span>' + escapeHtml(value || '') + '</span></div>';
+    }
+
+    function escapeHtml(value) {
+      return String(value || '').replace(/[&<>"']/g, function(char) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char];
+      });
+    }
+
+    function render() {
+      renderFilters();
+      renderRows();
+      renderDetail();
+    }
+
+    document.getElementById('search').addEventListener('input', function(event) {
+      state.query = event.target.value.trim().toLowerCase();
+      renderRows();
+      renderDetail();
+    });
+
+    render();
+  </script>
+</body>
+</html>
+`;
+}
+
 function renderMetricsCsv(metrics) {
   const rows = [
     ["metric", "value", "denominator", "notes"],
@@ -1406,7 +2134,10 @@ Run:
 node ../../bin/agentic-hub.mjs run --workspace .
 node ../../bin/agentic-hub.mjs review-account --workspace . --account acct_example_consulting_co --status approved --note "Human reviewed."
 node ../../bin/agentic-hub.mjs review-draft --workspace . --draft draft_example_consulting_co_first_touch --status approved --note "Human approved."
+node ../../bin/agentic-hub.mjs console --workspace .
 \`\`\`
+
+Open \`outputs/console/index.html\` locally to inspect the review queue without a server.
 
 No command sends messages, submits forms, uses credentials, or mutates external systems.
 `;
@@ -1469,6 +2200,10 @@ function requireFlag(flags, name) {
     throw new Error(`Missing required --${name}`);
   }
   return String(value).trim();
+}
+
+function jsonForHtml(value) {
+  return JSON.stringify(value).replace(/</g, "\\u003c");
 }
 
 function writeJson(filePath, value) {
