@@ -98,6 +98,7 @@ node ./bin/agentic-hub.mjs review-draft --workspace ./workspace --draft draft_ex
 node ./bin/agentic-hub.mjs revise-draft --workspace ./workspace --draft draft_example_consulting_co_first_touch --changes "Add a stronger proof point before approval."
 node ./bin/agentic-hub.mjs review-draft --workspace ./workspace --draft draft_example_consulting_co_first_touch_rev1 --status approved --note "Human approved revised draft."
 node ./bin/agentic-hub.mjs record-outcome --workspace ./workspace --draft draft_example_consulting_co_first_touch_rev1 --status replied --sent-at 2026-06-12 --reply-at 2026-06-13 --note "Recorded manually after operator-controlled outreach."
+node ./bin/agentic-hub.mjs evaluate --workspace ./workspace
 node ./bin/agentic-hub.mjs report --workspace ./workspace
 node ./bin/agentic-hub.mjs console --workspace ./workspace
 node ./bin/agentic-hub.mjs export --workspace ./workspace
@@ -108,6 +109,8 @@ The fixture writes:
 - `examples/sample-workspace/outputs/lead-briefs/` - evidence-backed account briefs.
 - `examples/sample-workspace/outputs/drafts/` - follow-up drafts that start in `needs_review`.
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md` - analytics report.
+- `examples/sample-workspace/outputs/evals/quality-report.md` - deterministic quality/readiness evaluation for briefs and drafts.
+- `examples/sample-workspace/outputs/evals/quality-scores.csv` - eval scores in CSV form.
 - `examples/sample-workspace/outputs/console/index.html` - static local operator console for review queue inspection.
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg` - rendered console screenshot for GitHub review.
 - `examples/sample-workspace/outputs/handoff/` - client-safe handoff bundle that excludes raw inputs, state, and logs by default.
@@ -119,7 +122,7 @@ The fixture writes:
 
 ### Example Output
 
-The sample sprint imports 25 fictional accounts, loads 10 local contact records and 6 prior interaction notes, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report plus static operator console with draft type mix. The MVP deliberately does not include any send command or external side effect.
+The sample sprint imports 25 fictional accounts, loads 10 local contact records and 6 prior interaction notes, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a deterministic quality eval, weekly report, and static operator console with draft type mix. The MVP deliberately does not include any send command or external side effect.
 
 Read the guided proof path in `docs/demo-walkthrough.md` and the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
 

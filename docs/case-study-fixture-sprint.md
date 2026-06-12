@@ -27,6 +27,7 @@ Fixture workspace:
 - `examples/sample-workspace/config/icp.md`
 - `examples/sample-workspace/outputs/lead-briefs/`
 - `examples/sample-workspace/outputs/drafts/`
+- `examples/sample-workspace/outputs/evals/quality-report.md`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
@@ -61,10 +62,11 @@ The previous-interactions file contains 6 local, operator-provided notes that tu
 7. Select draft type from local interaction context when available.
 8. Apply explicit human review states to accounts and drafts.
 9. Record one manual outcome after operator-controlled outreach outside Agentic Hub.
-10. Generate an analytics report from local state.
-11. Generate a static local operator console from local state.
-12. Export a client-safe handoff bundle without raw inputs, state, or logs.
-13. Run deterministic fixture-quality checks.
+10. Generate a deterministic quality evaluation from local state.
+11. Generate an analytics report from local state.
+12. Generate a static local operator console from local state.
+13. Export a client-safe handoff bundle without raw inputs, state, or logs.
+14. Run deterministic fixture-quality checks.
 
 ## After
 
@@ -86,8 +88,9 @@ The fixture produces:
 - 1 rejected draft
 - 1 superseded draft
 - 1 manually recorded meeting outcome
-- 210 audit events
+- 212 audit events
 - 1 weekly pipeline report
+- 1 deterministic quality evaluation
 - 1 static operator console
 - 1 rendered operator console screenshot
 - 1 client-safe handoff bundle

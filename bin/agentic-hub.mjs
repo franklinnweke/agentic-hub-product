@@ -9,6 +9,7 @@ const WORKSPACE_DIRS = [
   "outputs/lead-briefs",
   "outputs/drafts",
   "outputs/reports",
+  "outputs/evals",
   "outputs/console",
   "outputs/screenshots",
   "outputs/handoff",
@@ -66,6 +67,9 @@ function main() {
       case "report":
         generateReport(workspace, now);
         break;
+      case "evaluate":
+        generateQualityEvaluation(workspace, now);
+        break;
       case "console":
         generateConsole(workspace, now);
         break;
@@ -80,6 +84,7 @@ function main() {
         ingestTargets(workspace, now);
         generateBriefs(workspace, now);
         generateDrafts(workspace, now);
+        generateQualityEvaluation(workspace, now);
         generateReport(workspace, now);
         generateConsole(workspace, now);
         validateWorkspace(workspace);
@@ -142,6 +147,7 @@ Commands:
   review-draft      Mark a draft approved, edited, or rejected
   revise-draft      Create a new needs_review draft version from an edited draft
   record-outcome    Record a manual outcome after operator-controlled activity
+  evaluate          Score lead briefs and drafts for quality/readiness
   report            Generate a weekly analytics report from local state
   console           Generate a static local operator console from local state
   export            Build a client-safe handoff bundle without raw state/logs
@@ -615,6 +621,44 @@ function generateReport(workspace, now) {
   console.log(`Generated analytics report: ${relative(workspace, reportPath)}`);
 }
 
+function generateQualityEvaluation(workspace, now) {
+  ensureWorkspaceDirs(workspace);
+  const accounts = readJson(path.join(workspace, "state", "accounts.json"));
+  const evidence = readJson(path.join(workspace, "state", "evidence.json"));
+  const drafts = readJson(path.join(workspace, "state", "drafts.json"), []);
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
+  const interactions = readJson(path.join(workspace, "state", "interactions.json"), []);
+  const events = readEvents(workspace);
+  const evaluation = buildQualityEvaluation(accounts, evidence, drafts, contacts, interactions, now);
+  const reportPath = path.join(workspace, "outputs", "evals", "quality-report.md");
+  const scoresPath = path.join(workspace, "outputs", "evals", "quality-scores.csv");
+
+  events.push(eventFor("eval", "workflow-quality", "quality_evaluation_generated", now, {
+    output_file: "outputs/evals/quality-report.md",
+    scores_file: "outputs/evals/quality-scores.csv",
+    average_account_score: evaluation.summary.average_account_score,
+    average_draft_score: evaluation.summary.average_draft_score
+  }));
+
+  fs.writeFileSync(reportPath, renderQualityReport(evaluation));
+  fs.writeFileSync(scoresPath, renderQualityScoresCsv(evaluation));
+  writeJsonl(path.join(workspace, "state", "events.jsonl"), events);
+
+  appendRunLog(workspace, {
+    run_id: runId("evaluate", now),
+    timestamp: now,
+    pack: "evals",
+    command: "evaluate",
+    input_files: ["state/accounts.json", "state/evidence.json", "state/drafts.json", "state/contacts.json", "state/interactions.json"],
+    output_files: ["outputs/evals/quality-report.md", "outputs/evals/quality-scores.csv"],
+    status: "completed",
+    warnings: evaluation.summary.warnings,
+    errors: []
+  });
+
+  console.log(`Generated quality evaluation: ${relative(workspace, reportPath)}`);
+}
+
 function generateConsole(workspace, now) {
   ensureWorkspaceDirs(workspace);
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
@@ -671,6 +715,7 @@ function exportHandoff(workspace, flags, now) {
   copiedFiles.push(...copyTree(path.join(workspace, "outputs", "lead-briefs"), path.join(outDir, "lead-briefs")));
   copiedFiles.push(...copyTree(path.join(workspace, "outputs", "drafts"), path.join(outDir, "drafts")));
   copiedFiles.push(...copyTree(path.join(workspace, "outputs", "reports"), path.join(outDir, "reports")));
+  copiedFiles.push(...copyTree(path.join(workspace, "outputs", "evals"), path.join(outDir, "evals")));
   copiedFiles.push(...copyTree(path.join(workspace, "outputs", "console"), path.join(outDir, "console")));
   copiedFiles.push(...copyTree(path.join(workspace, "outputs", "screenshots"), path.join(outDir, "screenshots")));
 
@@ -716,6 +761,7 @@ function exportHandoff(workspace, flags, now) {
       "outputs/lead-briefs/",
       "outputs/drafts/",
       "outputs/reports/",
+      "outputs/evals/",
       "outputs/console/",
       "outputs/screenshots/"
     ],
@@ -742,6 +788,8 @@ function validateWorkspace(workspace) {
     "logs/runs.jsonl",
     "outputs/reports/weekly-pipeline-report.md",
     "outputs/reports/metrics.csv",
+    "outputs/evals/quality-report.md",
+    "outputs/evals/quality-scores.csv",
     "outputs/console/index.html"
   ];
   const missing = requiredFiles.filter((file) => !fs.existsSync(path.join(workspace, file)));
@@ -830,7 +878,7 @@ function ensureWorkspaceDirs(workspace) {
 }
 
 function resetGeneratedWorkspaceFiles(workspace) {
-  for (const generatedDir of ["outputs/lead-briefs", "outputs/drafts", "outputs/reports", "outputs/console", "outputs/handoff", "state", "logs"]) {
+  for (const generatedDir of ["outputs/lead-briefs", "outputs/drafts", "outputs/reports", "outputs/evals", "outputs/console", "outputs/handoff", "state", "logs"]) {
     fs.rmSync(path.join(workspace, generatedDir), { recursive: true, force: true });
   }
   fs.rmSync(path.join(workspace, "inputs", "outcomes.csv"), { force: true });
@@ -1266,6 +1314,132 @@ function buildMetrics(accounts, drafts, events, outcomes = [], contacts = [], in
   };
 }
 
+function buildQualityEvaluation(accounts, evidence, drafts, contacts, interactions, now) {
+  const accountRows = accounts.map((account) => {
+    const accountEvidence = evidence.filter((item) => item.account_id === account.id);
+    const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
+    const accountInteractions = interactions.filter((interaction) => interaction.account_id === account.id);
+    const warnings = [];
+    let score = 0;
+
+    if (accountEvidence.length >= 3) score += 25;
+    else warnings.push("fewer than three evidence records");
+
+    if (account.fit_score >= 75 && account.disqualifiers.length === 0) score += 20;
+    else if (account.fit_score >= 60 && account.disqualifiers.length === 0) score += 12;
+    else warnings.push("low fit score or disqualified");
+
+    if (account.confidence === "high") score += 15;
+    else if (account.confidence === "medium") score += 8;
+    else warnings.push("low confidence");
+
+    if (accountContacts.length > 0) score += 15;
+    else warnings.push("missing local contact context");
+
+    if (account.status === "approved") score += 15;
+    else if (account.status === "needs_review" || account.status === "needs_more_info") score += 8;
+    else if (account.status === "rejected") warnings.push("rejected by operator");
+
+    if (account.missing_information.length === 0) score += 10;
+    else if (account.missing_information.length <= 2) score += 5;
+
+    return {
+      type: "account",
+      id: account.id,
+      name: account.name,
+      status: account.status,
+      score,
+      band: scoreBand(score),
+      signals: [
+        `${accountEvidence.length} evidence`,
+        `${accountContacts.length} contacts`,
+        `${accountInteractions.length} interactions`,
+        `${account.fit_score}/100 fit`,
+        account.confidence
+      ],
+      warnings
+    };
+  });
+
+  const draftRows = drafts.map((draft) => {
+    const account = accounts.find((item) => item.id === draft.account_id);
+    const draftEvidence = evidence.filter((item) => draft.evidence_ids.includes(item.id));
+    const hasContact = Boolean(draft.contact_id || draft.contact_name);
+    const hasPriorContext = Boolean(draft.interaction_id || draft.interaction_summary);
+    const warnings = [];
+    let score = 0;
+
+    if (draftEvidence.length >= 3) score += 25;
+    else warnings.push("fewer than three evidence references");
+
+    if (hasContact) score += 15;
+    else warnings.push("missing contact context");
+
+    if (draft.draft_type === "first_touch") score += 10;
+    else if (hasPriorContext) score += 10;
+    else warnings.push("relationship draft lacks prior interaction context");
+
+    if (draft.subject_options?.length >= 2 && draft.body?.length >= 300) score += 15;
+    else warnings.push("thin draft body or subject options");
+
+    if (draft.risk_flags?.length > 0) score += 10;
+    else score += 6;
+
+    if (draft.status === "approved") score += 15;
+    else if (draft.status === "needs_review" || draft.status === "edited") score += 10;
+    else if (draft.status === "superseded") score += 5;
+    else warnings.push("rejected by operator");
+
+    if (draft.status !== "sent_external" && draft.body.includes("Nothing is sent automatically")) score += 10;
+    else warnings.push("missing no-send guardrail language");
+
+    if (account?.status === "rejected" && draft.status !== "rejected") warnings.push("draft exists for rejected account");
+    if (draft.status === "rejected") score = Math.min(score, 65);
+    if (draft.status === "superseded") score = Math.min(score, 70);
+
+    return {
+      type: "draft",
+      id: draft.id,
+      name: account?.name ?? draft.account_id,
+      status: draft.status,
+      score,
+      band: scoreBand(score),
+      signals: [
+        draft.draft_type,
+        `${draftEvidence.length} evidence`,
+        hasContact ? "contact context" : "no contact",
+        hasPriorContext ? "prior context" : "no prior context",
+        `${draft.risk_flags?.length ?? 0} risk flags`
+      ],
+      warnings
+    };
+  });
+
+  const warnings = [];
+  const averageAccountScore = roundedMean(accountRows.map((row) => row.score));
+  const averageDraftScore = roundedMean(draftRows.map((row) => row.score));
+  const draftsWithoutReview = draftRows.filter((row) => !["approved", "edited", "rejected", "superseded", "needs_review"].includes(row.status));
+  if (averageAccountScore < 70) warnings.push("Average account quality score is below 70.");
+  if (averageDraftScore < 75) warnings.push("Average draft quality score is below 75.");
+  if (draftsWithoutReview.length > 0) warnings.push(`${draftsWithoutReview.length} drafts have unknown review states.`);
+
+  return {
+    generated_at: now,
+    summary: {
+      account_count: accountRows.length,
+      draft_count: draftRows.length,
+      average_account_score: averageAccountScore,
+      average_draft_score: averageDraftScore,
+      account_review_ready: accountRows.filter((row) => row.score >= 70).length,
+      draft_review_ready: draftRows.filter((row) => row.score >= 75).length,
+      warning_count: accountRows.reduce((sum, row) => sum + row.warnings.length, 0) + draftRows.reduce((sum, row) => sum + row.warnings.length, 0),
+      warnings
+    },
+    account_rows: accountRows,
+    draft_rows: draftRows
+  };
+}
+
 function renderLeadBrief(account, evidence, contacts, now) {
   return `# Lead Brief: ${account.name}
 
@@ -1481,6 +1655,85 @@ ${metrics.follow_ups_due > 0 ? `- Drafts needing operator review before manual s
 
 ${metrics.warnings.length > 0 ? metrics.warnings.map((warning) => `- ${warning}`).join("\n") : "- No additional caveats beyond fixture data and manually recorded outcomes."}
 `;
+}
+
+function renderQualityReport(evaluation) {
+  const accountRows = evaluation.account_rows
+    .map((row) => `| ${row.name} | ${row.status} | ${row.score} | ${row.band} | ${row.signals.join("; ")} | ${row.warnings.length > 0 ? row.warnings.join("; ") : "None"} |`)
+    .join("\n");
+  const draftRows = evaluation.draft_rows
+    .map((row) => `| ${row.name} | ${row.id} | ${row.status} | ${row.score} | ${row.band} | ${row.signals.join("; ")} | ${row.warnings.length > 0 ? row.warnings.join("; ") : "None"} |`)
+    .join("\n");
+
+  return `# Workflow Quality Evaluation
+
+Generated: ${evaluation.generated_at}
+
+This deterministic eval checks whether the local sprint artifacts are specific, evidence-backed, reviewable, and bounded by the MVP guardrails. It does not call an LLM or any external service.
+
+## Summary
+
+| Metric | Value |
+| --- | ---: |
+| Accounts evaluated | ${evaluation.summary.account_count} |
+| Drafts evaluated | ${evaluation.summary.draft_count} |
+| Average account score | ${evaluation.summary.average_account_score}/100 |
+| Average draft score | ${evaluation.summary.average_draft_score}/100 |
+| Accounts review-ready | ${evaluation.summary.account_review_ready} |
+| Drafts review-ready | ${evaluation.summary.draft_review_ready} |
+| Quality warnings | ${evaluation.summary.warning_count} |
+
+## Scoring Model
+
+- Accounts are scored on evidence coverage, ICP fit, confidence, contact context, review status, and missing information.
+- Drafts are scored on evidence references, contact context, prior-interaction fit, subject/body completeness, risk flags, review status, and no-send guardrail language.
+- Scores are readiness indicators for human review, not permission to send.
+
+## Account Scores
+
+| Account | Status | Score | Band | Signals | Warnings |
+| --- | --- | ---: | --- | --- | --- |
+${accountRows}
+
+## Draft Scores
+
+| Account | Draft | Status | Score | Band | Signals | Warnings |
+| --- | --- | --- | ---: | --- | --- | --- |
+${draftRows}
+
+## Eval Caveats
+
+${evaluation.summary.warnings.length > 0 ? evaluation.summary.warnings.map((warning) => `- ${warning}`).join("\n") : "- No aggregate quality caveats triggered."}
+- This eval checks structure and local evidence coverage. A human still needs to verify recipient accuracy, source truth, tone, and compliance before using any draft outside Agentic Hub.
+- The MVP intentionally has no send action and no external side effects.
+`;
+}
+
+function renderQualityScoresCsv(evaluation) {
+  const rows = [
+    ["type", "id", "name", "status", "score", "band", "signals", "warnings"],
+    ...evaluation.account_rows.map((row) => [
+      row.type,
+      row.id,
+      row.name,
+      row.status,
+      row.score,
+      row.band,
+      row.signals.join("; "),
+      row.warnings.join("; ")
+    ]),
+    ...evaluation.draft_rows.map((row) => [
+      row.type,
+      row.id,
+      row.name,
+      row.status,
+      row.score,
+      row.band,
+      row.signals.join("; "),
+      row.warnings.join("; ")
+    ])
+  ];
+  return rows.map((row) => row.map(csvCell).join(",")).join("\n") + "\n";
 }
 
 function renderConsoleHtml(model) {
@@ -1974,6 +2227,7 @@ function renderConsoleHtml(model) {
         <nav class="artifact-links" aria-label="Primary artifacts">
           <a href="../reports/weekly-pipeline-report.md">Weekly report</a>
           <a href="../reports/metrics.csv">Metrics CSV</a>
+          <a href="../evals/quality-report.md">Quality eval</a>
         </nav>
       </div>
 
@@ -2259,6 +2513,8 @@ This folder contains client-facing artifacts from a supervised pipeline sprint. 
 - \`drafts/\` - human-review follow-up drafts
 - \`reports/weekly-pipeline-report.md\` - weekly operating report
 - \`reports/metrics.csv\` - report metrics in CSV form
+- \`evals/quality-report.md\` - deterministic quality/readiness evaluation
+- \`evals/quality-scores.csv\` - eval scores in CSV form
 - \`console/index.html\` - static local review console
 - \`screenshots/\` - rendered proof assets when available
 - \`manifest.json\` - bundle metadata and guardrails
@@ -2292,8 +2548,9 @@ ${manifest.guardrails.map((item) => `- ${item}`).join("\n")}
 
 1. Open \`console/index.html\`.
 2. Read \`reports/weekly-pipeline-report.md\`.
-3. Review selected lead briefs and drafts.
-4. Confirm any draft manually before using it outside Agentic Hub.
+3. Review \`evals/quality-report.md\` for evidence and readiness checks.
+4. Review selected lead briefs and drafts.
+5. Confirm any draft manually before using it outside Agentic Hub.
 `;
 }
 
@@ -2497,6 +2754,17 @@ function rate(numerator, denominator) {
   return `${Math.round((numerator / denominator) * 100)}%`;
 }
 
+function roundedMean(values) {
+  if (values.length === 0) return 0;
+  return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
+}
+
+function scoreBand(score) {
+  if (score >= 85) return "strong";
+  if (score >= 70) return "reviewable";
+  if (score >= 50) return "needs work";
+  return "blocked";
+}
 
 function relative(workspace, filePath) {
   return path.relative(workspace, filePath);

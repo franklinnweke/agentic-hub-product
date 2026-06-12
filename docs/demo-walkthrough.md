@@ -67,6 +67,7 @@ Agentic Hub is not an email generator. It is a supervised operating loop:
 - `inputs/outcomes.csv` is the only place manual send/reply/meeting outcomes are recorded.
 - `logs/runs.jsonl` records every pack run.
 - `state/events.jsonl` records account, evidence, draft, report, review, revision, and outcome events.
+- `outputs/evals/quality-report.md` scores brief and draft readiness without calling a model or external service.
 - `npm run check` validates workspace completeness and fixture quality.
 
 ## What This Proves
@@ -78,6 +79,7 @@ The MVP proves that Franklin can package an agentic workflow as an inspectable l
 - human approval gates
 - evidence-backed artifacts
 - local analytics
+- deterministic quality evaluation
 - a review console
 - public proof assets
 

@@ -129,8 +129,9 @@ The public fixture sprint demonstrates the workflow on fictional accounts:
 - draft types across first touch, warm follow-up, meeting recap, stale opportunity revive, and referral request
 - 1 rejected risky automation request
 - 1 manually recorded meeting outcome
-- 210 audit events
+- 212 audit events
 - 1 static operator console
+- 1 deterministic quality evaluation
 - deterministic fixture evals
 
 Sample proof files:
@@ -139,6 +140,7 @@ Sample proof files:
 - `docs/case-study-fixture-sprint.md`
 - `docs/permissioned-pilot-runbook.md`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
+- `examples/sample-workspace/outputs/evals/quality-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
 - `examples/sample-workspace/outputs/handoff/README.md`
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg`

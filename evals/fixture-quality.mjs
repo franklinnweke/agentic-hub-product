@@ -13,6 +13,8 @@ const interactions = readJson("state/interactions.json");
 const drafts = readJson("state/drafts.json");
 const outcomes = readCsv("inputs/outcomes.csv");
 const report = readText("outputs/reports/weekly-pipeline-report.md");
+const qualityReport = readText("outputs/evals/quality-report.md");
+const qualityScores = readCsv("outputs/evals/quality-scores.csv");
 const operatorConsole = readText("outputs/console/index.html");
 const screenshotPath = path.join(workspace, "outputs/screenshots/operator-console.jpg");
 const handoffManifest = readJson("outputs/handoff/manifest.json");
@@ -42,6 +44,11 @@ expect(report.includes("## Draft Type Mix"), "report should include draft type m
 expect(report.includes("No outbound sending is implemented"), "report should state that outbound sending is not implemented");
 expect(report.includes("Denominator: manually recorded sends"), "report should name the outcome denominator");
 expect(!report.includes("autonomously sent"), "report should not imply autonomous sending");
+expect(qualityReport.includes("Workflow Quality Evaluation"), "quality eval should include a report heading");
+expect(qualityReport.includes("Scores are readiness indicators for human review"), "quality eval should preserve human review framing");
+expect(qualityScores.length >= accounts.length + drafts.length, "quality scores CSV should include account and draft rows");
+expect(qualityScores.some((row) => row.type === "account" && Number(row.score) >= 70), "quality scores should include reviewable account rows");
+expect(qualityScores.some((row) => row.type === "draft" && Number(row.score) >= 75), "quality scores should include reviewable draft rows");
 expect(operatorConsole.includes("Agentic Hub Operator Console"), "operator console should render the product surface");
 expect(operatorConsole.includes("No send command"), "operator console should state the no-send boundary");
 expect(operatorConsole.includes("workspace-data"), "operator console should embed local workspace data for file-based inspection");
@@ -51,6 +58,8 @@ if (fs.existsSync(screenshotPath)) {
 }
 expect(handoffReadme.includes("Agentic Hub Handoff Bundle"), "handoff bundle should include a README");
 expect(handoffManifest.included_files.includes("reports/weekly-pipeline-report.md"), "handoff manifest should include the weekly report");
+expect(handoffManifest.included_files.includes("evals/quality-report.md"), "handoff manifest should include the quality report");
+expect(handoffManifest.included_files.includes("evals/quality-scores.csv"), "handoff manifest should include quality scores");
 expect(handoffManifest.included_files.includes("console/index.html"), "handoff manifest should include the static console");
 expect(handoffManifest.included_files.includes("screenshots/operator-console.jpg"), "handoff manifest should include the console screenshot");
 expect(!handoffManifest.included_files.some((file) => file.startsWith("inputs/") || file.startsWith("state/") || file.startsWith("logs/")), "handoff manifest must not include raw inputs, state, or logs by default");

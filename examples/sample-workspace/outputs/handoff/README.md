@@ -10,6 +10,8 @@ This folder contains client-facing artifacts from a supervised pipeline sprint. 
 - `drafts/` - human-review follow-up drafts
 - `reports/weekly-pipeline-report.md` - weekly operating report
 - `reports/metrics.csv` - report metrics in CSV form
+- `evals/quality-report.md` - deterministic quality/readiness evaluation
+- `evals/quality-scores.csv` - eval scores in CSV form
 - `console/index.html` - static local review console
 - `screenshots/` - rendered proof assets when available
 - `manifest.json` - bundle metadata and guardrails
@@ -48,5 +50,6 @@ Raw inputs, local state, and logs may contain private or sensitive client contex
 
 1. Open `console/index.html`.
 2. Read `reports/weekly-pipeline-report.md`.
-3. Review selected lead briefs and drafts.
-4. Confirm any draft manually before using it outside Agentic Hub.
+3. Review `evals/quality-report.md` for evidence and readiness checks.
+4. Review selected lead briefs and drafts.
+5. Confirm any draft manually before using it outside Agentic Hub.

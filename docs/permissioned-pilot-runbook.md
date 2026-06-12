@@ -45,6 +45,7 @@ Review generated outputs:
 
 - `outputs/lead-briefs/`
 - `outputs/drafts/`
+- `outputs/evals/quality-report.md`
 - `outputs/reports/weekly-pipeline-report.md`
 - `outputs/console/index.html`
 - `logs/runs.jsonl`
@@ -76,6 +77,7 @@ Only record outcomes after the client/operator manually sends or follows up outs
 
 ```sh
 node ./bin/agentic-hub.mjs record-outcome --workspace ../client-sprint-workspace --draft draft_example_first_touch_rev1 --status replied --sent-at 2026-06-12 --reply-at 2026-06-13 --note "Recorded manually after operator-controlled outreach."
+node ./bin/agentic-hub.mjs evaluate --workspace ../client-sprint-workspace
 node ./bin/agentic-hub.mjs report --workspace ../client-sprint-workspace
 node ./bin/agentic-hub.mjs console --workspace ../client-sprint-workspace
 node ./bin/agentic-hub.mjs export --workspace ../client-sprint-workspace
@@ -91,6 +93,7 @@ Default private handoff:
 - `outputs/handoff/lead-briefs/`
 - `outputs/handoff/drafts/`
 - `outputs/handoff/reports/`
+- `outputs/handoff/evals/`
 - `outputs/handoff/console/`
 - `outputs/handoff/screenshots/`
 
