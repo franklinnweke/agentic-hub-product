@@ -39,9 +39,12 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_northstar_ops_studio_note_2] tracks leads in spreadsheets. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_northstar_ops_studio_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- [contact_acct_northstar_ops_studio_maya_chen] Maya Chen, Founder. Context: Operator-provided tentative buyer because she owns RevOps retainer sales and follow-up process (source: fixture contacts; confidence: high)
+
 ## Missing Information
 
-- Named buyer or decision-maker
 - Recent public proof beyond operator notes
 
 ## Disqualifiers Checked

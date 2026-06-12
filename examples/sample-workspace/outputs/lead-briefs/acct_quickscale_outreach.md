@@ -38,6 +38,10 @@ This account is risky for the MVP because it appears to conflict with Agentic Hu
 - [ev_quickscale_outreach_note_1] Vendor advertises autonomous high-volume outbound and asks for platform automation at scale. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_quickscale_outreach_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- No named buyer/contact provided. Operator must confirm recipient before any draft is used.
+
 ## Missing Information
 
 - Named buyer or decision-maker

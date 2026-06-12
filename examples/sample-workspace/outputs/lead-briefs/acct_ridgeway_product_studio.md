@@ -39,9 +39,12 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_ridgeway_product_studio_note_2] tracks prospects in a sheet. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_ridgeway_product_studio_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- [contact_acct_ridgeway_product_studio_sam_okafor] Sam Okafor, Studio Lead. Context: Operator-provided buyer for proposal follow-up and segment conversion reporting (source: fixture contacts; confidence: medium)
+
 ## Missing Information
 
-- Named buyer or decision-maker
 - Recent public proof beyond operator notes
 
 ## Disqualifiers Checked

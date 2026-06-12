@@ -14,6 +14,7 @@ const WORKSPACE_DIRS = [
 ];
 
 const REQUIRED_TARGET_COLUMNS = ["account_name", "website", "segment", "notes", "source"];
+const REQUIRED_CONTACT_COLUMNS = ["account_id", "name", "role", "context", "source", "confidence"];
 const REQUIRED_OUTCOME_COLUMNS = ["draft_id", "account_id", "manual_status", "sent_at", "reply_at", "meeting_at", "notes"];
 const ACCOUNT_REVIEW_STATUSES = ["approved", "rejected", "needs_more_info"];
 const DRAFT_REVIEW_STATUSES = ["approved", "edited", "rejected"];
@@ -180,6 +181,11 @@ function initWorkspace(workspace, now, options = {}) {
     starterOutcomesCsv(),
     preserveExisting
   );
+  writeFileIfAllowed(
+    path.join(workspace, "inputs", "contacts.csv"),
+    starterContactsCsv(),
+    preserveExisting
+  );
 
   appendRunLog(workspace, {
     run_id: runId("init", now),
@@ -187,7 +193,7 @@ function initWorkspace(workspace, now, options = {}) {
     pack: "workspace",
     command: "init",
     input_files: [],
-    output_files: ["README.md", "inputs/targets.csv", "inputs/outcomes.csv", "config/icp.md", "config/offer.md"],
+    output_files: ["README.md", "inputs/targets.csv", "inputs/contacts.csv", "inputs/outcomes.csv", "config/icp.md", "config/offer.md"],
     status: "completed",
     warnings: [],
     errors: []
@@ -205,6 +211,7 @@ function ingestTargets(workspace, now) {
 
   const rows = parseCsv(fs.readFileSync(targetPath, "utf8"));
   validateTargetRows(rows);
+  const contacts = readContactsInput(workspace, now);
 
   const accounts = [];
   const evidence = [];
@@ -226,9 +233,11 @@ function ingestTargets(workspace, now) {
       }));
     }
   }
+  applyContactsToAccounts(accounts, contacts, now);
 
   writeJson(path.join(workspace, "state", "accounts.json"), accounts);
   writeJson(path.join(workspace, "state", "evidence.json"), evidence);
+  writeJson(path.join(workspace, "state", "contacts.json"), contacts);
   writeJsonl(path.join(workspace, "state", "events.jsonl"), events);
 
   appendRunLog(workspace, {
@@ -236,26 +245,28 @@ function ingestTargets(workspace, now) {
     timestamp: now,
     pack: "lead-gen",
     command: "ingest",
-    input_files: ["inputs/targets.csv"],
-    output_files: ["state/accounts.json", "state/evidence.json", "state/events.jsonl"],
+    input_files: ["inputs/targets.csv", "inputs/contacts.csv"],
+    output_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json", "state/events.jsonl"],
     status: "completed",
     warnings: accounts.filter((account) => account.confidence === "low").map((account) => `${account.id} has low confidence`),
     errors: []
   });
 
-  console.log(`Ingested ${accounts.length} accounts and ${evidence.length} evidence items.`);
+  console.log(`Ingested ${accounts.length} accounts, ${contacts.length} contacts, and ${evidence.length} evidence items.`);
 }
 
 function generateBriefs(workspace, now) {
   ensureWorkspaceDirs(workspace);
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const evidence = readJson(path.join(workspace, "state", "evidence.json"));
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
   const events = readEvents(workspace);
   const outputFiles = [];
 
   for (const account of accounts) {
     const accountEvidence = evidence.filter((item) => item.account_id === account.id);
-    const brief = renderLeadBrief(account, accountEvidence, now);
+    const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
+    const brief = renderLeadBrief(account, accountEvidence, accountContacts, now);
     const briefPath = path.join(workspace, "outputs", "lead-briefs", `${account.id}.md`);
     fs.writeFileSync(briefPath, brief);
     outputFiles.push(relative(workspace, briefPath));
@@ -271,7 +282,7 @@ function generateBriefs(workspace, now) {
     timestamp: now,
     pack: "lead-gen",
     command: "generate-briefs",
-    input_files: ["state/accounts.json", "state/evidence.json"],
+    input_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json"],
     output_files: outputFiles,
     status: "completed",
     warnings: accounts.filter((account) => account.missing_information.length > 0).map((account) => `${account.id} has missing information`),
@@ -285,6 +296,7 @@ function generateDrafts(workspace, now) {
   ensureWorkspaceDirs(workspace);
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const evidence = readJson(path.join(workspace, "state", "evidence.json"));
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
   const events = readEvents(workspace);
   const drafts = [];
   const skipped = [];
@@ -296,10 +308,11 @@ function generateDrafts(workspace, now) {
     }
 
     const accountEvidence = evidence.filter((item) => item.account_id === account.id);
-    const draft = buildDraft(account, accountEvidence, now);
+    const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
+    const draft = buildDraft(account, accountEvidence, accountContacts, now);
     drafts.push(draft);
     const draftPath = path.join(workspace, "outputs", "drafts", `${draft.id}.md`);
-    fs.writeFileSync(draftPath, renderDraft(account, draft, accountEvidence));
+    fs.writeFileSync(draftPath, renderDraft(account, draft, accountEvidence, accountContacts));
     events.push(eventFor("draft", draft.id, "draft_generated_needs_review", now, {
       account_id: account.id,
       output_file: relative(workspace, draftPath)
@@ -313,7 +326,7 @@ function generateDrafts(workspace, now) {
     timestamp: now,
     pack: "follow-ups",
     command: "generate-drafts",
-    input_files: ["state/accounts.json", "state/evidence.json", "outputs/lead-briefs/*.md"],
+    input_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json", "outputs/lead-briefs/*.md"],
     output_files: ["state/drafts.json", ...drafts.map((draft) => `outputs/drafts/${draft.id}.md`)],
     status: "completed",
     warnings: skipped,
@@ -547,13 +560,14 @@ function generateReport(workspace, now) {
   ensureWorkspaceDirs(workspace);
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const drafts = readJson(path.join(workspace, "state", "drafts.json"), []);
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
   const outcomes = readOutcomes(workspace);
   const events = readEvents(workspace);
   events.push(eventFor("report", "weekly-pipeline-report", "analytics_report_generated", now, {
     output_file: "outputs/reports/weekly-pipeline-report.md",
     metrics_file: "outputs/reports/metrics.csv"
   }));
-  const metrics = buildMetrics(accounts, drafts, events, outcomes);
+  const metrics = buildMetrics(accounts, drafts, events, outcomes, contacts);
   const reportPath = path.join(workspace, "outputs", "reports", "weekly-pipeline-report.md");
   const metricsPath = path.join(workspace, "outputs", "reports", "metrics.csv");
 
@@ -567,7 +581,7 @@ function generateReport(workspace, now) {
     timestamp: now,
     pack: "analytics",
     command: "report",
-    input_files: ["state/accounts.json", "state/drafts.json", "state/events.jsonl", "inputs/outcomes.csv"],
+    input_files: ["state/accounts.json", "state/drafts.json", "state/contacts.json", "state/events.jsonl", "inputs/outcomes.csv"],
     output_files: ["outputs/reports/weekly-pipeline-report.md", "outputs/reports/metrics.csv"],
     status: "completed",
     warnings: metrics.warnings,
@@ -584,6 +598,7 @@ function validateWorkspace(workspace) {
     "config/icp.md",
     "state/accounts.json",
     "state/evidence.json",
+    "state/contacts.json",
     "state/drafts.json",
     "state/events.jsonl",
     "logs/runs.jsonl",
@@ -597,6 +612,7 @@ function validateWorkspace(workspace) {
 
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const evidence = readJson(path.join(workspace, "state", "evidence.json"));
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
   const drafts = readJson(path.join(workspace, "state", "drafts.json"));
   const outcomes = readOutcomes(workspace);
   const events = readEvents(workspace);
@@ -609,6 +625,12 @@ function validateWorkspace(workspace) {
     if (evidenceCount < 3) errors.push(`${account.id} has fewer than three evidence items`);
     const briefPath = path.join(workspace, "outputs", "lead-briefs", `${account.id}.md`);
     if (!fs.existsSync(briefPath)) errors.push(`${account.id} is missing a lead brief`);
+  }
+
+  for (const contact of contacts) {
+    if (!contact.account_id || !accounts.some((account) => account.id === contact.account_id)) errors.push(`Contact references unknown account ${contact.account_id}`);
+    if (!contact.name || !contact.role) errors.push(`Invalid contact record: ${JSON.stringify(contact)}`);
+    if (!["low", "medium", "high"].includes(contact.confidence)) errors.push(`Contact ${contact.name} has invalid confidence ${contact.confidence}`);
   }
 
   for (const draft of drafts) {
@@ -634,21 +656,25 @@ function validateWorkspace(workspace) {
   if (events.length === 0) errors.push("events.jsonl has no audit events");
   if (errors.length > 0) throw new Error(`Validation failed:\n- ${errors.join("\n- ")}`);
 
-  console.log(`Validation passed: ${accounts.length} accounts, ${evidence.length} evidence items, ${drafts.length} drafts, ${outcomes.length} outcomes, ${events.length} events.`);
+  console.log(`Validation passed: ${accounts.length} accounts, ${contacts.length} contacts, ${evidence.length} evidence items, ${drafts.length} drafts, ${outcomes.length} outcomes, ${events.length} events.`);
 }
 
 function regenerateLeadBrief(workspace, account, now) {
   const evidence = readJson(path.join(workspace, "state", "evidence.json"));
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
   const accountEvidence = evidence.filter((item) => item.account_id === account.id);
+  const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
   const briefPath = path.join(workspace, "outputs", "lead-briefs", `${account.id}.md`);
-  fs.writeFileSync(briefPath, renderLeadBrief(account, accountEvidence, now));
+  fs.writeFileSync(briefPath, renderLeadBrief(account, accountEvidence, accountContacts, now));
 }
 
 function regenerateDraft(workspace, account, draft) {
   const evidence = readJson(path.join(workspace, "state", "evidence.json"));
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
   const accountEvidence = evidence.filter((item) => item.account_id === account.id);
+  const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
   const draftPath = path.join(workspace, "outputs", "drafts", `${draft.id}.md`);
-  fs.writeFileSync(draftPath, renderDraft(account, draft, accountEvidence));
+  fs.writeFileSync(draftPath, renderDraft(account, draft, accountEvidence, accountContacts));
 }
 
 function ensureWorkspaceDirs(workspace) {
@@ -680,6 +706,22 @@ function validateTargetRows(rows) {
       if (!row[column]?.trim()) {
         throw new Error(`targets.csv row ${index + 2} is missing ${column}`);
       }
+    }
+  });
+}
+
+function validateContactRows(rows) {
+  if (rows.length === 0) return;
+  const columns = Object.keys(rows[0]);
+  const missing = REQUIRED_CONTACT_COLUMNS.filter((column) => !columns.includes(column));
+  if (missing.length > 0) throw new Error(`contacts.csv is missing columns: ${missing.join(", ")}`);
+
+  rows.forEach((row, index) => {
+    for (const column of REQUIRED_CONTACT_COLUMNS) {
+      if (!row[column]?.trim()) throw new Error(`contacts.csv row ${index + 2} is missing ${column}`);
+    }
+    if (!["low", "medium", "high"].includes(row.confidence)) {
+      throw new Error(`contacts.csv row ${index + 2} has invalid confidence ${row.confidence}`);
     }
   });
 }
@@ -727,6 +769,35 @@ function buildAccount(row, now) {
     created_at: now,
     updated_at: now
   };
+}
+
+function readContactsInput(workspace, now) {
+  const filePath = path.join(workspace, "inputs", "contacts.csv");
+  if (!fs.existsSync(filePath)) return [];
+  const rows = parseCsv(fs.readFileSync(filePath, "utf8"));
+  validateContactRows(rows);
+  return rows
+    .filter((row) => row.account_id)
+    .map((row) => ({
+      id: `contact_${slug(`${row.account_id}_${row.name}`)}`,
+      account_id: row.account_id.trim(),
+      name: row.name.trim(),
+      role: row.role.trim(),
+      context: row.context.trim(),
+      source: row.source.trim(),
+      confidence: row.confidence.trim(),
+      created_at: now,
+      updated_at: now
+    }));
+}
+
+function applyContactsToAccounts(accounts, contacts, now) {
+  const accountsWithContacts = new Set(contacts.map((contact) => contact.account_id));
+  for (const account of accounts) {
+    if (!accountsWithContacts.has(account.id)) continue;
+    account.missing_information = account.missing_information.filter((item) => item !== "Named buyer or decision-maker");
+    account.updated_at = now;
+  }
 }
 
 function buildEvidence(account, row, now) {
@@ -836,17 +907,20 @@ function suggestedAngle(row, disqualifiers) {
   return `Lead with evidence-backed lead briefs and review-gated drafts for ${segment} operators.`;
 }
 
-function buildDraft(account, evidence, now) {
+function buildDraft(account, evidence, contacts, now) {
   const primaryEvidence = evidence.slice(0, 3);
   const bestPersonalization = primaryEvidence.find((item) => item.source_type === "operator_note") ?? primaryEvidence[1] ?? primaryEvidence[0];
+  const primaryContact = selectPrimaryContact(contacts);
   const risk_flags = [];
   if (account.confidence !== "high") risk_flags.push(`Confidence is ${account.confidence}; operator should verify before sending.`);
   if (account.missing_information.length > 0) risk_flags.push(`Missing: ${account.missing_information.join("; ")}`);
+  if (!primaryContact) risk_flags.push("No named buyer/contact in contacts.csv; operator must confirm recipient.");
 
   const body = [
-    "Hi,",
+    primaryContact ? `Hi ${primaryContact.name.split(/\s+/)[0]},` : "Hi,",
     "",
     `I noticed ${account.name} looks like a fit for a supervised pipeline sprint based on this workspace note: ${bestPersonalization?.claim ?? "the target list shows a relevant workflow."}`,
+    primaryContact ? `I am using ${primaryContact.name} (${primaryContact.role}) as the tentative recipient from local contact context: ${primaryContact.context}.` : "",
     "",
     `${account.suggested_angle}`,
     "",
@@ -867,6 +941,9 @@ function buildDraft(account, evidence, now) {
     ],
     body,
     status: "needs_review",
+    contact_id: primaryContact?.id ?? "",
+    contact_name: primaryContact?.name ?? "",
+    contact_role: primaryContact?.role ?? "",
     evidence_ids: primaryEvidence.map((item) => item.id),
     risk_flags,
     suggested_send_window: "Operator-selected after manual review",
@@ -874,6 +951,13 @@ function buildDraft(account, evidence, now) {
     created_at: now,
     updated_at: now
   };
+}
+
+function selectPrimaryContact(contacts) {
+  return contacts.find((contact) => contact.confidence === "high")
+    ?? contacts.find((contact) => contact.confidence === "medium")
+    ?? contacts[0]
+    ?? null;
 }
 
 function nextRevisionNumber(original, drafts) {
@@ -894,7 +978,7 @@ function reviseDraftBody(body, changes) {
   ].join("\n");
 }
 
-function buildMetrics(accounts, drafts, events, outcomes = []) {
+function buildMetrics(accounts, drafts, events, outcomes = [], contacts = []) {
   const highFitAccounts = accounts.filter((account) => account.fit_score >= 75 && account.disqualifiers.length === 0);
   const approvedAccounts = accounts.filter((account) => account.status === "approved");
   const rejectedAccounts = accounts.filter((account) => account.status === "rejected");
@@ -910,6 +994,10 @@ function buildMetrics(accounts, drafts, events, outcomes = []) {
     accounts_imported: accounts.length,
     accounts_researched: accounts.length,
     accounts_scored: accounts.length,
+    contacts_loaded: contacts.length,
+    accounts_with_contacts: new Set(contacts.map((contact) => contact.account_id)).size,
+    accounts_without_contacts: Math.max(0, accounts.length - new Set(contacts.map((contact) => contact.account_id)).size),
+    contact_coverage_rate: rate(new Set(contacts.map((contact) => contact.account_id)).size, accounts.length),
     accounts_approved: approvedAccounts.length,
     accounts_rejected: rejectedAccounts.length,
     average_fit_score: accounts.length === 0 ? 0 : Math.round(accounts.reduce((sum, account) => sum + account.fit_score, 0) / accounts.length),
@@ -932,7 +1020,7 @@ function buildMetrics(accounts, drafts, events, outcomes = []) {
   };
 }
 
-function renderLeadBrief(account, evidence, now) {
+function renderLeadBrief(account, evidence, contacts, now) {
   return `# Lead Brief: ${account.name}
 
 Generated: ${now}
@@ -967,6 +1055,10 @@ ${account.disqualifiers.length > 0
 
 ${evidence.map((item) => `- [${item.id}] ${item.claim} (${item.source_type}; ${item.source_url}; confidence: ${item.confidence})`).join("\n")}
 
+## Buyer / Contact Context
+
+${contacts.length > 0 ? contacts.map((contact) => `- [${contact.id}] ${contact.name}, ${contact.role}. Context: ${contact.context} (source: ${contact.source}; confidence: ${contact.confidence})`).join("\n") : "- No named buyer/contact provided. Operator must confirm recipient before any draft is used."}
+
 ## Missing Information
 
 ${account.missing_information.map((item) => `- ${item}`).join("\n")}
@@ -989,21 +1081,29 @@ This brief is for operator review only. Agentic Hub does not send messages, subm
 `;
 }
 
-function renderDraft(account, draft, evidence) {
+function renderDraft(account, draft, evidence, contacts = []) {
+  const primaryContact = contacts.find((contact) => contact.id === draft.contact_id) ?? selectPrimaryContact(contacts);
+  const revisionLines = [
+    draft.revision_of ? `Revision of: \`${draft.revision_of}\`` : "",
+    draft.revision_of ? `Revision changes: ${draft.revision_changes}` : "",
+    draft.superseded_at ? `Superseded at: ${draft.superseded_at}` : ""
+  ].filter(Boolean);
+  const revisionBlock = revisionLines.length > 0 ? `${revisionLines.join("\n")}\n` : "";
+  const contactBlock = primaryContact
+    ? `- Contact: ${primaryContact.name}, ${primaryContact.role}\n- Contact context: ${primaryContact.context}\n- Contact source: ${primaryContact.source} (confidence: ${primaryContact.confidence})`
+    : "- Contact: Unknown; operator must confirm before use.";
   return `# Follow-Up Draft: ${account.name}
 
 Approval status: \`${draft.status}\`
 Draft type: ${draft.draft_type}
 Review note: ${draft.review_note ? draft.review_note : "None yet"}
-${draft.revision_of ? `Revision of: \`${draft.revision_of}\`\nRevision changes: ${draft.revision_changes}` : ""}
-${draft.superseded_at ? `Superseded at: ${draft.superseded_at}` : ""}
-
+${revisionBlock ? revisionBlock : ""}
 ## Account / Contact Context
 
 - Account: ${account.name}
 - Website: ${account.website}
 - Segment: ${account.segment}
-- Contact: Unknown; operator must confirm before use.
+${contactBlock}
 
 ## Subject Options
 
@@ -1052,6 +1152,9 @@ The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${m
 | Accounts imported | ${metrics.accounts_imported} |
 | Accounts researched | ${metrics.accounts_researched} |
 | Accounts scored | ${metrics.accounts_scored} |
+| Contacts loaded | ${metrics.contacts_loaded} |
+| Accounts with contacts | ${metrics.accounts_with_contacts} |
+| Contact coverage | ${metrics.contact_coverage_rate} |
 | High-fit accounts | ${metrics.high_fit_accounts} |
 | Drafts generated | ${metrics.drafts_generated} |
 | Accounts approved | ${metrics.accounts_approved} |
@@ -1071,6 +1174,7 @@ The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${m
 
 - Average fit score: ${metrics.average_fit_score}/100.
 - High-fit denominator: accounts with score >= 75 and no disqualifiers.
+- Contact coverage: ${metrics.accounts_with_contacts}/${metrics.accounts_imported} accounts have local buyer/contact context.
 - Low-confidence or disqualified accounts should be rejected or clarified before any draft is written.
 
 ## Follow-Up Queue Health
@@ -1104,7 +1208,7 @@ ${metrics.follow_ups_due > 0 ? `- Drafts needing operator review before manual s
 - Drafts needing edits before approval: ${metrics.drafts_edited}.
 - Drafts superseded by revisions: ${metrics.drafts_superseded}.
 - Drafts rejected from use without a new review cycle: ${metrics.drafts_rejected}.
-- Buyer/contact names are missing from the fixture, so every draft requires manual recipient confirmation.
+- Accounts still missing buyer/contact context: ${metrics.accounts_without_contacts}.
 
 ## Recommended Next Actions
 
@@ -1125,6 +1229,9 @@ function renderMetricsCsv(metrics) {
     ["accounts_imported", metrics.accounts_imported, "targets.csv rows", ""],
     ["accounts_researched", metrics.accounts_researched, "accounts imported", "Fixture uses user-provided data only"],
     ["accounts_scored", metrics.accounts_scored, "accounts imported", ""],
+    ["contacts_loaded", metrics.contacts_loaded, "inputs/contacts.csv rows", "Local operator-provided context"],
+    ["accounts_with_contacts", metrics.accounts_with_contacts, "accounts imported", "Accounts with at least one contact row"],
+    ["contact_coverage_rate", metrics.contact_coverage_rate, "accounts imported", "Accounts with contacts divided by accounts imported"],
     ["average_fit_score", metrics.average_fit_score, "accounts scored", "Rounded whole number"],
     ["high_fit_accounts", metrics.high_fit_accounts, "accounts scored", "Score >= 75 and no disqualifiers"],
     ["drafts_generated", metrics.drafts_generated, "eligible accounts", "Disqualified and low-score accounts skipped"],
@@ -1195,6 +1302,12 @@ Example Consulting Co,https://example.com,solo_consultant,"Tracks leads in sprea
 
 function starterOutcomesCsv() {
   return `draft_id,account_id,manual_status,sent_at,reply_at,meeting_at,notes
+`;
+}
+
+function starterContactsCsv() {
+  return `account_id,name,role,context,source,confidence
+acct_example_consulting_co,Example Buyer,Founder,Operator-provided tentative buyer for local review only,manual,medium
 `;
 }
 

@@ -38,7 +38,7 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 ## Repository Map
 
 - `bin/agentic-hub.mjs` - zero-dependency local CLI for the first MVP workflow.
-- `schemas/` - JSON schemas for accounts, evidence, drafts, events, and manual outcomes.
+- `schemas/` - JSON schemas for accounts, contacts, evidence, drafts, events, and manual outcomes.
 - `examples/sample-workspace/` - runnable fixture workspace with generated sample outputs.
 - `docs/product-plan.md` - product strategy, positioning, packaging, monetization.
 - `docs/prd.md` - product requirements document for the first shippable version.
@@ -94,13 +94,14 @@ The fixture writes:
 - `examples/sample-workspace/outputs/lead-briefs/` - evidence-backed account briefs.
 - `examples/sample-workspace/outputs/drafts/` - follow-up drafts that start in `needs_review`.
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md` - analytics report.
+- `examples/sample-workspace/inputs/contacts.csv` - local operator-provided buyer/contact context.
 - `examples/sample-workspace/inputs/outcomes.csv` - manually recorded outcomes after operator-controlled activity outside Agentic Hub.
 - `examples/sample-workspace/state/` - inspectable JSON/JSONL state.
 - `examples/sample-workspace/logs/runs.jsonl` - audit log for pack runs.
 
 ### Example Output
 
-The sample sprint imports 25 fictional accounts, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
+The sample sprint imports 25 fictional accounts, loads 10 local contact records, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
 
 Read the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
 

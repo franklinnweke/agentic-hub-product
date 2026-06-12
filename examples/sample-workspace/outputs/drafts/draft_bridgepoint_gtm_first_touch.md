@@ -4,8 +4,6 @@ Approval status: `needs_review`
 Draft type: first_touch
 Review note: None yet
 
-
-
 ## Account / Contact Context
 
 - Account: Bridgepoint GTM
@@ -24,6 +22,7 @@ Hi,
 
 I noticed Bridgepoint GTM looks like a fit for a supervised pipeline sprint based on this workspace note: GTM consultant with curated target lists.
 
+
 Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.
 
 The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.
@@ -41,6 +40,7 @@ Franklin
 ## Risk Flags
 
 - Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context
+- No named buyer/contact in contacts.csv; operator must confirm recipient.
 
 ## Suggested Send Window
 

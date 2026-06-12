@@ -8,11 +8,13 @@ const failures = [];
 
 const accounts = readJson("state/accounts.json");
 const evidence = readJson("state/evidence.json");
+const contacts = readJson("state/contacts.json");
 const drafts = readJson("state/drafts.json");
 const outcomes = readCsv("inputs/outcomes.csv");
 const report = readText("outputs/reports/weekly-pipeline-report.md");
 
 expect(accounts.length >= 25, "fixture should include at least 25 accounts");
+expect(contacts.length >= 10, "fixture should include at least 10 local contact records");
 expect(evidence.length >= accounts.length * 3, "fixture should average at least three evidence records per account");
 expect(drafts.length >= 20, "fixture should include at least 20 review-gated drafts");
 expect(drafts.some((draft) => draft.status === "approved"), "fixture should include an approved draft");
@@ -23,6 +25,8 @@ expect(drafts.some((draft) => draft.revision_of && draft.status === "needs_revie
 expect(drafts.every((draft) => draft.status !== "sent_external"), "fixture must not use sent_external status");
 expect(accounts.some((account) => account.status === "rejected" && account.disqualifiers.length > 0), "fixture should reject a disqualified account");
 expect(outcomes.some((outcome) => outcome.manual_status === "meeting_booked"), "fixture should include one manually recorded meeting outcome");
+expect(drafts.some((draft) => draft.contact_name && draft.contact_role), "fixture should include drafts with local contact context");
+expect(report.includes("Contact coverage"), "report should include contact coverage");
 expect(report.includes("No outbound sending is implemented"), "report should state that outbound sending is not implemented");
 expect(report.includes("Denominator: manually recorded sends"), "report should name the outcome denominator");
 expect(!report.includes("autonomously sent"), "report should not imply autonomous sending");

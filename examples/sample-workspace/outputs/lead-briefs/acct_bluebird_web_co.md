@@ -39,9 +39,12 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_bluebird_web_co_note_2] slow follow-up after discovery calls. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_bluebird_web_co_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- [contact_acct_bluebird_web_co_leah_torres] Leah Torres, Owner. Context: Operator-provided owner of discovery follow-up and lead-source quality review (source: fixture contacts; confidence: medium)
+
 ## Missing Information
 
-- Named buyer or decision-maker
 - Recent public proof beyond operator notes
 
 ## Disqualifiers Checked

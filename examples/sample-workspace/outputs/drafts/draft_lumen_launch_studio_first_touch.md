@@ -4,8 +4,6 @@ Approval status: `needs_review`
 Draft type: first_touch
 Review note: None yet
 
-
-
 ## Account / Contact Context
 
 - Account: Lumen Launch Studio
@@ -23,6 +21,7 @@ Review note: None yet
 Hi,
 
 I noticed Lumen Launch Studio looks like a fit for a supervised pipeline sprint based on this workspace note: Launch studio with packaged offers.
+
 
 Lead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.
 
@@ -42,6 +41,7 @@ Franklin
 
 - Confidence is medium; operator should verify before sending.
 - Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context
+- No named buyer/contact in contacts.csv; operator must confirm recipient.
 
 ## Suggested Send Window
 

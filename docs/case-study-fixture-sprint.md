@@ -18,6 +18,7 @@ npm run check
 Fixture workspace:
 
 - `examples/sample-workspace/inputs/targets.csv`
+- `examples/sample-workspace/inputs/contacts.csv`
 - `examples/sample-workspace/config/icp.md`
 - `examples/sample-workspace/outputs/lead-briefs/`
 - `examples/sample-workspace/outputs/drafts/`
@@ -37,6 +38,8 @@ The operator starts with a rough target CSV:
 
 The CSV contains 25 fictional accounts. Twenty-four are plausible service-business or founder-led B2B prospects. One is intentionally risky because it asks for autonomous high-volume outbound automation.
 
+The contacts CSV contains 10 local, operator-provided tentative buyer records. These are not scraped or enriched from live systems; they exist to show how human-provided contact context flows into briefs and drafts.
+
 ## Workflow
 
 1. Ingest targets into local JSON state.
@@ -54,6 +57,7 @@ The CSV contains 25 fictional accounts. Twenty-four are plausible service-busine
 The fixture produces:
 
 - 25 lead briefs
+- 10 local contact records
 - 24 initial follow-up drafts
 - 1 revised follow-up draft
 - 1 rejected automation-risk account
@@ -78,6 +82,7 @@ The proof is not that an agent can generate a cold email. The proof is that the 
 
 - every account has preserved evidence
 - every score is inspectable
+- local contact context is visible before draft approval
 - risky automation requests are rejected
 - every draft requires human review
 - edited drafts can produce revised drafts without losing the original
@@ -92,6 +97,7 @@ That makes the project portfolio-grade because a reviewer can inspect the inputs
 - No form submission exists.
 - No credentials are required.
 - No browser automation is used in the fixture.
+- Contact context comes from local fixture data.
 - Draft approval does not imply sending.
 - Manual outcomes are recorded only after operator-controlled activity outside Agentic Hub.
 

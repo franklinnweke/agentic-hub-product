@@ -39,9 +39,12 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_harbor_it_advisors_note_2] many referral leads. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_harbor_it_advisors_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- [contact_acct_harbor_it_advisors_marcus_lee] Marcus Lee, Managing Director. Context: Operator-provided buyer for managed IT renewal and referral pipeline discipline (source: fixture contacts; confidence: medium)
+
 ## Missing Information
 
-- Named buyer or decision-maker
 - Recent public proof beyond operator notes
 
 ## Disqualifiers Checked

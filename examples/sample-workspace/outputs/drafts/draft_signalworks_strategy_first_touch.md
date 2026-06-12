@@ -4,14 +4,14 @@ Approval status: `needs_review`
 Draft type: first_touch
 Review note: None yet
 
-
-
 ## Account / Contact Context
 
 - Account: SignalWorks Strategy
 - Website: https://signalworks.example
 - Segment: solo_consultant
-- Contact: Unknown; operator must confirm before use.
+- Contact: Nora Patel, Principal
+- Contact context: Operator-provided owner of warm founder referral workflow
+- Contact source: fixture contacts (confidence: medium)
 
 ## Subject Options
 
@@ -20,9 +20,10 @@ Review note: None yet
 
 ## Message Draft
 
-Hi,
+Hi Nora,
 
 I noticed SignalWorks Strategy looks like a fit for a supervised pipeline sprint based on this workspace note: Independent strategy consultant with warm founder referrals.
+I am using Nora Patel (Principal) as the tentative recipient from local contact context: Operator-provided owner of warm founder referral workflow.
 
 Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.
 
@@ -40,7 +41,7 @@ Franklin
 
 ## Risk Flags
 
-- Missing: Named buyer or decision-maker; Recent public proof beyond operator notes
+- Missing: Recent public proof beyond operator notes
 
 ## Suggested Send Window
 

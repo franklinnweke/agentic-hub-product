@@ -4,14 +4,14 @@ Approval status: `needs_review`
 Draft type: first_touch
 Review note: None yet
 
-
-
 ## Account / Contact Context
 
 - Account: VectorOps Consulting
 - Website: https://vectorops.example
 - Segment: solo_consultant
-- Contact: Unknown; operator must confirm before use.
+- Contact: Ian Foster, Founder
+- Contact context: Operator-provided decision-maker for SaaS founder outreach workflow
+- Contact source: fixture contacts (confidence: medium)
 
 ## Subject Options
 
@@ -20,9 +20,10 @@ Review note: None yet
 
 ## Message Draft
 
-Hi,
+Hi Ian,
 
 I noticed VectorOps Consulting looks like a fit for a supervised pipeline sprint based on this workspace note: Operations consultant serving SaaS founders.
+I am using Ian Foster (Founder) as the tentative recipient from local contact context: Operator-provided decision-maker for SaaS founder outreach workflow.
 
 Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.
 
@@ -40,7 +41,7 @@ Franklin
 
 ## Risk Flags
 
-- Missing: Named buyer or decision-maker; Recent public proof beyond operator notes
+- Missing: Recent public proof beyond operator notes
 
 ## Suggested Send Window
 

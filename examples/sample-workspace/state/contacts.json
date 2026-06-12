@@ -1,0 +1,112 @@
+[
+  {
+    "id": "contact_acct_northstar_ops_studio_maya_chen",
+    "account_id": "acct_northstar_ops_studio",
+    "name": "Maya Chen",
+    "role": "Founder",
+    "context": "Operator-provided tentative buyer because she owns RevOps retainer sales and follow-up process",
+    "source": "fixture contacts",
+    "confidence": "high",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "contact_acct_brightlane_creative_andre_lewis",
+    "account_id": "acct_brightlane_creative",
+    "name": "Andre Lewis",
+    "role": "Managing Partner",
+    "context": "Operator-provided agency decision-maker for pipeline process and referral analytics",
+    "source": "fixture contacts",
+    "confidence": "medium",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "contact_acct_atlas_founder_labs_priya_raman",
+    "account_id": "acct_atlas_founder_labs",
+    "name": "Priya Raman",
+    "role": "CEO",
+    "context": "Operator-provided founder-led sales owner for demos and investor follow-ups",
+    "source": "fixture contacts",
+    "confidence": "high",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "contact_acct_cedar_grant_partners_elena_brooks",
+    "account_id": "acct_cedar_grant_partners",
+    "name": "Elena Brooks",
+    "role": "Principal Consultant",
+    "context": "Operator-provided relationship owner with compliance-sensitive follow-up needs",
+    "source": "fixture contacts",
+    "confidence": "medium",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "contact_acct_harbor_it_advisors_marcus_lee",
+    "account_id": "acct_harbor_it_advisors",
+    "name": "Marcus Lee",
+    "role": "Managing Director",
+    "context": "Operator-provided buyer for managed IT renewal and referral pipeline discipline",
+    "source": "fixture contacts",
+    "confidence": "medium",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "contact_acct_signalworks_strategy_nora_patel",
+    "account_id": "acct_signalworks_strategy",
+    "name": "Nora Patel",
+    "role": "Principal",
+    "context": "Operator-provided owner of warm founder referral workflow",
+    "source": "fixture contacts",
+    "confidence": "medium",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "contact_acct_ridgeway_product_studio_sam_okafor",
+    "account_id": "acct_ridgeway_product_studio",
+    "name": "Sam Okafor",
+    "role": "Studio Lead",
+    "context": "Operator-provided buyer for proposal follow-up and segment conversion reporting",
+    "source": "fixture contacts",
+    "confidence": "medium",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "contact_acct_launchpad_cfo_grace_miller",
+    "account_id": "acct_launchpad_cfo",
+    "name": "Grace Miller",
+    "role": "Partner",
+    "context": "Operator-provided owner of fractional CFO referral pipeline",
+    "source": "fixture contacts",
+    "confidence": "medium",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "contact_acct_vectorops_consulting_ian_foster",
+    "account_id": "acct_vectorops_consulting",
+    "name": "Ian Foster",
+    "role": "Founder",
+    "context": "Operator-provided decision-maker for SaaS founder outreach workflow",
+    "source": "fixture contacts",
+    "confidence": "medium",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "contact_acct_bluebird_web_co_leah_torres",
+    "account_id": "acct_bluebird_web_co",
+    "name": "Leah Torres",
+    "role": "Owner",
+    "context": "Operator-provided owner of discovery follow-up and lead-source quality review",
+    "source": "fixture contacts",
+    "confidence": "medium",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  }
+]

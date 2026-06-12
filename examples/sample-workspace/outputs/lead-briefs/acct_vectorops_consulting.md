@@ -39,9 +39,12 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_vectorops_consulting_note_2] keeps ICP notes in docs. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_vectorops_consulting_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- [contact_acct_vectorops_consulting_ian_foster] Ian Foster, Founder. Context: Operator-provided decision-maker for SaaS founder outreach workflow (source: fixture contacts; confidence: medium)
+
 ## Missing Information
 
-- Named buyer or decision-maker
 - Recent public proof beyond operator notes
 
 ## Disqualifiers Checked

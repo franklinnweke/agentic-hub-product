@@ -39,9 +39,12 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_cedar_grant_partners_note_2] deadline-driven follow-up windows. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_cedar_grant_partners_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- [contact_acct_cedar_grant_partners_elena_brooks] Elena Brooks, Principal Consultant. Context: Operator-provided relationship owner with compliance-sensitive follow-up needs (source: fixture contacts; confidence: medium)
+
 ## Missing Information
 
-- Named buyer or decision-maker
 - Recent public proof beyond operator notes
 
 ## Disqualifiers Checked

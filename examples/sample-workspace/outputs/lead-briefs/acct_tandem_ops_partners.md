@@ -39,6 +39,10 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_tandem_ops_partners_note_2] follow-up reminders in memory. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_tandem_ops_partners_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- No named buyer/contact provided. Operator must confirm recipient before any draft is used.
+
 ## Missing Information
 
 - Named buyer or decision-maker

@@ -6,13 +6,14 @@ Review note: Revision created for another review cycle.
 Revision of: `draft_brightlane_creative_first_touch`
 Revision changes: Add an agency-specific proof point and keep the ask low-pressure.
 
-
 ## Account / Contact Context
 
 - Account: Brightlane Creative
 - Website: https://brightlane.example
 - Segment: boutique_agency
-- Contact: Unknown; operator must confirm before use.
+- Contact: Andre Lewis, Managing Partner
+- Contact context: Operator-provided agency decision-maker for pipeline process and referral analytics
+- Contact source: fixture contacts (confidence: medium)
 
 ## Subject Options
 
@@ -21,9 +22,10 @@ Revision changes: Add an agency-specific proof point and keep the ask low-pressu
 
 ## Message Draft
 
-Hi,
+Hi Andre,
 
 I noticed Brightlane Creative looks like a fit for a supervised pipeline sprint based on this workspace note: Eight-person web agency with project-based leads.
+I am using Andre Lewis (Managing Partner) as the tentative recipient from local contact context: Operator-provided agency decision-maker for pipeline process and referral analytics.
 
 Lead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.
 
@@ -48,7 +50,7 @@ Revision reminder: verify recipient, proof point, and send context before approv
 
 ## Risk Flags
 
-- Missing: Named buyer or decision-maker; Recent public proof beyond operator notes
+- Missing: Recent public proof beyond operator notes
 
 ## Suggested Send Window
 

@@ -2,6 +2,9 @@ metric,value,denominator,notes
 accounts_imported,25,targets.csv rows,
 accounts_researched,25,accounts imported,Fixture uses user-provided data only
 accounts_scored,25,accounts imported,
+contacts_loaded,10,inputs/contacts.csv rows,Local operator-provided context
+accounts_with_contacts,10,accounts imported,Accounts with at least one contact row
+contact_coverage_rate,40%,accounts imported,Accounts with contacts divided by accounts imported
 average_fit_score,74,accounts scored,Rounded whole number
 high_fit_accounts,14,accounts scored,Score >= 75 and no disqualifiers
 drafts_generated,25,eligible accounts,Disqualified and low-score accounts skipped

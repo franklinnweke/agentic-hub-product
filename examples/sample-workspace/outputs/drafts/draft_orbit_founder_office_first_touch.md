@@ -4,8 +4,6 @@ Approval status: `needs_review`
 Draft type: first_touch
 Review note: None yet
 
-
-
 ## Account / Contact Context
 
 - Account: Orbit Founder Office
@@ -24,6 +22,7 @@ Hi,
 
 I noticed Orbit Founder Office looks like a fit for a supervised pipeline sprint based on this workspace note: Founder-led software team with customer discovery calls in docs.
 
+
 Lead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.
 
 The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.
@@ -41,6 +40,7 @@ Franklin
 ## Risk Flags
 
 - Missing: Named buyer or decision-maker; Recent public proof beyond operator notes
+- No named buyer/contact in contacts.csv; operator must confirm recipient.
 
 ## Suggested Send Window
 

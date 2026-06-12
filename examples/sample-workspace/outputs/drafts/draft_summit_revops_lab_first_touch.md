@@ -4,8 +4,6 @@ Approval status: `needs_review`
 Draft type: first_touch
 Review note: None yet
 
-
-
 ## Account / Contact Context
 
 - Account: Summit RevOps Lab
@@ -24,6 +22,7 @@ Hi,
 
 I noticed Summit RevOps Lab looks like a fit for a supervised pipeline sprint based on this workspace note: RevOps advisor with high-value CRM cleanup projects.
 
+
 Lead with a local pipeline sprint for solo consultant teams that connects research quality, follow-up review, and weekly analytics.
 
 The useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.
@@ -41,6 +40,7 @@ Franklin
 ## Risk Flags
 
 - Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context
+- No named buyer/contact in contacts.csv; operator must confirm recipient.
 
 ## Suggested Send Window
 

@@ -39,9 +39,12 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_atlas_founder_labs_note_2] many demo notes in docs. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_atlas_founder_labs_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- [contact_acct_atlas_founder_labs_priya_raman] Priya Raman, CEO. Context: Operator-provided founder-led sales owner for demos and investor follow-ups (source: fixture contacts; confidence: high)
+
 ## Missing Information
 
-- Named buyer or decision-maker
 - Recent public proof beyond operator notes
 
 ## Disqualifiers Checked

@@ -13,6 +13,9 @@ The fixture sprint imported 25 accounts, generated 14 high-fit lead briefs, and 
 | Accounts imported | 25 |
 | Accounts researched | 25 |
 | Accounts scored | 25 |
+| Contacts loaded | 10 |
+| Accounts with contacts | 10 |
+| Contact coverage | 40% |
 | High-fit accounts | 14 |
 | Drafts generated | 25 |
 | Accounts approved | 2 |
@@ -32,6 +35,7 @@ The fixture sprint imported 25 accounts, generated 14 high-fit lead briefs, and 
 
 - Average fit score: 74/100.
 - High-fit denominator: accounts with score >= 75 and no disqualifiers.
+- Contact coverage: 10/25 accounts have local buyer/contact context.
 - Low-confidence or disqualified accounts should be rejected or clarified before any draft is written.
 
 ## Follow-Up Queue Health
@@ -69,7 +73,7 @@ The fixture sprint imported 25 accounts, generated 14 high-fit lead briefs, and 
 - Drafts needing edits before approval: 1.
 - Drafts superseded by revisions: 1.
 - Drafts rejected from use without a new review cycle: 1.
-- Buyer/contact names are missing from the fixture, so every draft requires manual recipient confirmation.
+- Accounts still missing buyer/contact context: 15.
 
 ## Recommended Next Actions
 

@@ -4,14 +4,14 @@ Approval status: `rejected`
 Draft type: first_touch
 Review note: Compliance-sensitive segment needs legal review before drafting.
 
-
-
 ## Account / Contact Context
 
 - Account: Cedar Grant Partners
 - Website: https://cedar-grants.example
 - Segment: professional_services
-- Contact: Unknown; operator must confirm before use.
+- Contact: Elena Brooks, Principal Consultant
+- Contact context: Operator-provided relationship owner with compliance-sensitive follow-up needs
+- Contact source: fixture contacts (confidence: medium)
 
 ## Subject Options
 
@@ -20,9 +20,10 @@ Review note: Compliance-sensitive segment needs legal review before drafting.
 
 ## Message Draft
 
-Hi,
+Hi Elena,
 
 I noticed Cedar Grant Partners looks like a fit for a supervised pipeline sprint based on this workspace note: Grant writing consultancy with many warm relationships.
+I am using Elena Brooks (Principal Consultant) as the tentative recipient from local contact context: Operator-provided relationship owner with compliance-sensitive follow-up needs.
 
 Lead with a human-reviewed follow-up queue for deadline-sensitive relationship workflows.
 
@@ -40,7 +41,7 @@ Franklin
 
 ## Risk Flags
 
-- Missing: Named buyer or decision-maker; Recent public proof beyond operator notes
+- Missing: Recent public proof beyond operator notes
 
 ## Suggested Send Window
 

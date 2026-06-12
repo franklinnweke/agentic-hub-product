@@ -4,14 +4,14 @@ Approval status: `edited`
 Draft type: first_touch
 Review note: Needs stronger managed IT renewal context before use.
 
-
-
 ## Account / Contact Context
 
 - Account: Harbor IT Advisors
 - Website: https://harbor-it.example
 - Segment: professional_services
-- Contact: Unknown; operator must confirm before use.
+- Contact: Marcus Lee, Managing Director
+- Contact context: Operator-provided buyer for managed IT renewal and referral pipeline discipline
+- Contact source: fixture contacts (confidence: medium)
 
 ## Subject Options
 
@@ -20,9 +20,10 @@ Review note: Needs stronger managed IT renewal context before use.
 
 ## Message Draft
 
-Hi,
+Hi Marcus,
 
 I noticed Harbor IT Advisors looks like a fit for a supervised pipeline sprint based on this workspace note: Managed IT advisory firm with high-ticket retainers.
+I am using Marcus Lee (Managing Director) as the tentative recipient from local contact context: Operator-provided buyer for managed IT renewal and referral pipeline discipline.
 
 Lead with a local pipeline sprint for professional services teams that connects research quality, follow-up review, and weekly analytics.
 
@@ -40,7 +41,7 @@ Franklin
 
 ## Risk Flags
 
-- Missing: Named buyer or decision-maker; Recent public proof beyond operator notes
+- Missing: Recent public proof beyond operator notes
 
 ## Suggested Send Window
 

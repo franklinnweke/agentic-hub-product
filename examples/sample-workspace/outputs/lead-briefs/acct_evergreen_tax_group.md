@@ -39,6 +39,10 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_evergreen_tax_group_note_2] deadline-driven follow-up windows. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_evergreen_tax_group_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- No named buyer/contact provided. Operator must confirm recipient before any draft is used.
+
 ## Missing Information
 
 - Named buyer or decision-maker

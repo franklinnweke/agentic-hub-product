@@ -4,8 +4,6 @@ Approval status: `needs_review`
 Draft type: first_touch
 Review note: None yet
 
-
-
 ## Account / Contact Context
 
 - Account: CorePath Systems
@@ -23,6 +21,7 @@ Review note: None yet
 Hi,
 
 I noticed CorePath Systems looks like a fit for a supervised pipeline sprint based on this workspace note: Systems integrator with enterprise service retainers.
+
 
 Lead with evidence-backed lead briefs and review-gated drafts for professional services operators.
 
@@ -42,6 +41,7 @@ Franklin
 
 - Confidence is medium; operator should verify before sending.
 - Missing: Named buyer or decision-maker; Recent public proof beyond operator notes
+- No named buyer/contact in contacts.csv; operator must confirm recipient.
 
 ## Suggested Send Window
 

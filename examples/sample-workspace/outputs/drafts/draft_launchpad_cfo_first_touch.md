@@ -4,14 +4,14 @@ Approval status: `needs_review`
 Draft type: first_touch
 Review note: None yet
 
-
-
 ## Account / Contact Context
 
 - Account: LaunchPad CFO
 - Website: https://launchpad-cfo.example
 - Segment: professional_services
-- Contact: Unknown; operator must confirm before use.
+- Contact: Grace Miller, Partner
+- Contact context: Operator-provided owner of fractional CFO referral pipeline
+- Contact source: fixture contacts (confidence: medium)
 
 ## Subject Options
 
@@ -20,9 +20,10 @@ Review note: None yet
 
 ## Message Draft
 
-Hi,
+Hi Grace,
 
 I noticed LaunchPad CFO looks like a fit for a supervised pipeline sprint based on this workspace note: Fractional CFO firm with high-ticket retainers.
+I am using Grace Miller (Partner) as the tentative recipient from local contact context: Operator-provided owner of fractional CFO referral pipeline.
 
 Lead with evidence-backed lead briefs and review-gated drafts for professional services operators.
 
@@ -40,7 +41,7 @@ Franklin
 
 ## Risk Flags
 
-- Missing: Named buyer or decision-maker; Recent public proof beyond operator notes
+- Missing: Recent public proof beyond operator notes
 
 ## Suggested Send Window
 

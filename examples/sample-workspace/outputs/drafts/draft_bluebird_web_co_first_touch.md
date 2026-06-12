@@ -4,14 +4,14 @@ Approval status: `needs_review`
 Draft type: first_touch
 Review note: None yet
 
-
-
 ## Account / Contact Context
 
 - Account: Bluebird Web Co
 - Website: https://bluebird-web.example
 - Segment: boutique_agency
-- Contact: Unknown; operator must confirm before use.
+- Contact: Leah Torres, Owner
+- Contact context: Operator-provided owner of discovery follow-up and lead-source quality review
+- Contact source: fixture contacts (confidence: medium)
 
 ## Subject Options
 
@@ -20,9 +20,10 @@ Review note: None yet
 
 ## Message Draft
 
-Hi,
+Hi Leah,
 
 I noticed Bluebird Web Co looks like a fit for a supervised pipeline sprint based on this workspace note: Small web agency with inbound audit requests.
+I am using Leah Torres (Owner) as the tentative recipient from local contact context: Operator-provided owner of discovery follow-up and lead-source quality review.
 
 Lead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.
 
@@ -40,7 +41,7 @@ Franklin
 
 ## Risk Flags
 
-- Missing: Named buyer or decision-maker; Recent public proof beyond operator notes
+- Missing: Recent public proof beyond operator notes
 
 ## Suggested Send Window
 

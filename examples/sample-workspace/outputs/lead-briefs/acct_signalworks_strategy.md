@@ -39,9 +39,12 @@ This account appears aligned with the MVP because the target data points to rela
 - [ev_signalworks_strategy_note_2] follow-up notes split across docs. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_signalworks_strategy_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
+## Buyer / Contact Context
+
+- [contact_acct_signalworks_strategy_nora_patel] Nora Patel, Principal. Context: Operator-provided owner of warm founder referral workflow (source: fixture contacts; confidence: medium)
+
 ## Missing Information
 
-- Named buyer or decision-maker
 - Recent public proof beyond operator notes
 
 ## Disqualifiers Checked

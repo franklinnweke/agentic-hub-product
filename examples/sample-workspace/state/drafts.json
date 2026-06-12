@@ -7,15 +7,18 @@
       "Pipeline sprint idea for Northstar Ops Studio",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Northstar Ops Studio looks like a fit for a supervised pipeline sprint based on this workspace note: Founder sells RevOps retainers.\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Maya,\n\nI noticed Northstar Ops Studio looks like a fit for a supervised pipeline sprint based on this workspace note: Founder sells RevOps retainers.\nI am using Maya Chen (Founder) as the tentative recipient from local contact context: Operator-provided tentative buyer because she owns RevOps retainer sales and follow-up process.\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "approved",
+    "contact_id": "contact_acct_northstar_ops_studio_maya_chen",
+    "contact_name": "Maya Chen",
+    "contact_role": "Founder",
     "evidence_ids": [
       "ev_northstar_ops_studio_website",
       "ev_northstar_ops_studio_segment",
       "ev_northstar_ops_studio_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -31,15 +34,18 @@
       "Pipeline sprint idea for Brightlane Creative",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Brightlane Creative looks like a fit for a supervised pipeline sprint based on this workspace note: Eight-person web agency with project-based leads.\n\nLead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Andre,\n\nI noticed Brightlane Creative looks like a fit for a supervised pipeline sprint based on this workspace note: Eight-person web agency with project-based leads.\nI am using Andre Lewis (Managing Partner) as the tentative recipient from local contact context: Operator-provided agency decision-maker for pipeline process and referral analytics.\n\nLead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "superseded",
+    "contact_id": "contact_acct_brightlane_creative_andre_lewis",
+    "contact_name": "Andre Lewis",
+    "contact_role": "Managing Partner",
     "evidence_ids": [
       "ev_brightlane_creative_website",
       "ev_brightlane_creative_segment",
       "ev_brightlane_creative_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -56,15 +62,18 @@
       "Pipeline sprint idea for Atlas Founder Labs",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Atlas Founder Labs looks like a fit for a supervised pipeline sprint based on this workspace note: Early B2B SaaS team doing founder-led sales.\n\nLead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Priya,\n\nI noticed Atlas Founder Labs looks like a fit for a supervised pipeline sprint based on this workspace note: Early B2B SaaS team doing founder-led sales.\nI am using Priya Raman (CEO) as the tentative recipient from local contact context: Operator-provided founder-led sales owner for demos and investor follow-ups.\n\nLead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "contact_acct_atlas_founder_labs_priya_raman",
+    "contact_name": "Priya Raman",
+    "contact_role": "CEO",
     "evidence_ids": [
       "ev_atlas_founder_labs_website",
       "ev_atlas_founder_labs_segment",
       "ev_atlas_founder_labs_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -79,15 +88,18 @@
       "Pipeline sprint idea for Cedar Grant Partners",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Cedar Grant Partners looks like a fit for a supervised pipeline sprint based on this workspace note: Grant writing consultancy with many warm relationships.\n\nLead with a human-reviewed follow-up queue for deadline-sensitive relationship workflows.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Elena,\n\nI noticed Cedar Grant Partners looks like a fit for a supervised pipeline sprint based on this workspace note: Grant writing consultancy with many warm relationships.\nI am using Elena Brooks (Principal Consultant) as the tentative recipient from local contact context: Operator-provided relationship owner with compliance-sensitive follow-up needs.\n\nLead with a human-reviewed follow-up queue for deadline-sensitive relationship workflows.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "rejected",
+    "contact_id": "contact_acct_cedar_grant_partners_elena_brooks",
+    "contact_name": "Elena Brooks",
+    "contact_role": "Principal Consultant",
     "evidence_ids": [
       "ev_cedar_grant_partners_website",
       "ev_cedar_grant_partners_segment",
       "ev_cedar_grant_partners_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -103,15 +115,18 @@
       "Pipeline sprint idea for Harbor IT Advisors",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Harbor IT Advisors looks like a fit for a supervised pipeline sprint based on this workspace note: Managed IT advisory firm with high-ticket retainers.\n\nLead with a local pipeline sprint for professional services teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Marcus,\n\nI noticed Harbor IT Advisors looks like a fit for a supervised pipeline sprint based on this workspace note: Managed IT advisory firm with high-ticket retainers.\nI am using Marcus Lee (Managing Director) as the tentative recipient from local contact context: Operator-provided buyer for managed IT renewal and referral pipeline discipline.\n\nLead with a local pipeline sprint for professional services teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "edited",
+    "contact_id": "contact_acct_harbor_it_advisors_marcus_lee",
+    "contact_name": "Marcus Lee",
+    "contact_role": "Managing Director",
     "evidence_ids": [
       "ev_harbor_it_advisors_website",
       "ev_harbor_it_advisors_segment",
       "ev_harbor_it_advisors_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -127,15 +142,18 @@
       "Pipeline sprint idea for SignalWorks Strategy",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed SignalWorks Strategy looks like a fit for a supervised pipeline sprint based on this workspace note: Independent strategy consultant with warm founder referrals.\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Nora,\n\nI noticed SignalWorks Strategy looks like a fit for a supervised pipeline sprint based on this workspace note: Independent strategy consultant with warm founder referrals.\nI am using Nora Patel (Principal) as the tentative recipient from local contact context: Operator-provided owner of warm founder referral workflow.\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "contact_acct_signalworks_strategy_nora_patel",
+    "contact_name": "Nora Patel",
+    "contact_role": "Principal",
     "evidence_ids": [
       "ev_signalworks_strategy_website",
       "ev_signalworks_strategy_segment",
       "ev_signalworks_strategy_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -150,15 +168,18 @@
       "Pipeline sprint idea for Ridgeway Product Studio",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Ridgeway Product Studio looks like a fit for a supervised pipeline sprint based on this workspace note: Six-person product studio selling discovery sprints.\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Sam,\n\nI noticed Ridgeway Product Studio looks like a fit for a supervised pipeline sprint based on this workspace note: Six-person product studio selling discovery sprints.\nI am using Sam Okafor (Studio Lead) as the tentative recipient from local contact context: Operator-provided buyer for proposal follow-up and segment conversion reporting.\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "contact_acct_ridgeway_product_studio_sam_okafor",
+    "contact_name": "Sam Okafor",
+    "contact_role": "Studio Lead",
     "evidence_ids": [
       "ev_ridgeway_product_studio_website",
       "ev_ridgeway_product_studio_segment",
       "ev_ridgeway_product_studio_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -173,15 +194,18 @@
       "Pipeline sprint idea for LaunchPad CFO",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed LaunchPad CFO looks like a fit for a supervised pipeline sprint based on this workspace note: Fractional CFO firm with high-ticket retainers.\n\nLead with evidence-backed lead briefs and review-gated drafts for professional services operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Grace,\n\nI noticed LaunchPad CFO looks like a fit for a supervised pipeline sprint based on this workspace note: Fractional CFO firm with high-ticket retainers.\nI am using Grace Miller (Partner) as the tentative recipient from local contact context: Operator-provided owner of fractional CFO referral pipeline.\n\nLead with evidence-backed lead briefs and review-gated drafts for professional services operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "contact_acct_launchpad_cfo_grace_miller",
+    "contact_name": "Grace Miller",
+    "contact_role": "Partner",
     "evidence_ids": [
       "ev_launchpad_cfo_website",
       "ev_launchpad_cfo_segment",
       "ev_launchpad_cfo_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -196,15 +220,18 @@
       "Pipeline sprint idea for VectorOps Consulting",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed VectorOps Consulting looks like a fit for a supervised pipeline sprint based on this workspace note: Operations consultant serving SaaS founders.\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Ian,\n\nI noticed VectorOps Consulting looks like a fit for a supervised pipeline sprint based on this workspace note: Operations consultant serving SaaS founders.\nI am using Ian Foster (Founder) as the tentative recipient from local contact context: Operator-provided decision-maker for SaaS founder outreach workflow.\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "contact_acct_vectorops_consulting_ian_foster",
+    "contact_name": "Ian Foster",
+    "contact_role": "Founder",
     "evidence_ids": [
       "ev_vectorops_consulting_website",
       "ev_vectorops_consulting_segment",
       "ev_vectorops_consulting_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -219,15 +246,18 @@
       "Pipeline sprint idea for Bluebird Web Co",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Bluebird Web Co looks like a fit for a supervised pipeline sprint based on this workspace note: Small web agency with inbound audit requests.\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi Leah,\n\nI noticed Bluebird Web Co looks like a fit for a supervised pipeline sprint based on this workspace note: Small web agency with inbound audit requests.\nI am using Leah Torres (Owner) as the tentative recipient from local contact context: Operator-provided owner of discovery follow-up and lead-source quality review.\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "contact_acct_bluebird_web_co_leah_torres",
+    "contact_name": "Leah Torres",
+    "contact_role": "Owner",
     "evidence_ids": [
       "ev_bluebird_web_co_website",
       "ev_bluebird_web_co_segment",
       "ev_bluebird_web_co_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -242,15 +272,19 @@
       "Pipeline sprint idea for Summit RevOps Lab",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Summit RevOps Lab looks like a fit for a supervised pipeline sprint based on this workspace note: RevOps advisor with high-value CRM cleanup projects.\n\nLead with a local pipeline sprint for solo consultant teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Summit RevOps Lab looks like a fit for a supervised pipeline sprint based on this workspace note: RevOps advisor with high-value CRM cleanup projects.\n\n\nLead with a local pipeline sprint for solo consultant teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_summit_revops_lab_website",
       "ev_summit_revops_lab_segment",
       "ev_summit_revops_lab_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -265,15 +299,19 @@
       "Pipeline sprint idea for Kinship Brand Studio",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Kinship Brand Studio looks like a fit for a supervised pipeline sprint based on this workspace note: Brand studio serving B2B services firms.\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Kinship Brand Studio looks like a fit for a supervised pipeline sprint based on this workspace note: Brand studio serving B2B services firms.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_kinship_brand_studio_website",
       "ev_kinship_brand_studio_segment",
       "ev_kinship_brand_studio_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -288,8 +326,11 @@
       "Pipeline sprint idea for Prairie Managed Services",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Prairie Managed Services looks like a fit for a supervised pipeline sprint based on this workspace note: Managed services provider with local commercial prospects.\n\nLead with evidence-backed lead briefs and review-gated drafts for professional services operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Prairie Managed Services looks like a fit for a supervised pipeline sprint based on this workspace note: Managed services provider with local commercial prospects.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for professional services operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_prairie_managed_services_website",
       "ev_prairie_managed_services_segment",
@@ -297,7 +338,8 @@
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -312,15 +354,19 @@
       "Pipeline sprint idea for Orbit Founder Office",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Orbit Founder Office looks like a fit for a supervised pipeline sprint based on this workspace note: Founder-led software team with customer discovery calls in docs.\n\nLead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Orbit Founder Office looks like a fit for a supervised pipeline sprint based on this workspace note: Founder-led software team with customer discovery calls in docs.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_orbit_founder_office_website",
       "ev_orbit_founder_office_segment",
       "ev_orbit_founder_office_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -335,8 +381,11 @@
       "Pipeline sprint idea for North Pier Advisory",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed North Pier Advisory looks like a fit for a supervised pipeline sprint based on this workspace note: Advisory practice selling compliance retainers.\n\nLead with evidence-backed lead briefs and review-gated drafts for professional services operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed North Pier Advisory looks like a fit for a supervised pipeline sprint based on this workspace note: Advisory practice selling compliance retainers.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for professional services operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_north_pier_advisory_website",
       "ev_north_pier_advisory_segment",
@@ -344,7 +393,8 @@
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -359,15 +409,19 @@
       "Pipeline sprint idea for Copperline Creative Ops",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Copperline Creative Ops looks like a fit for a supervised pipeline sprint based on this workspace note: Creative operations agency with proposal pipeline in spreadsheets.\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Copperline Creative Ops looks like a fit for a supervised pipeline sprint based on this workspace note: Creative operations agency with proposal pipeline in spreadsheets.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_copperline_creative_ops_website",
       "ev_copperline_creative_ops_segment",
       "ev_copperline_creative_ops_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -382,15 +436,19 @@
       "Pipeline sprint idea for Beacon AI Enablement",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Beacon AI Enablement looks like a fit for a supervised pipeline sprint based on this workspace note: AI enablement consultant with workshop leads.\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Beacon AI Enablement looks like a fit for a supervised pipeline sprint based on this workspace note: AI enablement consultant with workshop leads.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_beacon_ai_enablement_website",
       "ev_beacon_ai_enablement_segment",
       "ev_beacon_ai_enablement_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -405,15 +463,19 @@
       "Pipeline sprint idea for Fathom Customer Lab",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Fathom Customer Lab looks like a fit for a supervised pipeline sprint based on this workspace note: Customer research SaaS founder running founder-led sales.\n\nLead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Fathom Customer Lab looks like a fit for a supervised pipeline sprint based on this workspace note: Customer research SaaS founder running founder-led sales.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_fathom_customer_lab_website",
       "ev_fathom_customer_lab_segment",
       "ev_fathom_customer_lab_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -428,8 +490,11 @@
       "Pipeline sprint idea for Evergreen Tax Group",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Evergreen Tax Group looks like a fit for a supervised pipeline sprint based on this workspace note: Tax advisory firm with seasonal high-value prospects.\n\nLead with a human-reviewed follow-up queue for deadline-sensitive relationship workflows.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Evergreen Tax Group looks like a fit for a supervised pipeline sprint based on this workspace note: Tax advisory firm with seasonal high-value prospects.\n\n\nLead with a human-reviewed follow-up queue for deadline-sensitive relationship workflows.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_evergreen_tax_group_website",
       "ev_evergreen_tax_group_segment",
@@ -437,7 +502,8 @@
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -452,15 +518,19 @@
       "Pipeline sprint idea for MapleWorks Digital",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed MapleWorks Digital looks like a fit for a supervised pipeline sprint based on this workspace note: Digital agency serving local services.\n\nLead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed MapleWorks Digital looks like a fit for a supervised pipeline sprint based on this workspace note: Digital agency serving local services.\n\n\nLead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_mapleworks_digital_website",
       "ev_mapleworks_digital_segment",
       "ev_mapleworks_digital_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -475,15 +545,19 @@
       "Pipeline sprint idea for Bridgepoint GTM",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Bridgepoint GTM looks like a fit for a supervised pipeline sprint based on this workspace note: GTM consultant with curated target lists.\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Bridgepoint GTM looks like a fit for a supervised pipeline sprint based on this workspace note: GTM consultant with curated target lists.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_bridgepoint_gtm_website",
       "ev_bridgepoint_gtm_segment",
       "ev_bridgepoint_gtm_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -498,8 +572,11 @@
       "Pipeline sprint idea for CorePath Systems",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed CorePath Systems looks like a fit for a supervised pipeline sprint based on this workspace note: Systems integrator with enterprise service retainers.\n\nLead with evidence-backed lead briefs and review-gated drafts for professional services operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed CorePath Systems looks like a fit for a supervised pipeline sprint based on this workspace note: Systems integrator with enterprise service retainers.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for professional services operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_corepath_systems_website",
       "ev_corepath_systems_segment",
@@ -507,7 +584,8 @@
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -522,8 +600,11 @@
       "Pipeline sprint idea for Lumen Launch Studio",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Lumen Launch Studio looks like a fit for a supervised pipeline sprint based on this workspace note: Launch studio with packaged offers.\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Lumen Launch Studio looks like a fit for a supervised pipeline sprint based on this workspace note: Launch studio with packaged offers.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_lumen_launch_studio_website",
       "ev_lumen_launch_studio_segment",
@@ -531,7 +612,8 @@
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -546,15 +628,19 @@
       "Pipeline sprint idea for Tandem Ops Partners",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Tandem Ops Partners looks like a fit for a supervised pipeline sprint based on this workspace note: Two-person ops consultancy with relationship-heavy pipeline.\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "body": "Hi,\n\nI noticed Tandem Ops Partners looks like a fit for a supervised pipeline sprint based on this workspace note: Two-person ops consultancy with relationship-heavy pipeline.\n\n\nLead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
     "status": "needs_review",
+    "contact_id": "",
+    "contact_name": "",
+    "contact_role": "",
     "evidence_ids": [
       "ev_tandem_ops_partners_website",
       "ev_tandem_ops_partners_segment",
       "ev_tandem_ops_partners_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
+      "No named buyer/contact in contacts.csv; operator must confirm recipient."
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
@@ -569,15 +655,18 @@
       "Pipeline sprint idea for Brightlane Creative",
       "Evidence-backed follow-up workflow"
     ],
-    "body": "Hi,\n\nI noticed Brightlane Creative looks like a fit for a supervised pipeline sprint based on this workspace note: Eight-person web agency with project-based leads.\n\nLead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin\n\n---\n\nOperator revision notes:\nAdd an agency-specific proof point and keep the ask low-pressure.\n\nRevision reminder: verify recipient, proof point, and send context before approving.",
+    "body": "Hi Andre,\n\nI noticed Brightlane Creative looks like a fit for a supervised pipeline sprint based on this workspace note: Eight-person web agency with project-based leads.\nI am using Andre Lewis (Managing Partner) as the tentative recipient from local contact context: Operator-provided agency decision-maker for pipeline process and referral analytics.\n\nLead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin\n\n---\n\nOperator revision notes:\nAdd an agency-specific proof point and keep the ask low-pressure.\n\nRevision reminder: verify recipient, proof point, and send context before approving.",
     "status": "needs_review",
+    "contact_id": "contact_acct_brightlane_creative_andre_lewis",
+    "contact_name": "Andre Lewis",
+    "contact_role": "Managing Partner",
     "evidence_ids": [
       "ev_brightlane_creative_website",
       "ev_brightlane_creative_segment",
       "ev_brightlane_creative_note_1"
     ],
     "risk_flags": [
-      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+      "Missing: Recent public proof beyond operator notes"
     ],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",

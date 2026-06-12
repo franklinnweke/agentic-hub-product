@@ -57,6 +57,15 @@
         "superseded"
       ]
     },
+    "contact_id": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_role": {
+      "type": "string"
+    },
     "evidence_ids": {
       "type": "array",
       "items": {
