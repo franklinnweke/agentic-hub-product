@@ -7,6 +7,7 @@ const WORKSPACE_DIRS = [
   "config",
   "inputs",
   "outputs/lead-briefs",
+  "outputs/lead-briefs-json",
   "outputs/drafts",
   "outputs/reports",
   "outputs/evals",
@@ -351,12 +352,17 @@ function generateBriefs(workspace, now) {
   for (const account of accounts) {
     const accountEvidence = evidence.filter((item) => item.account_id === account.id);
     const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
-    const brief = renderLeadBrief(account, prioritizeEvidence(accountEvidence), accountContacts, now);
+    const prioritizedEvidence = prioritizeEvidence(accountEvidence);
+    const brief = renderLeadBrief(account, prioritizedEvidence, accountContacts, now);
     const briefPath = path.join(workspace, "outputs", "lead-briefs", `${account.id}.md`);
+    const jsonPath = path.join(workspace, "outputs", "lead-briefs-json", `${account.id}.json`);
     fs.writeFileSync(briefPath, brief);
+    writeJson(jsonPath, buildLeadBriefJson(account, prioritizedEvidence, accountContacts, now));
     outputFiles.push(relative(workspace, briefPath));
+    outputFiles.push(relative(workspace, jsonPath));
     events.push(eventFor("account", account.id, "lead_brief_generated", now, {
       output_file: relative(workspace, briefPath),
+      json_file: relative(workspace, jsonPath),
       evidence_count: accountEvidence.length
     }));
   }
@@ -374,7 +380,7 @@ function generateBriefs(workspace, now) {
     errors: []
   });
 
-  console.log(`Generated ${outputFiles.length} lead briefs.`);
+  console.log(`Generated ${accounts.length} lead briefs and ${outputFiles.length} lead brief artifacts.`);
 }
 
 function generateDrafts(workspace, now) {
@@ -413,7 +419,7 @@ function generateDrafts(workspace, now) {
     timestamp: now,
     pack: "follow-ups",
     command: "generate-drafts",
-    input_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json", "state/interactions.json", "outputs/lead-briefs/*.md"],
+    input_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json", "state/interactions.json", "outputs/lead-briefs/*.md", "outputs/lead-briefs-json/*.json"],
     output_files: ["state/drafts.json", ...drafts.map((draft) => `outputs/drafts/${draft.id}.md`)],
     status: "completed",
     warnings: skipped,
@@ -771,6 +777,7 @@ function exportHandoff(workspace, flags, now) {
   fs.mkdirSync(outDir, { recursive: true });
 
   copiedFiles.push(...copyTree(path.join(workspace, "outputs", "lead-briefs"), path.join(outDir, "lead-briefs")));
+  copiedFiles.push(...copyTree(path.join(workspace, "outputs", "lead-briefs-json"), path.join(outDir, "lead-briefs-json")));
   copiedFiles.push(...copyTree(path.join(workspace, "outputs", "drafts"), path.join(outDir, "drafts")));
   copiedFiles.push(...copyTree(path.join(workspace, "outputs", "reports"), path.join(outDir, "reports")));
   copiedFiles.push(...copyTree(path.join(workspace, "outputs", "evals"), path.join(outDir, "evals")));
@@ -817,6 +824,7 @@ function exportHandoff(workspace, flags, now) {
     command: "export",
     input_files: [
       "outputs/lead-briefs/",
+      "outputs/lead-briefs-json/",
       "outputs/drafts/",
       "outputs/reports/",
       "outputs/evals/",
@@ -851,6 +859,7 @@ function sanitizeWorkspace(workspace, flags, now) {
   fs.mkdirSync(outDir, { recursive: true });
 
   copiedFiles.push(...copySanitizedTree(path.join(workspace, "outputs", "lead-briefs"), path.join(outDir, "lead-briefs"), replacements));
+  copiedFiles.push(...copySanitizedTree(path.join(workspace, "outputs", "lead-briefs-json"), path.join(outDir, "lead-briefs-json"), replacements));
   copiedFiles.push(...copySanitizedTree(path.join(workspace, "outputs", "drafts"), path.join(outDir, "drafts"), replacements));
   copiedFiles.push(...copySanitizedTree(path.join(workspace, "outputs", "reports"), path.join(outDir, "reports"), replacements));
   copiedFiles.push(...copySanitizedTree(path.join(workspace, "outputs", "evals"), path.join(outDir, "evals"), replacements));
@@ -897,6 +906,7 @@ function sanitizeWorkspace(workspace, flags, now) {
     command: "sanitize",
     input_files: [
       "outputs/lead-briefs/",
+      "outputs/lead-briefs-json/",
       "outputs/drafts/",
       "outputs/reports/",
       "outputs/evals/"
@@ -948,7 +958,13 @@ function validateWorkspace(workspace) {
     const evidenceCount = evidence.filter((item) => item.account_id === account.id).length;
     if (evidenceCount < 3) errors.push(`${account.id} has fewer than three evidence items`);
     const briefPath = path.join(workspace, "outputs", "lead-briefs", `${account.id}.md`);
+    const jsonPath = path.join(workspace, "outputs", "lead-briefs-json", `${account.id}.json`);
     if (!fs.existsSync(briefPath)) errors.push(`${account.id} is missing a lead brief`);
+    if (!fs.existsSync(jsonPath)) {
+      errors.push(`${account.id} is missing a JSON lead brief`);
+    } else {
+      validateLeadBriefJson(readJson(jsonPath), account, evidence, contacts, errors);
+    }
   }
 
   for (const item of evidence) {
@@ -1201,8 +1217,11 @@ function regenerateLeadBrief(workspace, account, now) {
   const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
   const accountEvidence = evidence.filter((item) => item.account_id === account.id);
   const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
+  const prioritizedEvidence = prioritizeEvidence(accountEvidence);
   const briefPath = path.join(workspace, "outputs", "lead-briefs", `${account.id}.md`);
-  fs.writeFileSync(briefPath, renderLeadBrief(account, prioritizeEvidence(accountEvidence), accountContacts, now));
+  const jsonPath = path.join(workspace, "outputs", "lead-briefs-json", `${account.id}.json`);
+  fs.writeFileSync(briefPath, renderLeadBrief(account, prioritizedEvidence, accountContacts, now));
+  writeJson(jsonPath, buildLeadBriefJson(account, prioritizedEvidence, accountContacts, now));
 }
 
 function regenerateDraft(workspace, account, draft) {
@@ -1221,7 +1240,7 @@ function ensureWorkspaceDirs(workspace) {
 }
 
 function resetGeneratedWorkspaceFiles(workspace) {
-  for (const generatedDir of ["outputs/lead-briefs", "outputs/drafts", "outputs/reports", "outputs/evals", "outputs/console", "outputs/handoff", "outputs/sanitized", "state", "logs"]) {
+  for (const generatedDir of ["outputs/lead-briefs", "outputs/lead-briefs-json", "outputs/drafts", "outputs/reports", "outputs/evals", "outputs/console", "outputs/handoff", "outputs/sanitized", "state", "logs"]) {
     fs.rmSync(path.join(workspace, generatedDir), { recursive: true, force: true });
   }
   fs.rmSync(path.join(workspace, "inputs", "outcomes.csv"), { force: true });
@@ -1926,6 +1945,98 @@ function buildQualityEvaluation(accounts, evidence, drafts, contacts, interactio
     account_rows: accountRows,
     draft_rows: draftRows
   };
+}
+
+function buildLeadBriefJson(account, evidence, contacts, now) {
+  return {
+    schema_version: "1.0",
+    generated_at: now,
+    account_id: account.id,
+    account_name: account.name,
+    website: account.website,
+    segment: account.segment,
+    source: account.source,
+    summary: account.notes,
+    review_status: account.status,
+    review_note: account.review_note ?? "",
+    fit_score: account.fit_score,
+    score_breakdown: account.score_breakdown,
+    fit_rationale: account.disqualifiers.length > 0
+      ? "This account appears risky for the MVP because it conflicts with the supervised, human-approved workflow boundary."
+      : "This account appears aligned with the MVP because the target data points to relationship-heavy revenue work, scattered context, or follow-up discipline needs.",
+    confidence: account.confidence,
+    evidence: evidence.map((item) => ({
+      id: item.id,
+      source_type: item.source_type,
+      source_url: item.source_url,
+      claim: item.claim,
+      confidence: item.confidence,
+      captured_at: item.captured_at
+    })),
+    contacts: contacts.map((contact) => ({
+      id: contact.id,
+      name: contact.name,
+      role: contact.role,
+      context: contact.context,
+      source: contact.source,
+      confidence: contact.confidence
+    })),
+    missing_information: account.missing_information,
+    disqualifiers: account.disqualifiers,
+    suggested_angle: account.suggested_angle,
+    recommended_next_action: account.recommended_next_action,
+    approval_gate: "Operator review only. Agentic Hub does not send messages, submit forms, mutate CRM records, or use credentials in the MVP."
+  };
+}
+
+function validateLeadBriefJson(brief, account, evidence, contacts, errors) {
+  const required = [
+    "schema_version",
+    "generated_at",
+    "account_id",
+    "account_name",
+    "website",
+    "summary",
+    "fit_score",
+    "fit_rationale",
+    "evidence",
+    "missing_information",
+    "disqualifiers",
+    "suggested_angle",
+    "recommended_next_action",
+    "confidence",
+    "approval_gate"
+  ];
+  for (const field of required) {
+    if (brief[field] === undefined || brief[field] === "") {
+      errors.push(`${account.id} JSON lead brief is missing ${field}`);
+    }
+  }
+
+  if (brief.account_id !== account.id) errors.push(`${account.id} JSON lead brief has account_id ${brief.account_id}`);
+  if (brief.account_name !== account.name) errors.push(`${account.id} JSON lead brief has stale account_name`);
+  if (brief.fit_score !== account.fit_score) errors.push(`${account.id} JSON lead brief has stale fit_score`);
+  if (brief.confidence !== account.confidence) errors.push(`${account.id} JSON lead brief has stale confidence`);
+  if (!Array.isArray(brief.evidence)) {
+    errors.push(`${account.id} JSON lead brief evidence is not an array`);
+  } else {
+    const evidenceCount = evidence.filter((item) => item.account_id === account.id).length;
+    if (brief.evidence.length !== evidenceCount) errors.push(`${account.id} JSON lead brief has ${brief.evidence.length} evidence items, expected ${evidenceCount}`);
+    for (const item of brief.evidence) {
+      if (!item.id || !item.claim || !item.source_type || !item.source_url || !item.confidence) {
+        errors.push(`${account.id} JSON lead brief has incomplete evidence record`);
+      }
+    }
+  }
+  if (!Array.isArray(brief.contacts)) {
+    errors.push(`${account.id} JSON lead brief contacts is not an array`);
+  } else {
+    const contactCount = contacts.filter((contact) => contact.account_id === account.id).length;
+    if (brief.contacts.length !== contactCount) errors.push(`${account.id} JSON lead brief has ${brief.contacts.length} contacts, expected ${contactCount}`);
+  }
+  if (!String(brief.approval_gate ?? "").includes("does not send messages")) {
+    errors.push(`${account.id} JSON lead brief is missing no-send approval gate`);
+  }
 }
 
 function renderPilotReadinessReport(checks, now) {
@@ -3143,6 +3254,7 @@ This folder contains client-facing artifacts from a supervised pipeline sprint. 
 ## Included
 
 - \`lead-briefs/\` - evidence-backed account briefs
+- \`lead-briefs-json/\` - machine-readable lead brief JSON artifacts
 - \`drafts/\` - human-review follow-up drafts
 - \`reports/weekly-pipeline-report.md\` - weekly operating report
 - \`reports/metrics.csv\` - report metrics in CSV form
@@ -3197,6 +3309,7 @@ This folder contains publishable proof artifacts derived from a local Agentic Hu
 ## Included
 
 - \`lead-briefs/\` - redacted account briefs
+- \`lead-briefs-json/\` - redacted machine-readable lead brief JSON artifacts
 - \`drafts/\` - redacted human-review follow-up drafts
 - \`reports/weekly-pipeline-report.md\` - redacted operating report
 - \`reports/metrics.csv\` - metrics in CSV form

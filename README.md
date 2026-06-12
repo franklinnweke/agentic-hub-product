@@ -38,7 +38,7 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 ## Repository Map
 
 - `bin/agentic-hub.mjs` - zero-dependency local CLI for the first MVP workflow.
-- `schemas/` - JSON schemas for accounts, contacts, previous interactions, evidence, drafts, events, and manual outcomes.
+- `schemas/` - JSON schemas for accounts, contacts, previous interactions, evidence, lead briefs, drafts, events, and manual outcomes.
 - `examples/sample-workspace/` - runnable fixture workspace with generated sample outputs.
 - `docs/product-plan.md` - product strategy, positioning, packaging, monetization.
 - `docs/prd.md` - product requirements document for the first shippable version.
@@ -120,6 +120,7 @@ node ./bin/agentic-hub.mjs sanitize --workspace ./workspace
 The fixture writes:
 
 - `examples/sample-workspace/outputs/lead-briefs/` - evidence-backed account briefs.
+- `examples/sample-workspace/outputs/lead-briefs-json/` - machine-readable lead brief artifacts aligned to `schemas/lead-brief.schema.json`.
 - `examples/sample-workspace/outputs/drafts/` - follow-up drafts that start in `needs_review`.
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md` - analytics report.
 - `examples/sample-workspace/outputs/evals/quality-report.md` - deterministic quality/readiness evaluation for briefs and drafts.

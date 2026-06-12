@@ -7,6 +7,7 @@ This folder contains client-facing artifacts from a supervised pipeline sprint. 
 ## Included
 
 - `lead-briefs/` - evidence-backed account briefs
+- `lead-briefs-json/` - machine-readable lead brief JSON artifacts
 - `drafts/` - human-review follow-up drafts
 - `reports/weekly-pipeline-report.md` - weekly operating report
 - `reports/metrics.csv` - report metrics in CSV form

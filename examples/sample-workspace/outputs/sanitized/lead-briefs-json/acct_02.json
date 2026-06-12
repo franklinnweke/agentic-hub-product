@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-11T22:41:00.000Z",
+  "account_id": "acct_02",
+  "account_name": "Account 02",
+  "website": "https://account-02.example",
+  "segment": "boutique_agency",
+  "source": "demo fixture",
+  "summary": "Eight-person web agency with project-based leads, inconsistent follow-up process, no analytics on referral source quality.",
+  "review_status": "approved",
+  "review_note": "Fixture operator approved for agency workflow proof.",
+  "fit_score": 82,
+  "score_breakdown": {
+    "icp_match": 28,
+    "pain_signal": 12,
+    "ability_to_pay": 15,
+    "reachable_context": 15,
+    "timing_signal": 2,
+    "strategic_relevance": 10
+  },
+  "fit_rationale": "This account appears aligned with the MVP because the target data points to relationship-heavy revenue work, scattered context, or follow-up discipline needs.",
+  "confidence": "high",
+  "evidence": [
+    {
+      "id": "ev_acct_02_research_3",
+      "source_type": "approved_public_source",
+      "source_url": "https://account-02.example/work",
+      "claim": "Public portfolio page emphasizes referral-driven web projects and recurring client work.",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_acct_02_research_4",
+      "source_type": "manual_research",
+      "source_url": "inputs/research.csv",
+      "claim": "Operator note says Account 02 wants an agency-specific proof point before approving a follow-up.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_02_note_1",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "Eight-person web agency with project-based leads.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_02_note_2",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "inconsistent follow-up process.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_02_website",
+      "source_type": "website",
+      "source_url": "https://account-02.example",
+      "claim": "Website listed for account: https://account-02.example",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_02_segment",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Segment from target list: boutique_agency",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_02_source",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Imported from source: demo fixture",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "contact_02",
+      "name": "Contact 02",
+      "role": "Managing Partner",
+      "context": "Operator-provided agency decision-maker for pipeline process and referral analytics",
+      "source": "fixture contacts",
+      "confidence": "medium"
+    }
+  ],
+  "missing_information": [],
+  "disqualifiers": [],
+  "suggested_angle": "Lead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.",
+  "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+  "approval_gate": "Operator review only. Agentic Hub does not send messages, submit forms, mutate CRM records, or use credentials in the MVP."
+}

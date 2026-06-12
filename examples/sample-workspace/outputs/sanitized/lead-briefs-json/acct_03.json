@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-11T22:30:00.000Z",
+  "account_id": "acct_03",
+  "account_name": "Account 03",
+  "website": "https://account-03.example",
+  "segment": "founder_led_b2b",
+  "source": "demo fixture",
+  "summary": "Early B2B SaaS team doing founder-led sales, many demo notes in docs, needs context-aware investor and prospect follow-ups.",
+  "review_status": "needs_review",
+  "review_note": "",
+  "fit_score": 86,
+  "score_breakdown": {
+    "icp_match": 30,
+    "pain_signal": 12,
+    "ability_to_pay": 15,
+    "reachable_context": 15,
+    "timing_signal": 4,
+    "strategic_relevance": 10
+  },
+  "fit_rationale": "This account appears aligned with the MVP because the target data points to relationship-heavy revenue work, scattered context, or follow-up discipline needs.",
+  "confidence": "high",
+  "evidence": [
+    {
+      "id": "ev_acct_03_research_5",
+      "source_type": "approved_public_source",
+      "source_url": "https://account-03.example/product",
+      "claim": "Public product page describes founder-led demos and investor update workflows.",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_03_note_1",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "Early B2B SaaS team doing founder-led sales.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_03_note_2",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "many demo notes in docs.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_03_website",
+      "source_type": "website",
+      "source_url": "https://account-03.example",
+      "claim": "Website listed for account: https://account-03.example",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_03_segment",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Segment from target list: founder_led_b2b",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_03_source",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Imported from source: demo fixture",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "contact_03",
+      "name": "Contact 03",
+      "role": "CEO",
+      "context": "Operator-provided founder-led sales owner for demos and investor follow-ups",
+      "source": "fixture contacts",
+      "confidence": "high"
+    }
+  ],
+  "missing_information": [],
+  "disqualifiers": [],
+  "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.",
+  "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+  "approval_gate": "Operator review only. Agentic Hub does not send messages, submit forms, mutate CRM records, or use credentials in the MVP."
+}

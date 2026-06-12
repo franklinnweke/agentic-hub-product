@@ -7,6 +7,7 @@ This folder contains publishable proof artifacts derived from a local Agentic Hu
 ## Included
 
 - `lead-briefs/` - redacted account briefs
+- `lead-briefs-json/` - redacted machine-readable lead brief JSON artifacts
 - `drafts/` - redacted human-review follow-up drafts
 - `reports/weekly-pipeline-report.md` - redacted operating report
 - `reports/metrics.csv` - metrics in CSV form

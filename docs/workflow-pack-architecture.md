@@ -49,6 +49,7 @@ workspace/
     previous_interactions.md
   outputs/
     lead-briefs/
+    lead-briefs-json/
     drafts/
     reports/
     console/

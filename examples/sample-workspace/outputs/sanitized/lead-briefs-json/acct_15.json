@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-11T22:30:00.000Z",
+  "account_id": "acct_15",
+  "account_name": "Account 15",
+  "website": "https://account-15.example",
+  "segment": "professional_services",
+  "source": "demo fixture",
+  "summary": "Advisory practice selling compliance retainers, relationship-heavy sales motion, careful language requirements, and limited pipeline reporting.",
+  "review_status": "needs_review",
+  "review_note": "",
+  "fit_score": 59,
+  "score_breakdown": {
+    "icp_match": 24,
+    "pain_signal": 0,
+    "ability_to_pay": 12,
+    "reachable_context": 15,
+    "timing_signal": 0,
+    "strategic_relevance": 8
+  },
+  "fit_rationale": "This account appears aligned with the MVP because the target data points to relationship-heavy revenue work, scattered context, or follow-up discipline needs.",
+  "confidence": "medium",
+  "evidence": [
+    {
+      "id": "ev_account_15_note_1",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "Advisory practice selling compliance retainers.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_15_note_2",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "relationship-heavy sales motion.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_15_website",
+      "source_type": "website",
+      "source_url": "https://account-15.example",
+      "claim": "Website listed for account: https://account-15.example",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_15_segment",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Segment from target list: professional_services",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_15_source",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Imported from source: demo fixture",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    }
+  ],
+  "contacts": [],
+  "missing_information": [
+    "Named buyer or decision-maker",
+    "Recent public proof beyond operator notes",
+    "Follow-up trigger or current relationship context"
+  ],
+  "disqualifiers": [],
+  "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for professional services operators.",
+  "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+  "approval_gate": "Operator review only. Agentic Hub does not send messages, submit forms, mutate CRM records, or use credentials in the MVP."
+}

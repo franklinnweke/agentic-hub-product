@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-11T22:30:00.000Z",
+  "account_id": "acct_08",
+  "account_name": "Account 08",
+  "website": "https://account-08.example",
+  "segment": "professional_services",
+  "source": "demo fixture",
+  "summary": "Fractional CFO firm with high-ticket retainers, many referral introductions, missed renewal follow-ups, and scattered call notes.",
+  "review_status": "needs_review",
+  "review_note": "",
+  "fit_score": 73,
+  "score_breakdown": {
+    "icp_match": 24,
+    "pain_signal": 12,
+    "ability_to_pay": 12,
+    "reachable_context": 15,
+    "timing_signal": 2,
+    "strategic_relevance": 8
+  },
+  "fit_rationale": "This account appears aligned with the MVP because the target data points to relationship-heavy revenue work, scattered context, or follow-up discipline needs.",
+  "confidence": "high",
+  "evidence": [
+    {
+      "id": "ev_acct_08_research_10",
+      "source_type": "customer_provided",
+      "source_url": "inputs/research.csv",
+      "claim": "Client-provided context says referral follow-up consistency is a bottleneck for fractional CFO services.",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_08_note_1",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "Fractional CFO firm with high-ticket retainers.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_08_note_2",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "many referral introductions.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_08_website",
+      "source_type": "website",
+      "source_url": "https://account-08.example",
+      "claim": "Website listed for account: https://account-08.example",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_08_segment",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Segment from target list: professional_services",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_08_source",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Imported from source: demo fixture",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "contact_08",
+      "name": "Contact 08",
+      "role": "Partner",
+      "context": "Operator-provided owner of fractional CFO referral pipeline",
+      "source": "fixture contacts",
+      "confidence": "medium"
+    }
+  ],
+  "missing_information": [],
+  "disqualifiers": [],
+  "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for professional services operators.",
+  "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+  "approval_gate": "Operator review only. Agentic Hub does not send messages, submit forms, mutate CRM records, or use credentials in the MVP."
+}

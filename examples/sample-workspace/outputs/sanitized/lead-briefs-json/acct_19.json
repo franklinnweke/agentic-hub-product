@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-11T22:30:00.000Z",
+  "account_id": "acct_19",
+  "account_name": "Account 19",
+  "website": "https://account-19.example",
+  "segment": "professional_services",
+  "source": "demo fixture",
+  "summary": "Tax advisory firm with seasonal high-value prospects, deadline-driven follow-up windows, and manual referral tracking.",
+  "review_status": "needs_review",
+  "review_note": "",
+  "fit_score": 69,
+  "score_breakdown": {
+    "icp_match": 24,
+    "pain_signal": 8,
+    "ability_to_pay": 12,
+    "reachable_context": 15,
+    "timing_signal": 2,
+    "strategic_relevance": 8
+  },
+  "fit_rationale": "This account appears aligned with the MVP because the target data points to relationship-heavy revenue work, scattered context, or follow-up discipline needs.",
+  "confidence": "medium",
+  "evidence": [
+    {
+      "id": "ev_account_19_note_1",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "Tax advisory firm with seasonal high-value prospects.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_19_note_2",
+      "source_type": "operator_note",
+      "source_url": "inputs/targets.csv",
+      "claim": "deadline-driven follow-up windows.",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_19_website",
+      "source_type": "website",
+      "source_url": "https://account-19.example",
+      "claim": "Website listed for account: https://account-19.example",
+      "confidence": "medium",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_19_segment",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Segment from target list: professional_services",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    },
+    {
+      "id": "ev_account_19_source",
+      "source_type": "target_csv",
+      "source_url": "inputs/targets.csv",
+      "claim": "Imported from source: demo fixture",
+      "confidence": "high",
+      "captured_at": "2026-06-11T22:30:00.000Z"
+    }
+  ],
+  "contacts": [],
+  "missing_information": [
+    "Named buyer or decision-maker",
+    "Recent public proof beyond operator notes"
+  ],
+  "disqualifiers": [],
+  "suggested_angle": "Lead with a human-reviewed follow-up queue for deadline-sensitive relationship workflows.",
+  "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+  "approval_gate": "Operator review only. Agentic Hub does not send messages, submit forms, mutate CRM records, or use credentials in the MVP."
+}
