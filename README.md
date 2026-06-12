@@ -44,6 +44,7 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 - `docs/prd.md` - product requirements document for the first shippable version.
 - `docs/workflow-pack-architecture.md` - workflow-pack design, inputs, outputs, guardrails.
 - `docs/case-study-fixture-sprint.md` - sanitized case study for the runnable fixture sprint.
+- `docs/service-offer.md` - service offer and pricing page draft for the pipeline sprint.
 - `docs/roadmap.md` - 48-hour, 30-day, and 90-day implementation path.
 - `docs/go-to-market.md` - first customer, service wedge, pricing, and proof strategy.
 - `packs/` - pack-level specs for lead gen, follow-ups, and analytics.
