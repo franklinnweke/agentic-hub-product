@@ -44,6 +44,14 @@ Use `inputs/research.csv` for manually captured approved-source claims. Do not s
 
 Keep private inputs out of Git unless they are fully sanitized and approved for publication.
 
+Run the preflight audit before processing client data:
+
+```sh
+node ./bin/agentic-hub.mjs pilot-check --workspace ../client-sprint-workspace
+```
+
+Review `outputs/reports/pilot-readiness.md` and fix any failed checks before continuing.
+
 ## 3. Run The Workflow
 
 ```sh

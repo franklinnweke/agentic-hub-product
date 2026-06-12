@@ -147,9 +147,10 @@ Start a private permissioned pilot workspace with:
 
 ```sh
 node ./bin/agentic-hub.mjs pilot-init --workspace ../client-sprint-workspace
+node ./bin/agentic-hub.mjs pilot-check --workspace ../client-sprint-workspace
 ```
 
-That command creates starter inputs plus `PILOT-CHECKLIST.md`, `config/publication-approval.md`, and a workspace `.gitignore` that keeps raw client inputs, state, logs, and outputs out of Git by default.
+The first command creates starter inputs plus `PILOT-CHECKLIST.md`, `config/publication-approval.md`, and a workspace `.gitignore` that keeps raw client inputs, state, logs, and outputs out of Git by default. The second command writes `outputs/reports/pilot-readiness.md` and fails on blocking setup issues before client data is processed.
 
 Implementation stack: Node.js ESM with plain files. This keeps the workflow easy to run now and leaves a clean path toward a TypeScript web console later.
 

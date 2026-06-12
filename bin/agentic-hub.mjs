@@ -48,6 +48,9 @@ function main() {
       case "pilot-init":
         initPilotWorkspace(workspace, now);
         break;
+      case "pilot-check":
+        checkPilotWorkspace(workspace, now);
+        break;
       case "ingest":
         ingestTargets(workspace, now);
         break;
@@ -149,6 +152,7 @@ Usage:
 Commands:
   init              Create a local workspace layout and starter input files
   pilot-init        Create a private permissioned pilot workspace with safety checklist
+  pilot-check       Audit a private pilot workspace before running client data
   ingest            Read inputs/targets.csv and write state/accounts.json + evidence.json
   generate-briefs   Generate Markdown lead briefs from local state
   generate-drafts   Generate human-review follow-up drafts from lead briefs
@@ -991,6 +995,207 @@ function validateWorkspace(workspace) {
   console.log(`Validation passed: ${accounts.length} accounts, ${contacts.length} contacts, ${interactions.length} interactions, ${evidence.length} evidence items, ${drafts.length} drafts, ${outcomes.length} outcomes, ${events.length} events.`);
 }
 
+function checkPilotWorkspace(workspace, now) {
+  ensureWorkspaceDirs(workspace);
+  const checks = buildPilotChecks(workspace);
+  const failures = checks.filter((check) => check.status === "fail");
+  const warnings = checks.filter((check) => check.status === "warn");
+  const reportPath = path.join(workspace, "outputs", "reports", "pilot-readiness.md");
+
+  fs.writeFileSync(reportPath, renderPilotReadinessReport(checks, now));
+  appendRunLog(workspace, {
+    run_id: runId("pilot_check", now),
+    timestamp: now,
+    pack: "workspace",
+    command: "pilot-check",
+    input_files: [
+      "PILOT-CHECKLIST.md",
+      "config/publication-approval.md",
+      ".gitignore",
+      "inputs/",
+      "config/"
+    ],
+    output_files: ["outputs/reports/pilot-readiness.md"],
+    status: failures.length > 0 ? "failed" : "completed",
+    warnings: warnings.map((check) => check.message),
+    errors: failures.map((check) => check.message)
+  });
+
+  console.log(`Pilot readiness report: ${relative(workspace, reportPath)}`);
+  console.log(`Pilot readiness: ${checks.length - failures.length - warnings.length} passed, ${warnings.length} warnings, ${failures.length} failures.`);
+
+  if (failures.length > 0) {
+    throw new Error(`Pilot workspace is not ready:\n- ${failures.map((check) => check.message).join("\n- ")}`);
+  }
+}
+
+function buildPilotChecks(workspace) {
+  const checks = [];
+  const requiredFiles = [
+    "PILOT-CHECKLIST.md",
+    "config/publication-approval.md",
+    ".gitignore",
+    "inputs/targets.csv",
+    "inputs/contacts.csv",
+    "inputs/research.csv",
+    "inputs/previous_interactions.md",
+    "config/icp.md",
+    "config/offer.md"
+  ];
+
+  for (const file of requiredFiles) {
+    checks.push(fileCheck(workspace, file));
+  }
+
+  const gitignorePath = path.join(workspace, ".gitignore");
+  if (fs.existsSync(gitignorePath)) {
+    const gitignore = fs.readFileSync(gitignorePath, "utf8");
+    for (const pattern of ["inputs/", "state/", "logs/", "outputs/", ".env", "*.pem", "*.key"]) {
+      checks.push(gitignore.includes(pattern)
+        ? pass(`.gitignore keeps ${pattern} private`)
+        : fail(`.gitignore should include ${pattern}`)
+      );
+    }
+  }
+
+  const targetPath = path.join(workspace, "inputs", "targets.csv");
+  if (fs.existsSync(targetPath)) {
+    try {
+      const rows = parseCsv(fs.readFileSync(targetPath, "utf8"));
+      validateTargetRows(rows);
+      checks.push(pass(`targets.csv has ${rows.length} valid target row${rows.length === 1 ? "" : "s"}`));
+    } catch (error) {
+      checks.push(fail(error.message));
+    }
+  }
+
+  const contactPath = path.join(workspace, "inputs", "contacts.csv");
+  if (fs.existsSync(contactPath)) {
+    try {
+      const rows = parseCsv(fs.readFileSync(contactPath, "utf8"));
+      validateContactRows(rows);
+      checks.push(rows.length > 0
+        ? pass(`contacts.csv has ${rows.length} local contact row${rows.length === 1 ? "" : "s"}`)
+        : warn("contacts.csv has no contacts; drafts will require recipient confirmation")
+      );
+    } catch (error) {
+      checks.push(fail(error.message));
+    }
+  }
+
+  const researchPath = path.join(workspace, "inputs", "research.csv");
+  if (fs.existsSync(researchPath)) {
+    try {
+      const rows = parseCsv(fs.readFileSync(researchPath, "utf8"));
+      validateResearchRows(rows);
+      checks.push(rows.length > 0
+        ? pass(`research.csv has ${rows.length} approved research row${rows.length === 1 ? "" : "s"}`)
+        : warn("research.csv has no research rows; evidence will rely on target notes")
+      );
+    } catch (error) {
+      checks.push(fail(error.message));
+    }
+  }
+
+  const sensitiveFiles = findPilotRiskFiles(workspace);
+  checks.push(sensitiveFiles.length === 0
+    ? pass("No credential-like files found in the workspace")
+    : fail(`Remove credential-like files before running: ${sensitiveFiles.join(", ")}`)
+  );
+
+  const riskyLanguage = scanPilotRiskLanguage(workspace);
+  checks.push(riskyLanguage.length === 0
+    ? pass("No obvious outbound automation risk language found in inputs/config")
+    : warn(`Review risky language before running: ${riskyLanguage.join("; ")}`)
+  );
+
+  return checks;
+}
+
+function fileCheck(workspace, file) {
+  return fs.existsSync(path.join(workspace, file))
+    ? pass(`${file} exists`)
+    : fail(`${file} is missing`);
+}
+
+function pass(message) {
+  return { status: "pass", message };
+}
+
+function warn(message) {
+  return { status: "warn", message };
+}
+
+function fail(message) {
+  return { status: "fail", message };
+}
+
+function findPilotRiskFiles(workspace) {
+  const matches = [];
+  walkFiles(workspace, (filePath) => {
+    const name = path.basename(filePath).toLowerCase();
+    const rel = relative(workspace, filePath);
+    if (
+      name === ".env"
+      || name.endsWith(".pem")
+      || name.endsWith(".key")
+      || name.endsWith(".p12")
+      || name.includes("credential")
+      || name.includes("secret")
+      || name.includes("cookie")
+      || name.includes("token")
+    ) {
+      matches.push(rel);
+    }
+  });
+  return matches.sort();
+}
+
+function scanPilotRiskLanguage(workspace) {
+  const riskTerms = [
+    "auto-send",
+    "autosend",
+    "send automatically",
+    "submit forms",
+    "bypass",
+    "scrape behind login",
+    "cookies",
+    "credentials",
+    "api key",
+    "password",
+    "high-volume",
+    "bulk outreach"
+  ];
+  const findings = [];
+
+  for (const dir of ["inputs", "config"]) {
+    const root = path.join(workspace, dir);
+    if (!fs.existsSync(root)) continue;
+    walkFiles(root, (filePath) => {
+      const body = fs.readFileSync(filePath, "utf8").toLowerCase();
+      const terms = riskTerms.filter((term) => body.includes(term));
+      if (terms.length > 0) {
+        findings.push(`${relative(workspace, filePath)} (${terms.join(", ")})`);
+      }
+    });
+  }
+
+  return findings.sort();
+}
+
+function walkFiles(root, onFile) {
+  if (!fs.existsSync(root)) return;
+  const entries = fs.readdirSync(root, { withFileTypes: true });
+  for (const entry of entries) {
+    const filePath = path.join(root, entry.name);
+    if (entry.isDirectory()) {
+      walkFiles(filePath, onFile);
+    } else if (entry.isFile()) {
+      onFile(filePath);
+    }
+  }
+}
+
 function regenerateLeadBrief(workspace, account, now) {
   const evidence = readJson(path.join(workspace, "state", "evidence.json"));
   const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
@@ -1721,6 +1926,44 @@ function buildQualityEvaluation(accounts, evidence, drafts, contacts, interactio
     account_rows: accountRows,
     draft_rows: draftRows
   };
+}
+
+function renderPilotReadinessReport(checks, now) {
+  const failures = checks.filter((check) => check.status === "fail");
+  const warnings = checks.filter((check) => check.status === "warn");
+  const statusLabel = failures.length > 0 ? "Blocked" : warnings.length > 0 ? "Ready With Warnings" : "Ready";
+  const rows = checks
+    .map((check) => `| ${check.status.toUpperCase()} | ${check.message} |`)
+    .join("\n");
+
+  return `# Pilot Readiness Report
+
+Generated: ${now}
+Status: **${statusLabel}**
+
+This report checks whether a private permissioned pilot workspace has the expected local files and safety boundaries before running client data. It does not validate generated state; use \`validate\` after running the workflow.
+
+## Summary
+
+| Status | Count |
+| --- | ---: |
+| Pass | ${checks.filter((check) => check.status === "pass").length} |
+| Warn | ${warnings.length} |
+| Fail | ${failures.length} |
+
+## Checks
+
+| Status | Check |
+| --- | --- |
+${rows}
+
+## Operator Notes
+
+- Fix every failed check before running a client pilot.
+- Review warnings before using any generated draft.
+- Keep raw inputs, local state, logs, and private outputs outside public Git repositories.
+- Agentic Hub still has no send action, form submission, credential use, or external mutation.
+`;
 }
 
 function renderLeadBrief(account, evidence, contacts, now) {
@@ -2811,6 +3054,7 @@ Use this checklist before running Agentic Hub on real client data.
 ## Run Path
 
 \`\`\`sh
+node ../../bin/agentic-hub.mjs pilot-check --workspace .
 node ../../bin/agentic-hub.mjs run --workspace .
 node ../../bin/agentic-hub.mjs evaluate --workspace .
 node ../../bin/agentic-hub.mjs report --workspace .
