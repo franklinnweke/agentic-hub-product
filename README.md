@@ -68,6 +68,18 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 
 The first runnable slice is a local, inspectable CLI. It uses Node.js built-ins only: no database, no credentials, no browser automation, no outbound sending.
 
+### Portfolio Review Path
+
+For a fast GitHub review, open these in order:
+
+1. `examples/sample-workspace/outputs/screenshots/operator-console.jpg` - see the review queue, metrics, filters, and no-send boundary at a glance.
+2. `examples/sample-workspace/outputs/console/index.html` - inspect the local operator console and jump to reports, evals, handoff, and sanitized proof artifacts.
+3. `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md` - read the operating summary, draft mix, bottlenecks, and manual outcome denominator.
+4. `examples/sample-workspace/outputs/evals/quality-report.md` - see deterministic readiness checks for evidence coverage, review status, and guardrails.
+5. `examples/sample-workspace/outputs/handoff/README.md` - inspect the client-safe delivery bundle.
+6. `examples/sample-workspace/outputs/sanitized/README.md` - inspect the publishable proof bundle with names and raw internals removed.
+7. `docs/demo-walkthrough.md` - follow the full 3-5 minute proof path.
+
 ### Inspect In Two Minutes
 
 1. Run `npm run fixture`.
