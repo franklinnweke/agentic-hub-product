@@ -59,6 +59,8 @@ expect(qualityScores.some((row) => row.type === "draft" && Number(row.score) >= 
 expect(operatorConsole.includes("Agentic Hub Operator Console"), "operator console should render the product surface");
 expect(operatorConsole.includes("No send command"), "operator console should state the no-send boundary");
 expect(operatorConsole.includes("workspace-data"), "operator console should embed local workspace data for file-based inspection");
+expect(operatorConsole.includes("../handoff/README.md"), "operator console should link to the client handoff bundle");
+expect(operatorConsole.includes("../sanitized/README.md"), "operator console should link to the sanitized proof bundle");
 expect(fs.existsSync(screenshotPath), "fixture should include an operator console screenshot");
 if (fs.existsSync(screenshotPath)) {
   expect(fs.statSync(screenshotPath).size > 100_000, "operator console screenshot should be a real rendered image artifact");

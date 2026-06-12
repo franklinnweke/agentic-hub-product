@@ -20,6 +20,7 @@ The fixture is deterministic and local-first. It uses fictional `.example` accou
    - Open locally to filter the queue and inspect selected account details.
    - Use the status filters to compare approved, edited, rejected, and needs-review drafts.
    - Use the draft type filters to see first-touch, warm follow-up, meeting recap, stale-opportunity revive, and referral-request workflows.
+   - Use the artifact links to jump to the weekly report, quality eval, client handoff bundle, and sanitized proof bundle.
 
 3. `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
    - Confirms throughput, contact coverage, interaction coverage, draft type mix, manual outcome rates, bottlenecks, and recommended next actions.
