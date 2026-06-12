@@ -22,8 +22,14 @@ Decline or reshape the pilot if the prospect asks for bulk scraping, autonomous 
 Create a private workspace outside the public repo for client data.
 
 ```sh
-node ./bin/agentic-hub.mjs init --workspace ../client-sprint-workspace
+node ./bin/agentic-hub.mjs pilot-init --workspace ../client-sprint-workspace
 ```
+
+This creates starter inputs plus:
+
+- `PILOT-CHECKLIST.md`
+- `config/publication-approval.md`
+- `.gitignore`
 
 Then replace starter files with permissioned inputs:
 

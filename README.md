@@ -143,6 +143,14 @@ Read the guided proof path in `docs/demo-walkthrough.md` and the sanitized proof
 
 For a real pilot, use `docs/permissioned-pilot-runbook.md`, `templates/pipeline-sprint-intake.md`, and `templates/before-after-proof.md`.
 
+Start a private permissioned pilot workspace with:
+
+```sh
+node ./bin/agentic-hub.mjs pilot-init --workspace ../client-sprint-workspace
+```
+
+That command creates starter inputs plus `PILOT-CHECKLIST.md`, `config/publication-approval.md`, and a workspace `.gitignore` that keeps raw client inputs, state, logs, and outputs out of Git by default.
+
 Implementation stack: Node.js ESM with plain files. This keeps the workflow easy to run now and leaves a clean path toward a TypeScript web console later.
 
 ## First Milestone

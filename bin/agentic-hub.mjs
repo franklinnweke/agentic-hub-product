@@ -45,6 +45,9 @@ function main() {
       case "init":
         initWorkspace(workspace, now);
         break;
+      case "pilot-init":
+        initPilotWorkspace(workspace, now);
+        break;
       case "ingest":
         ingestTargets(workspace, now);
         break;
@@ -145,6 +148,7 @@ Usage:
 
 Commands:
   init              Create a local workspace layout and starter input files
+  pilot-init        Create a private permissioned pilot workspace with safety checklist
   ingest            Read inputs/targets.csv and write state/accounts.json + evidence.json
   generate-briefs   Generate Markdown lead briefs from local state
   generate-drafts   Generate human-review follow-up drafts from lead briefs
@@ -237,6 +241,39 @@ function initWorkspace(workspace, now, options = {}) {
   });
 
   console.log(`Initialized workspace: ${workspace}`);
+}
+
+function initPilotWorkspace(workspace, now) {
+  initWorkspace(workspace, now, { preserveExisting: true });
+  writeFileIfAllowed(
+    path.join(workspace, "PILOT-CHECKLIST.md"),
+    pilotChecklist(),
+    true
+  );
+  writeFileIfAllowed(
+    path.join(workspace, "config", "publication-approval.md"),
+    publicationApprovalTemplate(),
+    true
+  );
+  writeFileIfAllowed(
+    path.join(workspace, ".gitignore"),
+    pilotWorkspaceGitignore(),
+    true
+  );
+
+  appendRunLog(workspace, {
+    run_id: runId("pilot_init", now),
+    timestamp: now,
+    pack: "workspace",
+    command: "pilot-init",
+    input_files: [],
+    output_files: ["PILOT-CHECKLIST.md", "config/publication-approval.md", ".gitignore"],
+    status: "completed",
+    warnings: ["Keep this workspace private unless all client data has been sanitized and approved for publication."],
+    errors: []
+  });
+
+  console.log(`Initialized permissioned pilot workspace: ${workspace}`);
 }
 
 function ingestTargets(workspace, now) {
@@ -2745,6 +2782,110 @@ node ../../bin/agentic-hub.mjs console --workspace .
 Open \`outputs/console/index.html\` locally to inspect the review queue without a server.
 
 No command sends messages, submits forms, uses credentials, or mutates external systems.
+`;
+}
+
+function pilotChecklist() {
+  return `# Permissioned Pilot Checklist
+
+Use this checklist before running Agentic Hub on real client data.
+
+## Permission Boundary
+
+- [ ] Client has approved using the supplied target list.
+- [ ] Client has approved using supplied contact context.
+- [ ] Client has approved using supplied research notes or public-source claims.
+- [ ] No credentials, cookies, API keys, inbox exports, or private CRM exports are included.
+- [ ] No scraping behind authentication or platform-control bypass is requested.
+- [ ] Client understands Agentic Hub will not send messages, submit forms, or mutate external systems.
+
+## Required Inputs
+
+- [ ] \`inputs/targets.csv\` contains only permissioned accounts.
+- [ ] \`inputs/contacts.csv\` contains only approved contact context.
+- [ ] \`inputs/research.csv\` contains manually captured approved-source claims.
+- [ ] \`inputs/previous_interactions.md\` contains summaries, not raw private inbox threads.
+- [ ] \`config/icp.md\` reflects the client's ICP and disqualifiers.
+- [ ] \`config/offer.md\` reflects the approved offer and tone.
+
+## Run Path
+
+\`\`\`sh
+node ../../bin/agentic-hub.mjs run --workspace .
+node ../../bin/agentic-hub.mjs evaluate --workspace .
+node ../../bin/agentic-hub.mjs report --workspace .
+node ../../bin/agentic-hub.mjs console --workspace .
+node ../../bin/agentic-hub.mjs export --workspace .
+node ../../bin/agentic-hub.mjs sanitize --workspace . --redact "client name,private term"
+node ../../bin/agentic-hub.mjs validate --workspace .
+\`\`\`
+
+## Review Gates
+
+- [ ] Review account status before using any draft.
+- [ ] Review draft status before any manual send outside Agentic Hub.
+- [ ] Record outcomes only after operator-controlled activity outside Agentic Hub.
+- [ ] Inspect \`outputs/handoff/README.md\` before delivery.
+- [ ] Inspect every file in \`outputs/sanitized/\` before publication.
+- [ ] Complete \`config/publication-approval.md\` before publishing proof.
+`;
+}
+
+function publicationApprovalTemplate() {
+  return `# Publication Approval
+
+Use this file to record what may be shown publicly after a permissioned sprint.
+
+## Client / Sprint Label
+
+- Client label:
+- Sprint date:
+- Approved by:
+- Approval date:
+
+## Approved For Publication
+
+- [ ] Generalized client category
+- [ ] Aggregate metrics
+- [ ] Sanitized lead brief examples
+- [ ] Sanitized draft examples
+- [ ] Sanitized weekly report excerpts
+- [ ] Sanitized quality eval excerpts
+- [ ] Redacted screenshots
+
+## Must Remain Private
+
+- [ ] Client name
+- [ ] Personal names and contact details
+- [ ] Proprietary target lists
+- [ ] Raw notes, inbox content, CRM exports, or deal details
+- [ ] Screenshots containing private names, emails, accounts, or internal tools
+
+## Extra Redaction Terms
+
+Pass these to \`agentic-hub sanitize --redact "term one,term two"\` before publishing:
+
+-
+
+## Publication Notes
+
+-
+`;
+}
+
+function pilotWorkspaceGitignore() {
+  return `# Agentic Hub private pilot workspace
+# Keep raw client data and generated private artifacts out of Git by default.
+
+inputs/
+state/
+logs/
+outputs/
+.env
+*.pem
+*.key
+*.sqlite
+*.db
 `;
 }
 
