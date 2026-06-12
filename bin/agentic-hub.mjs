@@ -937,7 +937,7 @@ Generated: ${now}
 
 ## Executive Summary
 
-The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${metrics.high_fit_accounts} high-fit lead briefs, and created ${metrics.drafts_generated} follow-up drafts. ${metrics.drafts_approved} draft is approved for manual use, ${metrics.drafts_edited} draft needs edits, ${metrics.drafts_rejected} draft is rejected, and ${metrics.follow_ups_due} draft remains in \`needs_review\`. No outbound sending is implemented.
+The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${metrics.high_fit_accounts} high-fit lead briefs, and created ${metrics.drafts_generated} follow-up drafts. Draft review status: ${metrics.drafts_approved} approved for manual use, ${metrics.drafts_edited} edited, ${metrics.drafts_rejected} rejected, and ${metrics.follow_ups_due} still in \`needs_review\`. No outbound sending is implemented.
 
 ## Throughput
 
@@ -1004,7 +1004,7 @@ ${metrics.follow_ups_due > 0 ? `- Drafts needing operator review before manual s
 
 ## Data Caveats
 
-${metrics.warnings.map((warning) => `- ${warning}`).join("\n")}
+${metrics.warnings.length > 0 ? metrics.warnings.map((warning) => `- ${warning}`).join("\n") : "- No additional caveats beyond fixture data and manually recorded outcomes."}
 `;
 }
 

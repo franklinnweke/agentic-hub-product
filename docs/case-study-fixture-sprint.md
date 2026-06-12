@@ -2,7 +2,7 @@
 
 ## Summary
 
-This sanitized fixture shows how Agentic Hub turns a small target list into evidence-backed account briefs, human-reviewed follow-up drafts, and an analytics readout without autonomous outbound sending.
+This sanitized fixture shows how Agentic Hub turns a 25-account target list into evidence-backed account briefs, human-reviewed follow-up drafts, and an analytics readout without autonomous outbound sending.
 
 The sample is intentionally fictional. It uses safe `.example` domains and operator-provided notes so the workflow can be inspected publicly without exposing private client data or relying on live web access.
 
@@ -35,7 +35,7 @@ The operator starts with a rough target CSV:
 - notes
 - source
 
-The CSV contains six fictional accounts. Five are plausible service-business or founder-led B2B prospects. One is intentionally risky because it asks for autonomous high-volume outbound automation.
+The CSV contains 25 fictional accounts. Twenty-four are plausible service-business or founder-led B2B prospects. One is intentionally risky because it asks for autonomous high-volume outbound automation.
 
 ## Workflow
 
@@ -53,14 +53,14 @@ The CSV contains six fictional accounts. Five are plausible service-business or 
 
 The fixture produces:
 
-- 6 lead briefs
-- 5 follow-up drafts
+- 25 lead briefs
+- 24 follow-up drafts
 - 1 rejected automation-risk account
 - 1 approved draft
 - 1 edited draft
 - 1 rejected draft
 - 1 manually recorded meeting outcome
-- 55 audit events
+- 207 audit events
 - 1 weekly pipeline report
 
 Example artifacts:
@@ -94,7 +94,6 @@ That makes the project portfolio-grade because a reviewer can inspect the inputs
 
 ## Remaining Gaps
 
-- The fixture is smaller than the eventual 25-account sprint.
 - Buyer/contact names are still missing.
 - Draft editing is represented as state, not a revision workflow.
 - Real public-source research is not implemented yet.
@@ -102,7 +101,7 @@ That makes the project portfolio-grade because a reviewer can inspect the inputs
 
 ## Next Proof Step
 
-Run a 25-account sanitized sample or a real permissioned sprint, then publish:
+Run a real permissioned 25-account sprint, then publish:
 
 - before/after lead brief example
 - approval queue screenshot or terminal walkthrough

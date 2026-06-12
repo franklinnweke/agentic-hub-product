@@ -142,6 +142,543 @@
     "updated_at": "2026-06-11T22:30:00.000Z"
   },
   {
+    "id": "acct_signalworks_strategy",
+    "name": "SignalWorks Strategy",
+    "website": "https://signalworks.example",
+    "segment": "solo_consultant",
+    "source": "demo fixture",
+    "notes": "Independent strategy consultant with warm founder referrals, follow-up notes split across docs, wants a weekly pipeline review habit.",
+    "status": "needs_review",
+    "fit_score": 80,
+    "score_breakdown": {
+      "icp_match": 30,
+      "pain_signal": 8,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 2,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_ridgeway_product_studio",
+    "name": "Ridgeway Product Studio",
+    "website": "https://ridgeway-product.example",
+    "segment": "boutique_agency",
+    "source": "demo fixture",
+    "notes": "Six-person product studio selling discovery sprints, tracks prospects in a sheet, inconsistent post-proposal follow-ups, no segment conversion report.",
+    "status": "needs_review",
+    "fit_score": 82,
+    "score_breakdown": {
+      "icp_match": 28,
+      "pain_signal": 12,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 2,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_launchpad_cfo",
+    "name": "LaunchPad CFO",
+    "website": "https://launchpad-cfo.example",
+    "segment": "professional_services",
+    "source": "demo fixture",
+    "notes": "Fractional CFO firm with high-ticket retainers, many referral introductions, missed renewal follow-ups, and scattered call notes.",
+    "status": "needs_review",
+    "fit_score": 73,
+    "score_breakdown": {
+      "icp_match": 24,
+      "pain_signal": 12,
+      "ability_to_pay": 12,
+      "reachable_context": 15,
+      "timing_signal": 2,
+      "strategic_relevance": 8
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for professional services operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_vectorops_consulting",
+    "name": "VectorOps Consulting",
+    "website": "https://vectorops.example",
+    "segment": "solo_consultant",
+    "source": "demo fixture",
+    "notes": "Operations consultant serving SaaS founders, keeps ICP notes in docs, needs evidence-backed account prioritization and gentle follow-up drafts.",
+    "status": "needs_review",
+    "fit_score": 80,
+    "score_breakdown": {
+      "icp_match": 30,
+      "pain_signal": 8,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 2,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_bluebird_web_co",
+    "name": "Bluebird Web Co",
+    "website": "https://bluebird-web.example",
+    "segment": "boutique_agency",
+    "source": "demo fixture",
+    "notes": "Small web agency with inbound audit requests, slow follow-up after discovery calls, and no visibility into which lead sources produce meetings.",
+    "status": "needs_review",
+    "fit_score": 72,
+    "score_breakdown": {
+      "icp_match": 28,
+      "pain_signal": 4,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 0,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_summit_revops_lab",
+    "name": "Summit RevOps Lab",
+    "website": "https://summit-revops.example",
+    "segment": "solo_consultant",
+    "source": "demo fixture",
+    "notes": "RevOps advisor with high-value CRM cleanup projects, has a target account sheet, needs better context before outreach and weekly analytics.",
+    "status": "needs_review",
+    "fit_score": 76,
+    "score_breakdown": {
+      "icp_match": 30,
+      "pain_signal": 4,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 2,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes",
+      "Follow-up trigger or current relationship context"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with a local pipeline sprint for solo consultant teams that connects research quality, follow-up review, and weekly analytics.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_kinship_brand_studio",
+    "name": "Kinship Brand Studio",
+    "website": "https://kinship-brand.example",
+    "segment": "boutique_agency",
+    "source": "demo fixture",
+    "notes": "Brand studio serving B2B services firms, relies on referrals, inconsistent nurture follow-ups, wants more specific personalization without spam.",
+    "status": "needs_review",
+    "fit_score": 84,
+    "score_breakdown": {
+      "icp_match": 28,
+      "pain_signal": 12,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 4,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_prairie_managed_services",
+    "name": "Prairie Managed Services",
+    "website": "https://prairie-ms.example",
+    "segment": "professional_services",
+    "source": "demo fixture",
+    "notes": "Managed services provider with local commercial prospects, renewal windows tracked manually, follow-up ownership is unclear.",
+    "status": "needs_review",
+    "fit_score": 63,
+    "score_breakdown": {
+      "icp_match": 24,
+      "pain_signal": 4,
+      "ability_to_pay": 12,
+      "reachable_context": 15,
+      "timing_signal": 0,
+      "strategic_relevance": 8
+    },
+    "confidence": "medium",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for professional services operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_orbit_founder_office",
+    "name": "Orbit Founder Office",
+    "website": "https://orbit-founder.example",
+    "segment": "founder_led_b2b",
+    "source": "demo fixture",
+    "notes": "Founder-led software team with customer discovery calls in docs, investor updates in email, and stale demo follow-ups.",
+    "status": "needs_review",
+    "fit_score": 78,
+    "score_breakdown": {
+      "icp_match": 30,
+      "pain_signal": 8,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 0,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_north_pier_advisory",
+    "name": "North Pier Advisory",
+    "website": "https://north-pier.example",
+    "segment": "professional_services",
+    "source": "demo fixture",
+    "notes": "Advisory practice selling compliance retainers, relationship-heavy sales motion, careful language requirements, and limited pipeline reporting.",
+    "status": "needs_review",
+    "fit_score": 59,
+    "score_breakdown": {
+      "icp_match": 24,
+      "pain_signal": 0,
+      "ability_to_pay": 12,
+      "reachable_context": 15,
+      "timing_signal": 0,
+      "strategic_relevance": 8
+    },
+    "confidence": "medium",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes",
+      "Follow-up trigger or current relationship context"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for professional services operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_copperline_creative_ops",
+    "name": "Copperline Creative Ops",
+    "website": "https://copperline.example",
+    "segment": "boutique_agency",
+    "source": "demo fixture",
+    "notes": "Creative operations agency with proposal pipeline in spreadsheets, inconsistent referral follow-up, and no weekly quality review.",
+    "status": "needs_review",
+    "fit_score": 82,
+    "score_breakdown": {
+      "icp_match": 28,
+      "pain_signal": 12,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 2,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_beacon_ai_enablement",
+    "name": "Beacon AI Enablement",
+    "website": "https://beacon-ai.example",
+    "segment": "solo_consultant",
+    "source": "demo fixture",
+    "notes": "AI enablement consultant with workshop leads, many manual notes, wants proof-backed lead briefs and human-approved follow-ups.",
+    "status": "needs_review",
+    "fit_score": 86,
+    "score_breakdown": {
+      "icp_match": 30,
+      "pain_signal": 12,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 4,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_fathom_customer_lab",
+    "name": "Fathom Customer Lab",
+    "website": "https://fathom-customer.example",
+    "segment": "founder_led_b2b",
+    "source": "demo fixture",
+    "notes": "Customer research SaaS founder running founder-led sales, demo recaps live in docs, follow-ups vary by account context.",
+    "status": "needs_review",
+    "fit_score": 78,
+    "score_breakdown": {
+      "icp_match": 30,
+      "pain_signal": 8,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 0,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for founder led b2b operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_evergreen_tax_group",
+    "name": "Evergreen Tax Group",
+    "website": "https://evergreen-tax.example",
+    "segment": "professional_services",
+    "source": "demo fixture",
+    "notes": "Tax advisory firm with seasonal high-value prospects, deadline-driven follow-up windows, and manual referral tracking.",
+    "status": "needs_review",
+    "fit_score": 69,
+    "score_breakdown": {
+      "icp_match": 24,
+      "pain_signal": 8,
+      "ability_to_pay": 12,
+      "reachable_context": 15,
+      "timing_signal": 2,
+      "strategic_relevance": 8
+    },
+    "confidence": "medium",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with a human-reviewed follow-up queue for deadline-sensitive relationship workflows.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_mapleworks_digital",
+    "name": "MapleWorks Digital",
+    "website": "https://mapleworks.example",
+    "segment": "boutique_agency",
+    "source": "demo fixture",
+    "notes": "Digital agency serving local services, has many old discovery notes, needs stale opportunity revive drafts and pipeline source analytics.",
+    "status": "needs_review",
+    "fit_score": 80,
+    "score_breakdown": {
+      "icp_match": 28,
+      "pain_signal": 8,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 4,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes",
+      "Follow-up trigger or current relationship context"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_bridgepoint_gtm",
+    "name": "Bridgepoint GTM",
+    "website": "https://bridgepoint-gtm.example",
+    "segment": "solo_consultant",
+    "source": "demo fixture",
+    "notes": "GTM consultant with curated target lists, wants explicit fit scoring, missing-info flags, and low-pressure first-touch drafts.",
+    "status": "needs_review",
+    "fit_score": 72,
+    "score_breakdown": {
+      "icp_match": 30,
+      "pain_signal": 0,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 2,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes",
+      "Follow-up trigger or current relationship context"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_corepath_systems",
+    "name": "CorePath Systems",
+    "website": "https://corepath.example",
+    "segment": "professional_services",
+    "source": "demo fixture",
+    "notes": "Systems integrator with enterprise service retainers, long sales cycles, scattered stakeholder notes, and follow-up discipline gaps.",
+    "status": "needs_review",
+    "fit_score": 67,
+    "score_breakdown": {
+      "icp_match": 24,
+      "pain_signal": 8,
+      "ability_to_pay": 12,
+      "reachable_context": 15,
+      "timing_signal": 0,
+      "strategic_relevance": 8
+    },
+    "confidence": "medium",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for professional services operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_lumen_launch_studio",
+    "name": "Lumen Launch Studio",
+    "website": "https://lumen-launch.example",
+    "segment": "boutique_agency",
+    "source": "demo fixture",
+    "notes": "Launch studio with packaged offers, prospects come from webinars and referrals, no report on which segment converts to calls.",
+    "status": "needs_review",
+    "fit_score": 68,
+    "score_breakdown": {
+      "icp_match": 28,
+      "pain_signal": 0,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 0,
+      "strategic_relevance": 10
+    },
+    "confidence": "medium",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes",
+      "Follow-up trigger or current relationship context"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for boutique agency operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "acct_tandem_ops_partners",
+    "name": "Tandem Ops Partners",
+    "website": "https://tandem-ops.example",
+    "segment": "solo_consultant",
+    "source": "demo fixture",
+    "notes": "Two-person ops consultancy with relationship-heavy pipeline, follow-up reminders in memory, and weak evidence capture before outreach.",
+    "status": "needs_review",
+    "fit_score": 74,
+    "score_breakdown": {
+      "icp_match": 30,
+      "pain_signal": 4,
+      "ability_to_pay": 15,
+      "reachable_context": 15,
+      "timing_signal": 0,
+      "strategic_relevance": 10
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
     "id": "acct_quickscale_outreach",
     "name": "QuickScale Outreach",
     "website": "https://quickscale-outreach.example",

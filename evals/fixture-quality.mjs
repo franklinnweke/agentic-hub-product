@@ -12,9 +12,9 @@ const drafts = readJson("state/drafts.json");
 const outcomes = readCsv("inputs/outcomes.csv");
 const report = readText("outputs/reports/weekly-pipeline-report.md");
 
-expect(accounts.length >= 5, "fixture should include at least five accounts");
+expect(accounts.length >= 25, "fixture should include at least 25 accounts");
 expect(evidence.length >= accounts.length * 3, "fixture should average at least three evidence records per account");
-expect(drafts.length >= 5, "fixture should include at least five drafts");
+expect(drafts.length >= 20, "fixture should include at least 20 review-gated drafts");
 expect(drafts.some((draft) => draft.status === "approved"), "fixture should include an approved draft");
 expect(drafts.some((draft) => draft.status === "edited"), "fixture should include an edited draft");
 expect(drafts.some((draft) => draft.status === "rejected"), "fixture should include a rejected draft");

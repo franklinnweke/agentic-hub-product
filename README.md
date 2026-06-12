@@ -98,7 +98,7 @@ The fixture writes:
 
 ### Example Output
 
-The sample sprint imports six fictional accounts, generates six lead briefs, creates five review-gated drafts, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
+The sample sprint imports 25 fictional accounts, generates 25 lead briefs, creates 24 review-gated drafts, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
 
 Read the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
 
