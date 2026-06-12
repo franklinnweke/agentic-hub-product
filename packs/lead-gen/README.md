@@ -19,14 +19,15 @@ Required:
 Optional:
 
 - `contacts.csv`
-- `approved-sources.md`
-- `blocked-domains.md`
+- `config/approved-sources.md`
+- `config/blocked-domains.md`
 - prior customer examples
 - segment-specific scoring notes
 
 ## Outputs
 
 - `outputs/lead-briefs/{account_id}.md`
+- `outputs/lead-briefs-json/{account_id}.json`
 - `state/accounts.json`
 - `state/evidence.json`
 - `logs/runs.jsonl`
@@ -48,14 +49,15 @@ Optional:
 
 1. Validate `targets.csv`.
 2. Normalize account names and websites.
-3. Check disqualifiers.
-4. Research approved public sources.
-5. Extract evidence.
-6. Score fit using `icp.md`.
-7. Draft lead brief.
-8. Flag missing or weak evidence.
-9. Write state and audit log.
-10. Mark lead as `needs_review`.
+3. Check target and research URLs against `config/blocked-domains.md`.
+4. Check disqualifiers.
+5. Research approved public sources.
+6. Extract evidence.
+7. Score fit using `icp.md`.
+8. Draft Markdown and JSON lead briefs.
+9. Flag missing or weak evidence.
+10. Write state and audit log.
+11. Mark lead as `needs_review`.
 
 ## Scoring Model
 
@@ -103,4 +105,3 @@ Implement a local fixture workflow:
 5. Produce a review summary.
 
 Browser research and APIs can come later.
-

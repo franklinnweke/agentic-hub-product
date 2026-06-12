@@ -39,8 +39,12 @@ Then replace starter files with permissioned inputs:
 - `inputs/previous_interactions.md`
 - `config/icp.md`
 - `config/offer.md`
+- `config/approved-sources.md`
+- `config/blocked-domains.md`
 
 Use `inputs/research.csv` for manually captured approved-source claims. Do not scrape private systems or bypass platform controls.
+
+List any private portals, login-only systems, or forbidden public domains in `config/blocked-domains.md`. The local ingest step fails when a target website or research source URL matches a blocked domain.
 
 Keep private inputs out of Git unless they are fully sanitized and approved for publication.
 

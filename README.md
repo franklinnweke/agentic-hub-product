@@ -133,6 +133,7 @@ The fixture writes:
 - `examples/sample-workspace/inputs/research.csv` - manually captured approved-source research evidence.
 - `examples/sample-workspace/inputs/previous_interactions.md` - local operator-provided prior interaction context for warm follow-ups, recaps, revives, and referrals.
 - `examples/sample-workspace/inputs/outcomes.csv` - manually recorded outcomes after operator-controlled activity outside Agentic Hub.
+- `examples/sample-workspace/config/approved-sources.md` and `examples/sample-workspace/config/blocked-domains.md` - local source guardrails used before ingestion.
 - `examples/sample-workspace/state/` - inspectable JSON/JSONL state.
 - `examples/sample-workspace/logs/runs.jsonl` - audit log for pack runs.
 

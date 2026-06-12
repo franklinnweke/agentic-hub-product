@@ -213,6 +213,16 @@ function initWorkspace(workspace, now, options = {}) {
     preserveExisting
   );
   writeFileIfAllowed(
+    path.join(workspace, "config", "approved-sources.md"),
+    starterApprovedSources(),
+    preserveExisting
+  );
+  writeFileIfAllowed(
+    path.join(workspace, "config", "blocked-domains.md"),
+    starterBlockedDomains(),
+    preserveExisting
+  );
+  writeFileIfAllowed(
     path.join(workspace, "inputs", "outcomes.csv"),
     starterOutcomesCsv(),
     preserveExisting
@@ -239,7 +249,7 @@ function initWorkspace(workspace, now, options = {}) {
     pack: "workspace",
     command: "init",
     input_files: [],
-    output_files: ["README.md", "inputs/targets.csv", "inputs/contacts.csv", "inputs/research.csv", "inputs/previous_interactions.md", "inputs/outcomes.csv", "config/icp.md", "config/offer.md"],
+    output_files: ["README.md", "inputs/targets.csv", "inputs/contacts.csv", "inputs/research.csv", "inputs/previous_interactions.md", "inputs/outcomes.csv", "config/icp.md", "config/offer.md", "config/approved-sources.md", "config/blocked-domains.md"],
     status: "completed",
     warnings: [],
     errors: []
@@ -290,8 +300,10 @@ function ingestTargets(workspace, now) {
 
   const rows = parseCsv(fs.readFileSync(targetPath, "utf8"));
   validateTargetRows(rows);
+  const blockedDomains = readBlockedDomains(workspace);
+  validateTargetSources(rows, blockedDomains);
   const contacts = readContactsInput(workspace, now);
-  const researchEvidence = readResearchInput(workspace, now);
+  const researchEvidence = readResearchInput(workspace, now, blockedDomains);
   const interactions = readPreviousInteractionsInput(workspace, now);
 
   const accounts = [];
@@ -925,6 +937,9 @@ function validateWorkspace(workspace) {
   const requiredFiles = [
     "inputs/targets.csv",
     "config/icp.md",
+    "config/offer.md",
+    "config/approved-sources.md",
+    "config/blocked-domains.md",
     "state/accounts.json",
     "state/evidence.json",
     "state/contacts.json",
@@ -1067,7 +1082,9 @@ function buildPilotChecks(workspace) {
     "inputs/research.csv",
     "inputs/previous_interactions.md",
     "config/icp.md",
-    "config/offer.md"
+    "config/offer.md",
+    "config/approved-sources.md",
+    "config/blocked-domains.md"
   ];
 
   for (const file of requiredFiles) {
@@ -1369,6 +1386,15 @@ function validateTargetRows(rows) {
   });
 }
 
+function validateTargetSources(rows, blockedDomains) {
+  rows.forEach((row, index) => {
+    const blocked = blockedDomainFor(row.website, blockedDomains);
+    if (blocked) {
+      throw new Error(`targets.csv row ${index + 2} website uses blocked domain ${blocked}: ${row.website}`);
+    }
+  });
+}
+
 function validateContactRows(rows) {
   if (rows.length === 0) return;
   const columns = Object.keys(rows[0]);
@@ -1383,6 +1409,54 @@ function validateContactRows(rows) {
       throw new Error(`contacts.csv row ${index + 2} has invalid confidence ${row.confidence}`);
     }
   });
+}
+
+function validateResearchSources(rows, blockedDomains) {
+  rows.forEach((row, index) => {
+    const blocked = blockedDomainFor(row.source_url, blockedDomains);
+    if (blocked) {
+      throw new Error(`research.csv row ${index + 2} source_url uses blocked domain ${blocked}: ${row.source_url}`);
+    }
+  });
+}
+
+function readBlockedDomains(workspace) {
+  const filePath = path.join(workspace, "config", "blocked-domains.md");
+  if (!fs.existsSync(filePath)) return [];
+  return fs.readFileSync(filePath, "utf8")
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^[-*]\s*/, "").replace(/`/g, "").trim())
+    .map((line) => line.split(/\s+/)[0])
+    .map((value) => normalizeDomain(value))
+    .filter(Boolean);
+}
+
+function blockedDomainFor(value, blockedDomains) {
+  const domain = domainFromValue(value);
+  if (!domain) return "";
+  return blockedDomains.find((blocked) => domain === blocked || domain.endsWith(`.${blocked}`)) ?? "";
+}
+
+function domainFromValue(value) {
+  const input = String(value ?? "").trim();
+  if (!input || !/^[a-z][a-z0-9+.-]*:\/\//i.test(input)) return "";
+  try {
+    return normalizeDomain(new URL(input).hostname);
+  } catch {
+    return "";
+  }
+}
+
+function normalizeDomain(value) {
+  const domain = String(value ?? "")
+    .toLowerCase()
+    .replace(/^https?:\/\//, "")
+    .replace(/^www\./, "")
+    .replace(/\/.*$/, "")
+    .replace(/[^a-z0-9.-]/g, "")
+    .replace(/^\.+|\.+$/g, "");
+  if (!domain.includes(".")) return "";
+  return domain;
 }
 
 function validateResearchRows(rows) {
@@ -1469,11 +1543,12 @@ function readContactsInput(workspace, now) {
     }));
 }
 
-function readResearchInput(workspace, now) {
+function readResearchInput(workspace, now, blockedDomains = []) {
   const filePath = path.join(workspace, "inputs", "research.csv");
   if (!fs.existsSync(filePath)) return [];
   const rows = parseCsv(fs.readFileSync(filePath, "utf8"));
   validateResearchRows(rows);
+  validateResearchSources(rows, blockedDomains);
   return rows
     .filter((row) => row.account_id)
     .map((row, index) => ({
@@ -3257,6 +3332,8 @@ Use this checklist before running Agentic Hub on real client data.
 - [ ] \`inputs/previous_interactions.md\` contains summaries, not raw private inbox threads.
 - [ ] \`config/icp.md\` reflects the client's ICP and disqualifiers.
 - [ ] \`config/offer.md\` reflects the approved offer and tone.
+- [ ] \`config/approved-sources.md\` lists allowed source categories.
+- [ ] \`config/blocked-domains.md\` lists forbidden source domains or private systems.
 
 ## Run Path
 
@@ -3494,6 +3571,32 @@ function starterOffer() {
   return `# Offer
 
 Describe the supervised pipeline sprint offer here.
+`;
+}
+
+function starterApprovedSources() {
+  return `# Approved Sources
+
+- User-provided target lists
+- Operator-provided notes and summaries
+- Public company websites listed in targets.csv
+- Manually captured public-source claims in inputs/research.csv
+
+Agentic Hub does not browse the web in the MVP. Source URLs are preserved as evidence references only.
+`;
+}
+
+function starterBlockedDomains() {
+  return `# Blocked Domains
+
+Add one domain per line when a source must not be used.
+
+Examples:
+
+- private-client-portal.example
+- login-only.example
+
+Do not include credentials, cookies, private portals, CAPTCHA-protected pages, or sources the operator is not authorized to access.
 `;
 }
 
