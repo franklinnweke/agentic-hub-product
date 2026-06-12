@@ -10,6 +10,7 @@ const WORKSPACE_DIRS = [
   "outputs/drafts",
   "outputs/reports",
   "outputs/console",
+  "outputs/screenshots",
   "state",
   "logs"
 ];
@@ -746,7 +747,7 @@ function ensureWorkspaceDirs(workspace) {
 }
 
 function resetGeneratedWorkspaceFiles(workspace) {
-  for (const generatedDir of ["outputs", "state", "logs"]) {
+  for (const generatedDir of ["outputs/lead-briefs", "outputs/drafts", "outputs/reports", "outputs/console", "state", "logs"]) {
     fs.rmSync(path.join(workspace, generatedDir), { recursive: true, force: true });
   }
   fs.rmSync(path.join(workspace, "inputs", "outcomes.csv"), { force: true });
@@ -1679,6 +1680,7 @@ function renderConsoleHtml(model) {
       margin-top: 4px;
       font-size: 12px;
       line-height: 1.35;
+      overflow-wrap: anywhere;
     }
 
     .badge {
@@ -1994,7 +1996,7 @@ function renderConsoleHtml(model) {
         return '<tr' + selected + ' data-draft-id="' + draft.id + '">'
           + '<td><div class="cell-main">' + escapeHtml(account.name || draft.account_id) + '</div><div class="sub">' + escapeHtml(account.segment || '') + '</div></td>'
           + '<td><span class="badge ' + scoreClass(account.fit_score) + '">' + (account.fit_score || 0) + '/100</span></td>'
-          + '<td><div class="cell-main">' + escapeHtml(label(draft.draft_type)) + '</div><div class="sub">' + escapeHtml(draft.id) + '</div></td>'
+          + '<td><div class="cell-main">' + escapeHtml(label(draft.draft_type)) + '</div></td>'
           + '<td><span class="badge ' + badgeClass(draft.status) + '">' + escapeHtml(label(draft.status)) + '</span></td>'
           + '<td><div class="sub">' + escapeHtml(hasContact) + '</div><div class="sub">' + escapeHtml(hasInteraction) + '</div></td>'
           + '</tr>';

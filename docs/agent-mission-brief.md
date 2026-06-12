@@ -61,6 +61,8 @@ The MVP is done when this repo can demonstrate:
 - generated follow-up drafts
 - approval states
 - generated analytics report
+- static operator console
+- console screenshot
 - audit log
 - sample case study
 
@@ -81,8 +83,7 @@ After the local workflow works:
 - add n8n templates for scheduled reporting
 - add Gmail/Calendar read-only connectors
 - add CRM import/export
-- add a local web console
+- expand the local web console
 - add workflow-pack evals
 - publish sanitized examples
 - create a productized service landing page
-

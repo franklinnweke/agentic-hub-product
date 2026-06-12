@@ -25,6 +25,7 @@ Fixture workspace:
 - `examples/sample-workspace/outputs/drafts/`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
+- `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
 - `examples/sample-workspace/state/`
 - `examples/sample-workspace/logs/runs.jsonl`
 
@@ -82,6 +83,7 @@ The fixture produces:
 - 210 audit events
 - 1 weekly pipeline report
 - 1 static operator console
+- 1 rendered operator console screenshot
 
 Example artifacts:
 
@@ -90,6 +92,7 @@ Example artifacts:
 - `examples/sample-workspace/outputs/lead-briefs/acct_quickscale_outreach.md`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
+- `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
 
 ## Why It Matters
 
@@ -122,13 +125,13 @@ That makes the project portfolio-grade because a reviewer can inspect the inputs
 ## Remaining Gaps
 
 - Real public-source research is not implemented yet.
-- There is no local operator console or screenshot-driven UI yet.
+- There is no permissioned real-client sprint published yet.
 
 ## Next Proof Step
 
 Run a real permissioned 25-account sprint, then publish:
 
 - before/after lead brief example
-- approval queue screenshot or terminal walkthrough
+- approval queue screenshot or terminal walkthrough from a real permissioned sprint
 - weekly analytics screenshot/report
 - short operator video walkthrough

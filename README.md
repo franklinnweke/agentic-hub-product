@@ -64,6 +64,14 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 
 The first runnable slice is a local, inspectable CLI. It uses Node.js built-ins only: no database, no credentials, no browser automation, no outbound sending.
 
+### Inspect In Two Minutes
+
+1. Run `npm run fixture`.
+2. Open `examples/sample-workspace/outputs/console/index.html`.
+3. Review the queue, filters, lead briefs, draft artifacts, weekly report, state files, and run logs.
+
+![Agentic Hub operator console](examples/sample-workspace/outputs/screenshots/operator-console.jpg)
+
 Run the fixture workflow:
 
 ```sh
@@ -96,6 +104,7 @@ The fixture writes:
 - `examples/sample-workspace/outputs/drafts/` - follow-up drafts that start in `needs_review`.
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md` - analytics report.
 - `examples/sample-workspace/outputs/console/index.html` - static local operator console for review queue inspection.
+- `examples/sample-workspace/outputs/screenshots/operator-console.jpg` - rendered console screenshot for GitHub review.
 - `examples/sample-workspace/inputs/contacts.csv` - local operator-provided buyer/contact context.
 - `examples/sample-workspace/inputs/previous_interactions.md` - local operator-provided prior interaction context for warm follow-ups, recaps, revives, and referrals.
 - `examples/sample-workspace/inputs/outcomes.csv` - manually recorded outcomes after operator-controlled activity outside Agentic Hub.

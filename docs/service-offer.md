@@ -136,6 +136,7 @@ Sample proof files:
 - `docs/case-study-fixture-sprint.md`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
+- `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
 - `examples/sample-workspace/outputs/lead-briefs/acct_northstar_ops_studio.md`
 - `examples/sample-workspace/outputs/drafts/draft_northstar_ops_studio_first_touch.md`
 

@@ -141,12 +141,12 @@ Franklin
 
 ## Proof Assets To Build
 
-1. Sample 25-account report with fake/safe companies.
-2. Before/after lead brief example.
-3. Follow-up approval queue screenshot.
-4. Weekly analytics report screenshot.
-5. Short video walkthrough.
-6. Public GitHub repo showing workflow-pack design.
+1. Sample 25-account report with fake/safe companies. Status: built in `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`.
+2. Before/after lead brief example. Status: partially built through generated briefs and review state changes.
+3. Follow-up approval queue screenshot. Status: built in `examples/sample-workspace/outputs/screenshots/operator-console.jpg`.
+4. Weekly analytics report screenshot. Status: pending.
+5. Short video walkthrough. Status: pending.
+6. Public GitHub repo showing workflow-pack design. Status: built and still improving.
 
 ## Sales Learning Questions
 
@@ -176,4 +176,3 @@ A prospect is a bad fit if:
 - they cannot define their offer
 - they measure only email volume
 - they expect guaranteed meetings from cold outbound
-

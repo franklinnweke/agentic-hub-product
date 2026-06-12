@@ -14,6 +14,7 @@ const drafts = readJson("state/drafts.json");
 const outcomes = readCsv("inputs/outcomes.csv");
 const report = readText("outputs/reports/weekly-pipeline-report.md");
 const operatorConsole = readText("outputs/console/index.html");
+const screenshotPath = path.join(workspace, "outputs/screenshots/operator-console.jpg");
 
 expect(accounts.length >= 25, "fixture should include at least 25 accounts");
 expect(contacts.length >= 10, "fixture should include at least 10 local contact records");
@@ -42,6 +43,10 @@ expect(!report.includes("autonomously sent"), "report should not imply autonomou
 expect(operatorConsole.includes("Agentic Hub Operator Console"), "operator console should render the product surface");
 expect(operatorConsole.includes("No send command"), "operator console should state the no-send boundary");
 expect(operatorConsole.includes("workspace-data"), "operator console should embed local workspace data for file-based inspection");
+expect(fs.existsSync(screenshotPath), "fixture should include an operator console screenshot");
+if (fs.existsSync(screenshotPath)) {
+  expect(fs.statSync(screenshotPath).size > 100_000, "operator console screenshot should be a real rendered image artifact");
+}
 
 if (failures.length > 0) {
   console.error("Fixture quality eval failed:");
