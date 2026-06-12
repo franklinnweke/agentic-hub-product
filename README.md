@@ -82,8 +82,10 @@ Run against a new local workspace:
 node ./bin/agentic-hub.mjs init --workspace ./workspace
 node ./bin/agentic-hub.mjs run --workspace ./workspace
 node ./bin/agentic-hub.mjs review-account --workspace ./workspace --account acct_example_consulting_co --status approved --note "Human reviewed."
-node ./bin/agentic-hub.mjs review-draft --workspace ./workspace --draft draft_example_consulting_co_first_touch --status approved --note "Human approved."
-node ./bin/agentic-hub.mjs record-outcome --workspace ./workspace --draft draft_example_consulting_co_first_touch --status replied --sent-at 2026-06-12 --reply-at 2026-06-13 --note "Recorded manually after operator-controlled outreach."
+node ./bin/agentic-hub.mjs review-draft --workspace ./workspace --draft draft_example_consulting_co_first_touch --status edited --note "Needs a stronger proof point."
+node ./bin/agentic-hub.mjs revise-draft --workspace ./workspace --draft draft_example_consulting_co_first_touch --changes "Add a stronger proof point before approval."
+node ./bin/agentic-hub.mjs review-draft --workspace ./workspace --draft draft_example_consulting_co_first_touch_rev1 --status approved --note "Human approved revised draft."
+node ./bin/agentic-hub.mjs record-outcome --workspace ./workspace --draft draft_example_consulting_co_first_touch_rev1 --status replied --sent-at 2026-06-12 --reply-at 2026-06-13 --note "Recorded manually after operator-controlled outreach."
 node ./bin/agentic-hub.mjs report --workspace ./workspace
 ```
 
@@ -98,7 +100,7 @@ The fixture writes:
 
 ### Example Output
 
-The sample sprint imports 25 fictional accounts, generates 25 lead briefs, creates 24 review-gated drafts, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
+The sample sprint imports 25 fictional accounts, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
 
 Read the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
 

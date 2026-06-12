@@ -1,8 +1,10 @@
 # Follow-Up Draft: Harbor IT Advisors
 
-Approval status: `needs_review`
+Approval status: `edited`
 Draft type: first_touch
-Review note: None yet
+Review note: Needs stronger managed IT renewal context before use.
+
+
 
 ## Account / Contact Context
 

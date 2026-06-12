@@ -4,6 +4,8 @@ Approval status: `rejected`
 Draft type: first_touch
 Review note: Compliance-sensitive segment needs legal review before drafting.
 
+
+
 ## Account / Contact Context
 
 - Account: Cedar Grant Partners

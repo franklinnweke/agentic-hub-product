@@ -32,7 +32,7 @@
       "Evidence-backed follow-up workflow"
     ],
     "body": "Hi,\n\nI noticed Brightlane Creative looks like a fit for a supervised pipeline sprint based on this workspace note: Eight-person web agency with project-based leads.\n\nLead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
-    "status": "edited",
+    "status": "superseded",
     "evidence_ids": [
       "ev_brightlane_creative_website",
       "ev_brightlane_creative_segment",
@@ -44,8 +44,9 @@
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
     "created_at": "2026-06-11T22:30:00.000Z",
-    "updated_at": "2026-06-11T22:46:00.000Z",
-    "review_note": "Needs agency-specific proof point before use."
+    "updated_at": "2026-06-11T22:46:30.000Z",
+    "review_note": "Needs agency-specific proof point before use.",
+    "superseded_at": "2026-06-11T22:46:30.000Z"
   },
   {
     "id": "draft_atlas_founder_labs_first_touch",
@@ -103,7 +104,7 @@
       "Evidence-backed follow-up workflow"
     ],
     "body": "Hi,\n\nI noticed Harbor IT Advisors looks like a fit for a supervised pipeline sprint based on this workspace note: Managed IT advisory firm with high-ticket retainers.\n\nLead with a local pipeline sprint for professional services teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
-    "status": "needs_review",
+    "status": "edited",
     "evidence_ids": [
       "ev_harbor_it_advisors_website",
       "ev_harbor_it_advisors_segment",
@@ -115,7 +116,8 @@
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
     "created_at": "2026-06-11T22:30:00.000Z",
-    "updated_at": "2026-06-11T22:30:00.000Z"
+    "updated_at": "2026-06-11T22:46:45.000Z",
+    "review_note": "Needs stronger managed IT renewal context before use."
   },
   {
     "id": "draft_signalworks_strategy_first_touch",
@@ -558,5 +560,32 @@
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
     "created_at": "2026-06-11T22:30:00.000Z",
     "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
+    "id": "draft_brightlane_creative_first_touch_rev1",
+    "account_id": "acct_brightlane_creative",
+    "draft_type": "first_touch",
+    "subject_options": [
+      "Pipeline sprint idea for Brightlane Creative",
+      "Evidence-backed follow-up workflow"
+    ],
+    "body": "Hi,\n\nI noticed Brightlane Creative looks like a fit for a supervised pipeline sprint based on this workspace note: Eight-person web agency with project-based leads.\n\nLead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin\n\n---\n\nOperator revision notes:\nAdd an agency-specific proof point and keep the ask low-pressure.\n\nRevision reminder: verify recipient, proof point, and send context before approving.",
+    "status": "needs_review",
+    "evidence_ids": [
+      "ev_brightlane_creative_website",
+      "ev_brightlane_creative_segment",
+      "ev_brightlane_creative_note_1"
+    ],
+    "risk_flags": [
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+    ],
+    "suggested_send_window": "Operator-selected after manual review",
+    "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
+    "created_at": "2026-06-11T22:46:30.000Z",
+    "updated_at": "2026-06-11T22:46:30.000Z",
+    "review_note": "Revision created for another review cycle.",
+    "revision_of": "draft_brightlane_creative_first_touch",
+    "revision_number": 1,
+    "revision_changes": "Add an agency-specific proof point and keep the ask low-pressure."
   }
 ]

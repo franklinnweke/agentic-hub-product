@@ -54,13 +54,15 @@ The CSV contains 25 fictional accounts. Twenty-four are plausible service-busine
 The fixture produces:
 
 - 25 lead briefs
-- 24 follow-up drafts
+- 24 initial follow-up drafts
+- 1 revised follow-up draft
 - 1 rejected automation-risk account
 - 1 approved draft
 - 1 edited draft
 - 1 rejected draft
+- 1 superseded draft
 - 1 manually recorded meeting outcome
-- 207 audit events
+- 210 audit events
 - 1 weekly pipeline report
 
 Example artifacts:
@@ -78,6 +80,7 @@ The proof is not that an agent can generate a cold email. The proof is that the 
 - every score is inspectable
 - risky automation requests are rejected
 - every draft requires human review
+- edited drafts can produce revised drafts without losing the original
 - outcomes are manually recorded with a clear denominator
 - analytics reconciles with local state
 
@@ -95,7 +98,6 @@ That makes the project portfolio-grade because a reviewer can inspect the inputs
 ## Remaining Gaps
 
 - Buyer/contact names are still missing.
-- Draft editing is represented as state, not a revision workflow.
 - Real public-source research is not implemented yet.
 - There is no local operator console or screenshot-driven UI yet.
 

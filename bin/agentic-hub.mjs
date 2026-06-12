@@ -52,6 +52,9 @@ function main() {
       case "review-draft":
         reviewDraft(workspace, flags, now);
         break;
+      case "revise-draft":
+        reviseDraft(workspace, flags, now);
+        break;
       case "record-outcome":
         recordOutcome(workspace, flags, now);
         break;
@@ -125,6 +128,7 @@ Commands:
   generate-drafts   Generate human-review follow-up drafts from lead briefs
   review-account    Mark an account approved, rejected, or needs_more_info
   review-draft      Mark a draft approved, edited, or rejected
+  revise-draft      Create a new needs_review draft version from an edited draft
   record-outcome    Record a manual outcome after operator-controlled activity
   report            Generate a weekly analytics report from local state
   run               Execute init, ingest, briefs, drafts, report, and validate
@@ -138,6 +142,7 @@ Options:
   --draft ID         Draft id for review-draft
   --status STATUS    Review status
   --note TEXT        Optional human review note
+  --changes TEXT     Required revision notes for revise-draft
   --sent-at DATE     Manual send timestamp/date for record-outcome
   --reply-at DATE    Reply timestamp/date for record-outcome
   --meeting-at DATE  Meeting timestamp/date for record-outcome
@@ -373,6 +378,9 @@ function reviewDraft(workspace, flags, now) {
   const drafts = readJson(draftsPath);
   const draft = drafts.find((item) => item.id === draftId);
   if (!draft) throw new Error(`Unknown draft: ${draftId}`);
+  if (draft.status === "superseded") {
+    throw new Error(`${draftId} is superseded; review the active revision instead.`);
+  }
 
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const account = accounts.find((item) => item.id === draft.account_id);
@@ -409,6 +417,76 @@ function reviewDraft(workspace, flags, now) {
   console.log(`Updated ${draft.id} to ${status}.`);
 }
 
+function reviseDraft(workspace, flags, now) {
+  ensureWorkspaceDirs(workspace);
+  const draftId = requireFlag(flags, "draft");
+  const changes = requireFlag(flags, "changes");
+  const draftsPath = path.join(workspace, "state", "drafts.json");
+  const drafts = readJson(draftsPath);
+  const original = drafts.find((item) => item.id === draftId);
+  if (!original) throw new Error(`Unknown draft: ${draftId}`);
+  if (original.status !== "edited") {
+    throw new Error(`${draftId} must be edited before it can be revised.`);
+  }
+  if (drafts.some((item) => item.revision_of === original.id)) {
+    throw new Error(`${draftId} already has a revision. Review that revision before creating another.`);
+  }
+
+  const accounts = readJson(path.join(workspace, "state", "accounts.json"));
+  const account = accounts.find((item) => item.id === original.account_id);
+  if (!account) throw new Error(`Draft ${draftId} references unknown account ${original.account_id}`);
+
+  original.status = "superseded";
+  original.updated_at = now;
+  original.superseded_at = now;
+  const revisionNumber = nextRevisionNumber(original, drafts);
+  const revised = {
+    ...original,
+    id: `${original.id}_rev${revisionNumber}`,
+    body: reviseDraftBody(original.body, changes),
+    status: "needs_review",
+    review_note: flags.note ?? `Revision ${revisionNumber} created from ${original.id}.`,
+    revision_of: original.id,
+    revision_number: revisionNumber,
+    revision_changes: changes,
+    superseded_at: undefined,
+    created_at: now,
+    updated_at: now
+  };
+  delete revised.superseded_at;
+  drafts.push(revised);
+  writeJson(draftsPath, drafts);
+
+  const events = readEvents(workspace);
+  events.push(eventFor("draft", original.id, "draft_superseded_by_revision", now, {
+    account_id: original.account_id,
+    revision_id: revised.id,
+    changes
+  }));
+  events.push(eventFor("draft", revised.id, "draft_revision_created_needs_review", now, {
+    account_id: revised.account_id,
+    revision_of: original.id,
+    changes
+  }));
+  writeJsonl(path.join(workspace, "state", "events.jsonl"), events);
+
+  appendRunLog(workspace, {
+    run_id: runId(`revise_draft_${original.id}`, now),
+    timestamp: now,
+    pack: "follow-ups",
+    command: "revise-draft",
+    input_files: ["state/drafts.json", "state/accounts.json"],
+    output_files: ["state/drafts.json", "state/events.jsonl", `outputs/drafts/${original.id}.md`, `outputs/drafts/${revised.id}.md`],
+    status: "completed",
+    warnings: [],
+    errors: []
+  });
+
+  regenerateDraft(workspace, account, original);
+  regenerateDraft(workspace, account, revised);
+  console.log(`Created revision ${revised.id} from ${original.id}.`);
+}
+
 function recordOutcome(workspace, flags, now) {
   ensureWorkspaceDirs(workspace);
   const draftId = requireFlag(flags, "draft");
@@ -420,6 +498,9 @@ function recordOutcome(workspace, flags, now) {
   const drafts = readJson(path.join(workspace, "state", "drafts.json"));
   const draft = drafts.find((item) => item.id === draftId);
   if (!draft) throw new Error(`Unknown draft: ${draftId}`);
+  if (draft.status === "superseded") {
+    throw new Error(`${draftId} is superseded; record outcomes against the active revision.`);
+  }
   if (["sent_manual", "replied", "meeting_booked"].includes(manualStatus) && draft.status !== "approved") {
     throw new Error(`${draftId} must be approved before recording ${manualStatus}.`);
   }
@@ -531,16 +612,19 @@ function validateWorkspace(workspace) {
   }
 
   for (const draft of drafts) {
-    if (!["needs_review", "approved", "edited", "rejected"].includes(draft.status)) errors.push(`${draft.id} has invalid status ${draft.status}`);
+    if (!["needs_review", "approved", "edited", "rejected", "superseded"].includes(draft.status)) errors.push(`${draft.id} has invalid status ${draft.status}`);
     if (draft.status === "sent_external") errors.push(`${draft.id} uses forbidden MVP status sent_external`);
     if (draft.evidence_ids.length === 0) errors.push(`${draft.id} has no evidence references`);
     const account = accounts.find((item) => item.id === draft.account_id);
     if (draft.status === "approved" && account?.status !== "approved") errors.push(`${draft.id} is approved but account ${draft.account_id} is not approved`);
+    if (draft.status === "superseded" && !drafts.some((item) => item.revision_of === draft.id)) errors.push(`${draft.id} is superseded but has no revision`);
+    if (draft.revision_of && !drafts.some((item) => item.id === draft.revision_of)) errors.push(`${draft.id} references unknown revision parent ${draft.revision_of}`);
   }
 
   for (const outcome of outcomes) {
     const draft = drafts.find((item) => item.id === outcome.draft_id);
     if (!draft) errors.push(`outcomes.csv references unknown draft ${outcome.draft_id}`);
+    if (draft?.status === "superseded") errors.push(`outcomes.csv references superseded draft ${outcome.draft_id}`);
     if (outcome.account_id && !accounts.some((item) => item.id === outcome.account_id)) errors.push(`outcomes.csv references unknown account ${outcome.account_id}`);
     if (["sent_manual", "replied", "meeting_booked"].includes(outcome.manual_status) && draft?.status !== "approved") {
       errors.push(`outcome ${outcome.draft_id} has ${outcome.manual_status} but draft is not approved`);
@@ -792,6 +876,24 @@ function buildDraft(account, evidence, now) {
   };
 }
 
+function nextRevisionNumber(original, drafts) {
+  const existingRevisions = drafts.filter((draft) => draft.revision_of === original.id);
+  return existingRevisions.length + 1;
+}
+
+function reviseDraftBody(body, changes) {
+  return [
+    body,
+    "",
+    "---",
+    "",
+    "Operator revision notes:",
+    changes,
+    "",
+    "Revision reminder: verify recipient, proof point, and send context before approving."
+  ].join("\n");
+}
+
 function buildMetrics(accounts, drafts, events, outcomes = []) {
   const highFitAccounts = accounts.filter((account) => account.fit_score >= 75 && account.disqualifiers.length === 0);
   const approvedAccounts = accounts.filter((account) => account.status === "approved");
@@ -816,6 +918,8 @@ function buildMetrics(accounts, drafts, events, outcomes = []) {
     drafts_approved: drafts.filter((draft) => draft.status === "approved").length,
     drafts_edited: drafts.filter((draft) => draft.status === "edited").length,
     drafts_rejected: drafts.filter((draft) => draft.status === "rejected").length,
+    drafts_superseded: drafts.filter((draft) => draft.status === "superseded").length,
+    draft_revisions: drafts.filter((draft) => draft.revision_of).length,
     follow_ups_due: drafts.filter((draft) => draft.status === "needs_review").length,
     manual_sends_recorded: sentManual.length,
     stale_conversations: staleConversations,
@@ -891,6 +995,8 @@ function renderDraft(account, draft, evidence) {
 Approval status: \`${draft.status}\`
 Draft type: ${draft.draft_type}
 Review note: ${draft.review_note ? draft.review_note : "None yet"}
+${draft.revision_of ? `Revision of: \`${draft.revision_of}\`\nRevision changes: ${draft.revision_changes}` : ""}
+${draft.superseded_at ? `Superseded at: ${draft.superseded_at}` : ""}
 
 ## Account / Contact Context
 
@@ -937,7 +1043,7 @@ Generated: ${now}
 
 ## Executive Summary
 
-The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${metrics.high_fit_accounts} high-fit lead briefs, and created ${metrics.drafts_generated} follow-up drafts. Draft review status: ${metrics.drafts_approved} approved for manual use, ${metrics.drafts_edited} edited, ${metrics.drafts_rejected} rejected, and ${metrics.follow_ups_due} still in \`needs_review\`. No outbound sending is implemented.
+The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${metrics.high_fit_accounts} high-fit lead briefs, and created ${metrics.drafts_generated} follow-up draft records including ${metrics.draft_revisions} revision. Draft review status: ${metrics.drafts_approved} approved for manual use, ${metrics.drafts_edited} edited, ${metrics.drafts_rejected} rejected, ${metrics.drafts_superseded} superseded, and ${metrics.follow_ups_due} still in \`needs_review\`. No outbound sending is implemented.
 
 ## Throughput
 
@@ -953,6 +1059,8 @@ The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${m
 | Drafts approved | ${metrics.drafts_approved} |
 | Drafts edited | ${metrics.drafts_edited} |
 | Drafts rejected | ${metrics.drafts_rejected} |
+| Drafts superseded | ${metrics.drafts_superseded} |
+| Draft revisions | ${metrics.draft_revisions} |
 | Follow-ups due for review | ${metrics.follow_ups_due} |
 | Manual sends recorded | ${metrics.manual_sends_recorded} |
 | Replies | ${metrics.replies} |
@@ -970,6 +1078,8 @@ The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${m
 - Drafts approved: ${metrics.drafts_approved}
 - Drafts edited: ${metrics.drafts_edited}
 - Drafts rejected: ${metrics.drafts_rejected}
+- Drafts superseded by revisions: ${metrics.drafts_superseded}
+- Draft revisions created: ${metrics.draft_revisions}
 - Drafts waiting for human review: ${metrics.follow_ups_due}
 - Manual sends recorded in outcomes CSV: ${metrics.manual_sends_recorded}
 - The MVP intentionally has no send action; outcomes are manually recorded after operator-controlled activity outside Agentic Hub.
@@ -992,12 +1102,13 @@ ${segmentRows.map((row) => `| ${row.segment} | ${row.accounts} | ${row.average_s
 
 ${metrics.follow_ups_due > 0 ? `- Drafts needing operator review before manual sending: ${metrics.follow_ups_due}.` : "- No drafts are waiting for first review."}
 - Drafts needing edits before approval: ${metrics.drafts_edited}.
+- Drafts superseded by revisions: ${metrics.drafts_superseded}.
 - Drafts rejected from use without a new review cycle: ${metrics.drafts_rejected}.
 - Buyer/contact names are missing from the fixture, so every draft requires manual recipient confirmation.
 
 ## Recommended Next Actions
 
-1. Convert edited drafts into revised drafts only after adding missing proof points.
+1. Review revised drafts before manual use.
 2. Add contact names and prior interaction context before using any draft.
 3. Keep \`inputs/outcomes.csv\` updated after manually controlled outreach activity.
 4. Keep disqualified automation requests out of the pipeline unless the use case becomes supervised and compliant.
@@ -1022,6 +1133,8 @@ function renderMetricsCsv(metrics) {
     ["drafts_approved", metrics.drafts_approved, "drafts generated", "Manual review state"],
     ["drafts_edited", metrics.drafts_edited, "drafts generated", "Manual review state"],
     ["drafts_rejected", metrics.drafts_rejected, "drafts generated", "Manual review state"],
+    ["drafts_superseded", metrics.drafts_superseded, "drafts generated", "Superseded by a revised draft"],
+    ["draft_revisions", metrics.draft_revisions, "drafts generated", "Revision records created from edited drafts"],
     ["follow_ups_due", metrics.follow_ups_due, "drafts generated", "Drafts in needs_review"],
     ["manual_sends_recorded", metrics.manual_sends_recorded, "inputs/outcomes.csv rows", "Recorded after manual operator activity outside Agentic Hub"],
     ["stale_conversations", metrics.stale_conversations, "known conversations", "Manual outcome status"],

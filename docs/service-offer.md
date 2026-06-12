@@ -119,10 +119,11 @@ Without a workflow, follow-ups slip, lead quality is hard to compare, and generi
 The public fixture sprint demonstrates the workflow on fictional accounts:
 
 - 25 lead briefs
-- 24 follow-up drafts
+- 24 initial follow-up drafts
+- 1 revised follow-up draft
 - 1 rejected risky automation request
 - 1 manually recorded meeting outcome
-- 207 audit events
+- 210 audit events
 - deterministic fixture evals
 
 Sample proof files:

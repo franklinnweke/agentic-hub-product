@@ -1,10 +1,11 @@
 # Follow-Up Draft: Brightlane Creative
 
-Approval status: `superseded`
+Approval status: `needs_review`
 Draft type: first_touch
-Review note: Needs agency-specific proof point before use.
+Review note: Revision created for another review cycle.
+Revision of: `draft_brightlane_creative_first_touch`
+Revision changes: Add an agency-specific proof point and keep the ask low-pressure.
 
-Superseded at: 2026-06-11T22:46:30.000Z
 
 ## Account / Contact Context
 
@@ -31,6 +32,13 @@ The useful starting point would be a small, local run: import a target list, gen
 Would it be worth comparing this against your current follow-up process for a few accounts?
 
 Franklin
+
+---
+
+Operator revision notes:
+Add an agency-specific proof point and keep the ask low-pressure.
+
+Revision reminder: verify recipient, proof point, and send context before approving.
 
 ## Personalization Evidence
 

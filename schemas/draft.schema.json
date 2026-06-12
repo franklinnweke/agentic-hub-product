@@ -53,7 +53,8 @@
         "needs_review",
         "approved",
         "edited",
-        "rejected"
+        "rejected",
+        "superseded"
       ]
     },
     "evidence_ids": {
@@ -77,6 +78,21 @@
     },
     "review_note": {
       "type": "string"
+    },
+    "revision_of": {
+      "type": "string",
+      "pattern": "^draft_[a-z0-9_]+$"
+    },
+    "revision_number": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "revision_changes": {
+      "type": "string"
+    },
+    "superseded_at": {
+      "type": "string",
+      "format": "date-time"
     },
     "created_at": {
       "type": "string",

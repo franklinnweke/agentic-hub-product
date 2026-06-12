@@ -18,6 +18,8 @@ expect(drafts.length >= 20, "fixture should include at least 20 review-gated dra
 expect(drafts.some((draft) => draft.status === "approved"), "fixture should include an approved draft");
 expect(drafts.some((draft) => draft.status === "edited"), "fixture should include an edited draft");
 expect(drafts.some((draft) => draft.status === "rejected"), "fixture should include a rejected draft");
+expect(drafts.some((draft) => draft.status === "superseded"), "fixture should include a superseded draft after revision");
+expect(drafts.some((draft) => draft.revision_of && draft.status === "needs_review"), "fixture should include an active revised draft needing review");
 expect(drafts.every((draft) => draft.status !== "sent_external"), "fixture must not use sent_external status");
 expect(accounts.some((account) => account.status === "rejected" && account.disqualifiers.length > 0), "fixture should reject a disqualified account");
 expect(outcomes.some((outcome) => outcome.manual_status === "meeting_booked"), "fixture should include one manually recorded meeting outcome");
