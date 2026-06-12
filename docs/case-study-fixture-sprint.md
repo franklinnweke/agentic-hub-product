@@ -133,7 +133,7 @@ That makes the project portfolio-grade because a reviewer can inspect the inputs
 
 ## Next Proof Step
 
-Run a real permissioned 25-account sprint, then publish:
+Run a real permissioned 25-account sprint using `docs/permissioned-pilot-runbook.md`, then publish:
 
 - before/after lead brief example
 - approval queue screenshot or terminal walkthrough from a real permissioned sprint

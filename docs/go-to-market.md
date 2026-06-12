@@ -159,6 +159,8 @@ Ask every prospect:
 - What would make a researched lead brief trustworthy?
 - What would make this not worth paying for?
 
+Use `templates/pipeline-sprint-intake.md` for the full pilot intake once a prospect is interested.
+
 ## Conversion Criteria
 
 A prospect is a good fit if:
@@ -176,3 +178,11 @@ A prospect is a bad fit if:
 - they cannot define their offer
 - they measure only email volume
 - they expect guaranteed meetings from cold outbound
+
+## Pilot Operating Path
+
+Use these artifacts for the first permissioned sprint:
+
+1. `templates/pipeline-sprint-intake.md` - qualify the client, define the permission boundary, and collect target/contact/prior-interaction context.
+2. `docs/permissioned-pilot-runbook.md` - run the local workflow without sending, submitting forms, scraping private systems, or using credentials.
+3. `templates/before-after-proof.md` - publish sanitized proof only after the client approves what can be shown.

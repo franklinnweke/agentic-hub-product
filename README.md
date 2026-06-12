@@ -45,11 +45,14 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 - `docs/workflow-pack-architecture.md` - workflow-pack design, inputs, outputs, guardrails.
 - `docs/demo-walkthrough.md` - 3-5 minute reviewer path through the generated proof artifacts.
 - `docs/case-study-fixture-sprint.md` - sanitized case study for the runnable fixture sprint.
+- `docs/permissioned-pilot-runbook.md` - safe operating path for a real client sprint.
 - `docs/service-offer.md` - service offer and pricing page draft for the pipeline sprint.
 - `docs/roadmap.md` - 48-hour, 30-day, and 90-day implementation path.
 - `docs/go-to-market.md` - first customer, service wedge, pricing, and proof strategy.
 - `packs/` - pack-level specs for lead gen, follow-ups, and analytics.
 - `templates/workflow-pack-template.md` - reusable template for future packs.
+- `templates/pipeline-sprint-intake.md` - intake checklist for a permissioned sprint.
+- `templates/before-after-proof.md` - sanitized proof template for a real before/after case study.
 - `research/source-notes.md` - research signals and operating assumptions.
 - `AGENTS.md` - repo instructions for future Codex agents.
 
@@ -117,6 +120,8 @@ The fixture writes:
 The sample sprint imports 25 fictional accounts, loads 10 local contact records and 6 prior interaction notes, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report plus static operator console with draft type mix. The MVP deliberately does not include any send command or external side effect.
 
 Read the guided proof path in `docs/demo-walkthrough.md` and the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
+
+For a real pilot, use `docs/permissioned-pilot-runbook.md`, `templates/pipeline-sprint-intake.md`, and `templates/before-after-proof.md`.
 
 Implementation stack: Node.js ESM with plain files. This keeps the workflow easy to run now and leaves a clean path toward a TypeScript web console later.
 

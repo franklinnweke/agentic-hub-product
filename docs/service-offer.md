@@ -135,6 +135,7 @@ Sample proof files:
 
 - `docs/demo-walkthrough.md`
 - `docs/case-study-fixture-sprint.md`
+- `docs/permissioned-pilot-runbook.md`
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
@@ -159,7 +160,8 @@ Start with a narrow service wedge:
 ## Proof Requirements Before Selling Harder
 
 - Run one real permissioned 25-account sprint.
+- Use `templates/pipeline-sprint-intake.md` before accepting client data.
 - Capture time saved against the current manual process.
 - Capture draft rewrite rate.
 - Track reply and meeting outcomes manually.
-- Publish a sanitized before/after example.
+- Publish a sanitized before/after example with `templates/before-after-proof.md`.
