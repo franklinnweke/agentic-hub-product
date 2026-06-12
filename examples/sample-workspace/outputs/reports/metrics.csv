@@ -1,0 +1,13 @@
+metric,value,denominator,notes
+accounts_imported,5,targets.csv rows,
+accounts_researched,5,accounts imported,Fixture uses user-provided data only
+accounts_scored,5,accounts imported,
+average_fit_score,71,accounts scored,Rounded whole number
+high_fit_accounts,3,accounts scored,Score >= 75 and no disqualifiers
+drafts_generated,4,eligible accounts,Disqualified and low-score accounts skipped
+drafts_approved,0,drafts generated,Manual state not changed in fixture
+drafts_rejected,0,drafts generated,Manual state not changed in fixture
+follow_ups_due,4,drafts generated,Drafts in needs_review
+stale_conversations,0,known conversations,No prior interaction fixture
+replies,unavailable,sent messages,Unavailable because MVP does not send
+meetings_booked,unavailable,sent messages,Unavailable because MVP does not send

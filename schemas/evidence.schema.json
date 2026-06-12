@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentic-hub.local/schemas/evidence.schema.json",
+  "title": "Agentic Hub Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "account_id",
+    "source_type",
+    "source_url",
+    "claim",
+    "captured_at",
+    "confidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^ev_[a-z0-9_]+$"
+    },
+    "account_id": {
+      "type": "string",
+      "pattern": "^acct_[a-z0-9_]+$"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "target_csv",
+        "operator_note",
+        "website",
+        "manual_context",
+        "outcome_csv"
+      ]
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    }
+  }
+}

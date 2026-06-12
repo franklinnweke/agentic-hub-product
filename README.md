@@ -37,6 +37,9 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 
 ## Repository Map
 
+- `bin/agentic-hub.mjs` - zero-dependency local CLI for the first MVP workflow.
+- `schemas/` - JSON schemas for accounts, evidence, drafts, and events.
+- `examples/sample-workspace/` - runnable fixture workspace with generated sample outputs.
 - `docs/product-plan.md` - product strategy, positioning, packaging, monetization.
 - `docs/prd.md` - product requirements document for the first shippable version.
 - `docs/workflow-pack-architecture.md` - workflow-pack design, inputs, outputs, guardrails.
@@ -54,6 +57,43 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 - Deterministic first: use APIs, structured data, and explicit rules before browser automation.
 - Browser/computer use only when no reliable API exists.
 - The system should produce artifacts a client can inspect: CSVs, briefs, reports, screenshots, logs, and GitHub issues.
+
+## Local MVP Quickstart
+
+The first runnable slice is a local, inspectable CLI. It uses Node.js built-ins only: no database, no credentials, no browser automation, no outbound sending.
+
+Run the fixture workflow:
+
+```sh
+npm run fixture
+```
+
+Validate the generated workspace:
+
+```sh
+npm run check
+```
+
+Run against a new local workspace:
+
+```sh
+node ./bin/agentic-hub.mjs init --workspace ./workspace
+node ./bin/agentic-hub.mjs run --workspace ./workspace
+```
+
+The fixture writes:
+
+- `examples/sample-workspace/outputs/lead-briefs/` - evidence-backed account briefs.
+- `examples/sample-workspace/outputs/drafts/` - follow-up drafts that start in `needs_review`.
+- `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md` - analytics report.
+- `examples/sample-workspace/state/` - inspectable JSON/JSONL state.
+- `examples/sample-workspace/logs/runs.jsonl` - audit log for pack runs.
+
+### Example Output
+
+The sample sprint imports five fictional accounts, generates five lead briefs, creates four review-gated drafts, skips one disqualified automation-risk account, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
+
+Implementation stack: Node.js ESM with plain files. This keeps the workflow easy to run now and leaves a clean path toward a TypeScript web console later.
 
 ## First Milestone
 

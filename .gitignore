@@ -7,5 +7,6 @@ build/
 !.env.example
 tmp/
 outputs/
+!examples/sample-workspace/outputs/
+!examples/sample-workspace/outputs/**
 *.log
-

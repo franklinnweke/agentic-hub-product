@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentic-hub.local/schemas/draft.schema.json",
+  "title": "Agentic Hub Draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "account_id",
+    "draft_type",
+    "subject_options",
+    "body",
+    "status",
+    "evidence_ids",
+    "risk_flags",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^draft_[a-z0-9_]+$"
+    },
+    "account_id": {
+      "type": "string",
+      "pattern": "^acct_[a-z0-9_]+$"
+    },
+    "draft_type": {
+      "type": "string",
+      "enum": [
+        "first_touch",
+        "warm_follow_up",
+        "meeting_recap",
+        "stale_opportunity_revive",
+        "referral_request"
+      ]
+    },
+    "subject_options": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "body": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "drafted",
+        "needs_review",
+        "approved",
+        "edited",
+        "rejected"
+      ]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^ev_[a-z0-9_]+$"
+      }
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "suggested_send_window": {
+      "type": "string"
+    },
+    "next_action_if_no_reply": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

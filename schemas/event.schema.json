@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentic-hub.local/schemas/event.schema.json",
+  "title": "Agentic Hub Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "entity_id",
+    "event_type",
+    "timestamp",
+    "metadata"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^evt_[a-z0-9_]+$"
+    },
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "account",
+        "evidence",
+        "draft",
+        "report",
+        "workspace"
+      ]
+    },
+    "entity_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  }
+}

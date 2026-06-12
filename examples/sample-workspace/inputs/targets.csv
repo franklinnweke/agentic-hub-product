@@ -1,0 +1,6 @@
+account_name,website,segment,notes,source
+Northstar Ops Studio,https://northstar-ops.example,solo_consultant,"Founder sells RevOps retainers, tracks leads in spreadsheets, misses follow-ups after discovery calls, wants more evidence-backed personalization.",demo fixture
+Brightlane Creative,https://brightlane.example,boutique_agency,"Eight-person web agency with project-based leads, inconsistent follow-up process, no analytics on referral source quality.",demo fixture
+Atlas Founder Labs,https://atlas-founder-labs.example,founder_led_b2b,"Early B2B SaaS team doing founder-led sales, many demo notes in docs, needs context-aware investor and prospect follow-ups.",demo fixture
+Cedar Grant Partners,https://cedar-grants.example,professional_services,"Grant writing consultancy with many warm relationships, deadline-driven follow-up windows, sensitive compliance language.",demo fixture
+QuickScale Outreach,https://quickscale-outreach.example,automation_vendor,"Vendor advertises autonomous high-volume outbound and asks for platform automation at scale.",demo fixture

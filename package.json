@@ -1,0 +1,19 @@
+{
+  "name": "agentic-hub-product",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first workflow packs for evidence-backed lead briefs, human-reviewed follow-up drafts, and pipeline analytics.",
+  "type": "module",
+  "bin": {
+    "agentic-hub": "./bin/agentic-hub.mjs"
+  },
+  "scripts": {
+    "agentic-hub": "node ./bin/agentic-hub.mjs",
+    "fixture": "node ./bin/agentic-hub.mjs run --workspace examples/sample-workspace --fresh --now 2026-06-11T22:30:00.000Z",
+    "check": "node ./bin/agentic-hub.mjs validate --workspace examples/sample-workspace"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
