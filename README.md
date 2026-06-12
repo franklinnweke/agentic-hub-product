@@ -43,6 +43,7 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 - `docs/product-plan.md` - product strategy, positioning, packaging, monetization.
 - `docs/prd.md` - product requirements document for the first shippable version.
 - `docs/workflow-pack-architecture.md` - workflow-pack design, inputs, outputs, guardrails.
+- `docs/case-study-fixture-sprint.md` - sanitized case study for the runnable fixture sprint.
 - `docs/roadmap.md` - 48-hour, 30-day, and 90-day implementation path.
 - `docs/go-to-market.md` - first customer, service wedge, pricing, and proof strategy.
 - `packs/` - pack-level specs for lead gen, follow-ups, and analytics.
@@ -96,7 +97,9 @@ The fixture writes:
 
 ### Example Output
 
-The sample sprint imports five fictional accounts, generates five lead briefs, creates four review-gated drafts, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
+The sample sprint imports six fictional accounts, generates six lead briefs, creates five review-gated drafts, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
+
+Read the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
 
 Implementation stack: Node.js ESM with plain files. This keeps the workflow easy to run now and leaves a clean path toward a TypeScript web console later.
 

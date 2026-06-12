@@ -180,6 +180,51 @@
     "confidence": "high"
   },
   {
+    "id": "ev_harbor_it_advisors_website",
+    "account_id": "acct_harbor_it_advisors",
+    "source_type": "website",
+    "source_url": "https://harbor-it.example",
+    "claim": "Website listed for account: https://harbor-it.example",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "medium"
+  },
+  {
+    "id": "ev_harbor_it_advisors_segment",
+    "account_id": "acct_harbor_it_advisors",
+    "source_type": "target_csv",
+    "source_url": "inputs/targets.csv",
+    "claim": "Segment from target list: professional_services",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "high"
+  },
+  {
+    "id": "ev_harbor_it_advisors_note_1",
+    "account_id": "acct_harbor_it_advisors",
+    "source_type": "operator_note",
+    "source_url": "inputs/targets.csv",
+    "claim": "Managed IT advisory firm with high-ticket retainers.",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "medium"
+  },
+  {
+    "id": "ev_harbor_it_advisors_note_2",
+    "account_id": "acct_harbor_it_advisors",
+    "source_type": "operator_note",
+    "source_url": "inputs/targets.csv",
+    "claim": "many referral leads.",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "medium"
+  },
+  {
+    "id": "ev_harbor_it_advisors_source",
+    "account_id": "acct_harbor_it_advisors",
+    "source_type": "target_csv",
+    "source_url": "inputs/targets.csv",
+    "claim": "Imported from source: demo fixture",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "high"
+  },
+  {
     "id": "ev_quickscale_outreach_website",
     "account_id": "acct_quickscale_outreach",
     "source_type": "website",

@@ -93,5 +93,28 @@
     "created_at": "2026-06-11T22:30:00.000Z",
     "updated_at": "2026-06-11T22:47:00.000Z",
     "review_note": "Compliance-sensitive segment needs legal review before drafting."
+  },
+  {
+    "id": "draft_harbor_it_advisors_first_touch",
+    "account_id": "acct_harbor_it_advisors",
+    "draft_type": "first_touch",
+    "subject_options": [
+      "Pipeline sprint idea for Harbor IT Advisors",
+      "Evidence-backed follow-up workflow"
+    ],
+    "body": "Hi,\n\nI noticed Harbor IT Advisors looks like a fit for a supervised pipeline sprint based on this workspace note: Managed IT advisory firm with high-ticket retainers.\n\nLead with a local pipeline sprint for professional services teams that connects research quality, follow-up review, and weekly analytics.\n\nThe useful starting point would be a small, local run: import a target list, generate evidence-backed lead briefs, draft follow-ups for review, and produce a weekly report. Nothing is sent automatically.\n\nWould it be worth comparing this against your current follow-up process for a few accounts?\n\nFranklin",
+    "status": "needs_review",
+    "evidence_ids": [
+      "ev_harbor_it_advisors_website",
+      "ev_harbor_it_advisors_segment",
+      "ev_harbor_it_advisors_note_1"
+    ],
+    "risk_flags": [
+      "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes"
+    ],
+    "suggested_send_window": "Operator-selected after manual review",
+    "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
   }
 ]

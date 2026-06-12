@@ -114,6 +114,34 @@
     "updated_at": "2026-06-11T22:30:00.000Z"
   },
   {
+    "id": "acct_harbor_it_advisors",
+    "name": "Harbor IT Advisors",
+    "website": "https://harbor-it.example",
+    "segment": "professional_services",
+    "source": "demo fixture",
+    "notes": "Managed IT advisory firm with high-ticket retainers, many referral leads, inconsistent renewal follow-ups, and no weekly pipeline analytics.",
+    "status": "needs_review",
+    "fit_score": 79,
+    "score_breakdown": {
+      "icp_match": 24,
+      "pain_signal": 16,
+      "ability_to_pay": 12,
+      "reachable_context": 15,
+      "timing_signal": 4,
+      "strategic_relevance": 8
+    },
+    "confidence": "high",
+    "missing_information": [
+      "Named buyer or decision-maker",
+      "Recent public proof beyond operator notes"
+    ],
+    "disqualifiers": [],
+    "suggested_angle": "Lead with a local pipeline sprint for professional services teams that connects research quality, follow-up review, and weekly analytics.",
+    "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
+    "created_at": "2026-06-11T22:30:00.000Z",
+    "updated_at": "2026-06-11T22:30:00.000Z"
+  },
+  {
     "id": "acct_quickscale_outreach",
     "name": "QuickScale Outreach",
     "website": "https://quickscale-outreach.example",
