@@ -133,6 +133,7 @@ The public fixture sprint demonstrates the workflow on fictional accounts:
 - 222 audit events
 - 1 static operator console
 - 1 deterministic quality evaluation
+- 1 sanitized public proof bundle
 - deterministic fixture evals
 
 Sample proof files:
@@ -144,6 +145,7 @@ Sample proof files:
 - `examples/sample-workspace/outputs/evals/quality-report.md`
 - `examples/sample-workspace/outputs/console/index.html`
 - `examples/sample-workspace/outputs/handoff/README.md`
+- `examples/sample-workspace/outputs/sanitized/README.md`
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
 - `examples/sample-workspace/outputs/lead-briefs/acct_northstar_ops_studio.md`
 - `examples/sample-workspace/outputs/drafts/draft_northstar_ops_studio_first_touch.md`

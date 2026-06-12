@@ -84,6 +84,7 @@ node ./bin/agentic-hub.mjs evaluate --workspace ../client-sprint-workspace
 node ./bin/agentic-hub.mjs report --workspace ../client-sprint-workspace
 node ./bin/agentic-hub.mjs console --workspace ../client-sprint-workspace
 node ./bin/agentic-hub.mjs export --workspace ../client-sprint-workspace
+node ./bin/agentic-hub.mjs sanitize --workspace ../client-sprint-workspace
 node ./bin/agentic-hub.mjs validate --workspace ../client-sprint-workspace
 ```
 
@@ -105,6 +106,17 @@ The export bundle excludes raw `inputs/`, `state/`, and `logs/` by default. Do n
 ## 7. Publish Sanitized Proof
 
 Use `templates/before-after-proof.md` only after the client approves what can be shown publicly.
+
+Default public proof bundle:
+
+- `outputs/sanitized/README.md`
+- `outputs/sanitized/manifest.json`
+- `outputs/sanitized/lead-briefs/`
+- `outputs/sanitized/drafts/`
+- `outputs/sanitized/reports/`
+- `outputs/sanitized/evals/`
+
+The sanitized proof bundle redacts account/contact names and excludes raw `inputs/`, `state/`, `logs/`, console HTML, and screenshots by default. Use `--redact "literal one,literal two"` for extra client-specific terms before publication.
 
 Safe public proof can include:
 

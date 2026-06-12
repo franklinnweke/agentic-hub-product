@@ -33,6 +33,7 @@ Fixture workspace:
 - `examples/sample-workspace/outputs/console/index.html`
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg`
 - `examples/sample-workspace/outputs/handoff/`
+- `examples/sample-workspace/outputs/sanitized/`
 - `examples/sample-workspace/state/`
 - `examples/sample-workspace/logs/runs.jsonl`
 
@@ -70,7 +71,8 @@ The previous-interactions file contains 6 local, operator-provided notes that tu
 12. Generate an analytics report from local state.
 13. Generate a static local operator console from local state.
 14. Export a client-safe handoff bundle without raw inputs, state, or logs.
-15. Run deterministic fixture-quality checks.
+15. Generate a publishable sanitized proof bundle without raw inputs, state, logs, console HTML, or screenshots.
+16. Run deterministic fixture-quality checks.
 
 ## After
 
@@ -99,6 +101,7 @@ The fixture produces:
 - 1 static operator console
 - 1 rendered operator console screenshot
 - 1 client-safe handoff bundle
+- 1 sanitized public proof bundle
 
 Example artifacts:
 
@@ -125,6 +128,7 @@ The proof is not that an agent can generate a cold email. The proof is that the 
 - analytics reconciles with local state
 - the operator console can be opened as a local file without credentials or a server
 - the handoff bundle excludes raw inputs, state, and logs by default
+- the sanitized proof bundle redacts account/contact names and excludes raw inputs, state, logs, console HTML, and screenshots by default
 
 That makes the project portfolio-grade because a reviewer can inspect the inputs, state, artifacts, logs, and evals from a normal GitHub checkout.
 

@@ -20,6 +20,9 @@ const operatorConsole = readText("outputs/console/index.html");
 const screenshotPath = path.join(workspace, "outputs/screenshots/operator-console.jpg");
 const handoffManifest = readJson("outputs/handoff/manifest.json");
 const handoffReadme = readText("outputs/handoff/README.md");
+const sanitizedManifest = readJson("outputs/sanitized/manifest.json");
+const sanitizedReadme = readText("outputs/sanitized/README.md");
+const sanitizedNorthstarBrief = readText("outputs/sanitized/lead-briefs/acct_01.md");
 
 expect(accounts.length >= 25, "fixture should include at least 25 accounts");
 expect(contacts.length >= 10, "fixture should include at least 10 local contact records");
@@ -69,6 +72,15 @@ expect(handoffManifest.included_files.includes("screenshots/operator-console.jpg
 expect(!handoffManifest.included_files.some((file) => file.startsWith("inputs/") || file.startsWith("state/") || file.startsWith("logs/")), "handoff manifest must not include raw inputs, state, or logs by default");
 expect(!fs.existsSync(path.join(workspace, "outputs/handoff/state")), "handoff bundle must not include raw state");
 expect(!fs.existsSync(path.join(workspace, "outputs/handoff/logs")), "handoff bundle must not include run logs");
+expect(sanitizedReadme.includes("Agentic Hub Sanitized Proof Bundle"), "sanitized bundle should include a README");
+expect(sanitizedManifest.included_files.includes("reports/weekly-pipeline-report.md"), "sanitized manifest should include the weekly report");
+expect(sanitizedManifest.included_files.includes("evals/quality-report.md"), "sanitized manifest should include the quality report");
+expect(!sanitizedManifest.included_files.some((file) => file.startsWith("inputs/") || file.startsWith("state/") || file.startsWith("logs/") || file.startsWith("console/") || file.startsWith("screenshots/")), "sanitized manifest must not include raw internals, console, or screenshots");
+expect(!fs.existsSync(path.join(workspace, "outputs/sanitized/state")), "sanitized bundle must not include raw state");
+expect(!fs.existsSync(path.join(workspace, "outputs/sanitized/logs")), "sanitized bundle must not include run logs");
+expect(!fs.existsSync(path.join(workspace, "outputs/sanitized/console")), "sanitized bundle must not include console HTML");
+expect(!sanitizedNorthstarBrief.includes("Northstar Ops Studio"), "sanitized proof should redact account names");
+expect(sanitizedNorthstarBrief.includes("Account 01"), "sanitized proof should include stable account placeholders");
 
 if (failures.length > 0) {
   console.error("Fixture quality eval failed:");

@@ -13,6 +13,7 @@ const WORKSPACE_DIRS = [
   "outputs/console",
   "outputs/screenshots",
   "outputs/handoff",
+  "outputs/sanitized",
   "state",
   "logs"
 ];
@@ -76,6 +77,9 @@ function main() {
         break;
       case "export":
         exportHandoff(workspace, flags, now);
+        break;
+      case "sanitize":
+        sanitizeWorkspace(workspace, flags, now);
         break;
       case "run":
         if (flags.fresh) {
@@ -152,12 +156,14 @@ Commands:
   report            Generate a weekly analytics report from local state
   console           Generate a static local operator console from local state
   export            Build a client-safe handoff bundle without raw state/logs
+  sanitize          Build a publishable sanitized proof bundle from handoff artifacts
   run               Execute init, ingest, briefs, drafts, report, and validate
   validate          Check the local workspace for MVP completeness and guardrails
 
 Options:
   --workspace PATH   Workspace folder to read/write
-  --out PATH         Output folder for export; defaults to outputs/handoff
+  --out PATH         Output folder for export/sanitize; defaults to outputs/handoff or outputs/sanitized
+  --redact TEXT      Extra literal text to redact during sanitize; repeatable as comma-separated values
   --now ISO_DATE     Fixed timestamp for deterministic fixture runs
   --fresh            With run, clear generated outputs/state/logs and outcomes before execution
   --account ID       Account id for review-account
@@ -785,6 +791,84 @@ function exportHandoff(workspace, flags, now) {
   console.log(`Exported handoff bundle: ${relative(workspace, outDir)}`);
 }
 
+function sanitizeWorkspace(workspace, flags, now) {
+  ensureWorkspaceDirs(workspace);
+  validateWorkspace(workspace);
+
+  const accounts = readJson(path.join(workspace, "state", "accounts.json"));
+  const drafts = readJson(path.join(workspace, "state", "drafts.json"), []);
+  const contacts = readJson(path.join(workspace, "state", "contacts.json"), []);
+  const interactions = readJson(path.join(workspace, "state", "interactions.json"), []);
+  const outcomes = readOutcomes(workspace);
+  const events = readEvents(workspace);
+  const metrics = buildMetrics(accounts, drafts, events, outcomes, contacts, interactions);
+  const outDir = path.resolve(flags.out ?? path.join(workspace, "outputs", "sanitized"));
+  const replacements = buildSanitizeReplacements(accounts, drafts, contacts, flags);
+  const copiedFiles = [];
+
+  fs.rmSync(outDir, { recursive: true, force: true });
+  fs.mkdirSync(outDir, { recursive: true });
+
+  copiedFiles.push(...copySanitizedTree(path.join(workspace, "outputs", "lead-briefs"), path.join(outDir, "lead-briefs"), replacements));
+  copiedFiles.push(...copySanitizedTree(path.join(workspace, "outputs", "drafts"), path.join(outDir, "drafts"), replacements));
+  copiedFiles.push(...copySanitizedTree(path.join(workspace, "outputs", "reports"), path.join(outDir, "reports"), replacements));
+  copiedFiles.push(...copySanitizedTree(path.join(workspace, "outputs", "evals"), path.join(outDir, "evals"), replacements));
+
+  const manifest = {
+    generated_at: now,
+    generated_by: "agentic-hub sanitize",
+    workspace_name: path.basename(workspace),
+    included_files: [...copiedFiles, "README.md", "manifest.json"].sort(),
+    excluded_by_default: [
+      "inputs/",
+      "state/",
+      "logs/",
+      "outputs/console/",
+      "outputs/screenshots/"
+    ],
+    redaction_policy: [
+      "Account names are replaced with Account 01, Account 02, ...",
+      "Contact names are replaced with Contact 01, Contact 02, ...",
+      "Extra --redact values are replaced literally.",
+      "Raw inputs, local state, logs, console HTML, and screenshots are excluded by default."
+    ],
+    metrics: {
+      accounts_imported: metrics.accounts_imported,
+      lead_briefs: metrics.accounts_researched,
+      drafts_generated: metrics.drafts_generated,
+      drafts_approved: metrics.drafts_approved,
+      drafts_edited: metrics.drafts_edited,
+      drafts_rejected: metrics.drafts_rejected,
+      draft_revisions: metrics.draft_revisions,
+      manual_sends_recorded: metrics.manual_sends_recorded,
+      replies: metrics.replies,
+      meetings_booked: metrics.meetings_booked
+    }
+  };
+
+  fs.writeFileSync(path.join(outDir, "README.md"), renderSanitizedReadme(manifest));
+  fs.writeFileSync(path.join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
+
+  appendRunLog(workspace, {
+    run_id: runId("sanitize", now),
+    timestamp: now,
+    pack: "workspace",
+    command: "sanitize",
+    input_files: [
+      "outputs/lead-briefs/",
+      "outputs/drafts/",
+      "outputs/reports/",
+      "outputs/evals/"
+    ],
+    output_files: [relative(workspace, outDir)],
+    status: "completed",
+    warnings: ["Sanitized proof excludes raw inputs, state, logs, console HTML, and screenshots by default."],
+    errors: []
+  });
+
+  console.log(`Generated sanitized proof bundle: ${relative(workspace, outDir)}`);
+}
+
 function validateWorkspace(workspace) {
   ensureWorkspaceDirs(workspace);
   const requiredFiles = [
@@ -895,7 +979,7 @@ function ensureWorkspaceDirs(workspace) {
 }
 
 function resetGeneratedWorkspaceFiles(workspace) {
-  for (const generatedDir of ["outputs/lead-briefs", "outputs/drafts", "outputs/reports", "outputs/evals", "outputs/console", "outputs/handoff", "state", "logs"]) {
+  for (const generatedDir of ["outputs/lead-briefs", "outputs/drafts", "outputs/reports", "outputs/evals", "outputs/console", "outputs/handoff", "outputs/sanitized", "state", "logs"]) {
     fs.rmSync(path.join(workspace, generatedDir), { recursive: true, force: true });
   }
   fs.rmSync(path.join(workspace, "inputs", "outcomes.csv"), { force: true });
@@ -922,6 +1006,80 @@ function copyTree(sourceDir, targetDir, bundleRoot = path.dirname(targetDir)) {
     }
   }
   return copied;
+}
+
+function copySanitizedTree(sourceDir, targetDir, replacements, bundleRoot = path.dirname(targetDir)) {
+  if (!fs.existsSync(sourceDir)) return [];
+  const copied = [];
+  fs.mkdirSync(targetDir, { recursive: true });
+  for (const entry of fs.readdirSync(sourceDir, { withFileTypes: true })) {
+    const sourcePath = path.join(sourceDir, entry.name);
+    const targetPath = path.join(targetDir, entry.name);
+    const sanitizedName = entry.isDirectory() ? entry.name : applyReplacements(entry.name, replacements);
+    const sanitizedTargetPath = path.join(targetDir, sanitizedName);
+    if (entry.isDirectory()) {
+      copied.push(...copySanitizedTree(sourcePath, sanitizedTargetPath, replacements, bundleRoot));
+    } else if (entry.isFile()) {
+      fs.mkdirSync(path.dirname(sanitizedTargetPath), { recursive: true });
+      const body = fs.readFileSync(sourcePath, "utf8");
+      fs.writeFileSync(sanitizedTargetPath, applyReplacements(body, replacements));
+      copied.push(path.relative(bundleRoot, sanitizedTargetPath).replaceAll(path.sep, "/"));
+    }
+  }
+  return copied;
+}
+
+function buildSanitizeReplacements(accounts, drafts, contacts, flags) {
+  const replacements = [];
+  accounts.forEach((account, index) => {
+    const accountNumber = String(index + 1).padStart(2, "0");
+    replacements.push([account.id, `acct_${accountNumber}`]);
+    replacements.push([slug(account.name), `account_${accountNumber}`]);
+    replacements.push([account.name, `Account ${accountNumber}`]);
+    for (const part of firstNamePart(account.name, 4)) {
+      replacements.push([part, `Account ${accountNumber}`]);
+    }
+    replacements.push([account.website, `https://account-${accountNumber}.example`]);
+  });
+  drafts.forEach((draft, index) => {
+    const draftNumber = String(index + 1).padStart(2, "0");
+    replacements.push([draft.id, `draft_${draftNumber}`]);
+  });
+  contacts.forEach((contact, index) => {
+    const contactNumber = String(index + 1).padStart(2, "0");
+    replacements.push([contact.id, `contact_${contactNumber}`]);
+    replacements.push([slug(contact.name), `contact_${contactNumber}`]);
+    replacements.push([contact.name, `Contact ${contactNumber}`]);
+    for (const part of nameParts(contact.name, 2)) {
+      replacements.push([part, `Contact ${contactNumber}`]);
+    }
+  });
+  for (const value of parseListFlag(flags.redact)) {
+    replacements.push([value, "[redacted]"]);
+  }
+  return replacements
+    .filter(([from]) => from && String(from).trim().length > 0)
+    .sort((left, right) => String(right[0]).length - String(left[0]).length);
+}
+
+function nameParts(value, minLength) {
+  return String(value)
+    .split(/[^A-Za-z0-9]+/)
+    .map((part) => part.trim())
+    .filter((part) => part.length >= minLength);
+}
+
+function firstNamePart(value, minLength) {
+  const [first] = nameParts(value, minLength);
+  return first ? [first] : [];
+}
+
+function applyReplacements(body, replacements) {
+  let output = body;
+  for (const [from, to] of replacements) {
+    output = output.split(String(from)).join(String(to));
+  }
+  return output;
 }
 
 function validateTargetRows(rows) {
@@ -2642,6 +2800,55 @@ ${manifest.guardrails.map((item) => `- ${item}`).join("\n")}
 `;
 }
 
+function renderSanitizedReadme(manifest) {
+  return `# Agentic Hub Sanitized Proof Bundle
+
+Generated: ${manifest.generated_at}
+
+This folder contains publishable proof artifacts derived from a local Agentic Hub workspace. It is designed for public case-study review after client approval, not as a private delivery bundle.
+
+## Included
+
+- \`lead-briefs/\` - redacted account briefs
+- \`drafts/\` - redacted human-review follow-up drafts
+- \`reports/weekly-pipeline-report.md\` - redacted operating report
+- \`reports/metrics.csv\` - metrics in CSV form
+- \`evals/quality-report.md\` - redacted deterministic quality/readiness evaluation
+- \`evals/quality-scores.csv\` - eval scores in CSV form
+- \`manifest.json\` - bundle metadata and redaction policy
+
+## Excluded By Default
+
+${manifest.excluded_by_default.map((item) => `- \`${item}\``).join("\n")}
+
+## Redaction Policy
+
+${manifest.redaction_policy.map((item) => `- ${item}`).join("\n")}
+
+## Summary Metrics
+
+| Metric | Value |
+| --- | ---: |
+| Accounts imported | ${manifest.metrics.accounts_imported} |
+| Lead briefs | ${manifest.metrics.lead_briefs} |
+| Drafts generated | ${manifest.metrics.drafts_generated} |
+| Drafts approved | ${manifest.metrics.drafts_approved} |
+| Drafts edited | ${manifest.metrics.drafts_edited} |
+| Drafts rejected | ${manifest.metrics.drafts_rejected} |
+| Draft revisions | ${manifest.metrics.draft_revisions} |
+| Manual sends recorded | ${manifest.metrics.manual_sends_recorded} |
+| Replies | ${manifest.metrics.replies} |
+| Meetings booked | ${manifest.metrics.meetings_booked} |
+
+## Publication Checklist
+
+1. Inspect every file in this bundle.
+2. Confirm no private names, emails, domains, client details, or screenshots remain.
+3. Get explicit approval before publishing a real-client case study.
+4. Keep the no-send and human-review guardrails visible in the published narrative.
+`;
+}
+
 function starterTargetsCsv() {
   return `account_name,website,segment,notes,source
 Example Consulting Co,https://example.com,solo_consultant,"Tracks leads in spreadsheets and wants better follow-up discipline.",manual
@@ -2705,6 +2912,14 @@ function requireFlag(flags, name) {
     throw new Error(`Missing required --${name}`);
   }
   return String(value).trim();
+}
+
+function parseListFlag(value) {
+  if (value === undefined || value === true) return [];
+  return String(value)
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 function jsonForHtml(value) {

@@ -102,6 +102,7 @@ node ./bin/agentic-hub.mjs evaluate --workspace ./workspace
 node ./bin/agentic-hub.mjs report --workspace ./workspace
 node ./bin/agentic-hub.mjs console --workspace ./workspace
 node ./bin/agentic-hub.mjs export --workspace ./workspace
+node ./bin/agentic-hub.mjs sanitize --workspace ./workspace
 ```
 
 The fixture writes:
@@ -114,6 +115,7 @@ The fixture writes:
 - `examples/sample-workspace/outputs/console/index.html` - static local operator console for review queue inspection.
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg` - rendered console screenshot for GitHub review.
 - `examples/sample-workspace/outputs/handoff/` - client-safe handoff bundle that excludes raw inputs, state, and logs by default.
+- `examples/sample-workspace/outputs/sanitized/` - publishable proof bundle with account/contact names redacted and raw internals excluded.
 - `examples/sample-workspace/inputs/contacts.csv` - local operator-provided buyer/contact context.
 - `examples/sample-workspace/inputs/research.csv` - manually captured approved-source research evidence.
 - `examples/sample-workspace/inputs/previous_interactions.md` - local operator-provided prior interaction context for warm follow-ups, recaps, revives, and referrals.
