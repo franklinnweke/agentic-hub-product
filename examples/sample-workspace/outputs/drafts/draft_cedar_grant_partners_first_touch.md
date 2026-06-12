@@ -1,7 +1,8 @@
 # Follow-Up Draft: Cedar Grant Partners
 
-Approval status: `needs_review`
+Approval status: `rejected`
 Draft type: first_touch
+Review note: Compliance-sensitive segment needs legal review before drafting.
 
 ## Account / Contact Context
 

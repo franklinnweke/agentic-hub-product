@@ -1,7 +1,8 @@
 # Lead Brief: QuickScale Outreach
 
-Generated: 2026-06-11T22:30:00.000Z
-Review status: `needs_review`
+Generated: 2026-06-11T22:42:00.000Z
+Review status: `rejected`
+Review note: Rejected because request conflicts with human-approved outbound boundary.
 
 ## Account Summary
 

@@ -2,6 +2,7 @@
 
 Approval status: `needs_review`
 Draft type: first_touch
+Review note: None yet
 
 ## Account / Contact Context
 

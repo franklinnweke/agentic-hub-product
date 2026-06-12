@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentic-hub.local/schemas/outcome.schema.json",
+  "title": "Agentic Hub Manual Outcome",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "draft_id",
+    "account_id",
+    "manual_status",
+    "sent_at",
+    "reply_at",
+    "meeting_at",
+    "notes"
+  ],
+  "properties": {
+    "draft_id": {
+      "type": "string",
+      "pattern": "^draft_[a-z0-9_]+$"
+    },
+    "account_id": {
+      "type": "string",
+      "pattern": "^acct_[a-z0-9_]+$"
+    },
+    "manual_status": {
+      "type": "string",
+      "enum": [
+        "sent_manual",
+        "replied",
+        "meeting_booked",
+        "no_reply",
+        "stale"
+      ]
+    },
+    "sent_at": {
+      "type": "string"
+    },
+    "reply_at": {
+      "type": "string"
+    },
+    "meeting_at": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

@@ -1,7 +1,8 @@
 # Follow-Up Draft: Brightlane Creative
 
-Approval status: `needs_review`
+Approval status: `edited`
 Draft type: first_touch
+Review note: Needs agency-specific proof point before use.
 
 ## Account / Contact Context
 

@@ -6,7 +6,7 @@
     "segment": "solo_consultant",
     "source": "demo fixture",
     "notes": "Founder sells RevOps retainers, tracks leads in spreadsheets, misses follow-ups after discovery calls, wants more evidence-backed personalization.",
-    "status": "needs_review",
+    "status": "approved",
     "fit_score": 86,
     "score_breakdown": {
       "icp_match": 30,
@@ -25,7 +25,8 @@
     "suggested_angle": "Lead with evidence-backed lead briefs and review-gated drafts for solo consultant operators.",
     "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
     "created_at": "2026-06-11T22:30:00.000Z",
-    "updated_at": "2026-06-11T22:30:00.000Z"
+    "updated_at": "2026-06-11T22:40:00.000Z",
+    "review_note": "Fixture operator approved as strongest ICP fit."
   },
   {
     "id": "acct_brightlane_creative",
@@ -34,7 +35,7 @@
     "segment": "boutique_agency",
     "source": "demo fixture",
     "notes": "Eight-person web agency with project-based leads, inconsistent follow-up process, no analytics on referral source quality.",
-    "status": "needs_review",
+    "status": "approved",
     "fit_score": 82,
     "score_breakdown": {
       "icp_match": 28,
@@ -53,7 +54,8 @@
     "suggested_angle": "Lead with a local pipeline sprint for boutique agency teams that connects research quality, follow-up review, and weekly analytics.",
     "recommended_next_action": "Review the lead brief, confirm the buyer/contact, then edit or approve the draft manually.",
     "created_at": "2026-06-11T22:30:00.000Z",
-    "updated_at": "2026-06-11T22:30:00.000Z"
+    "updated_at": "2026-06-11T22:41:00.000Z",
+    "review_note": "Fixture operator approved for agency workflow proof."
   },
   {
     "id": "acct_atlas_founder_labs",
@@ -118,7 +120,7 @@
     "segment": "automation_vendor",
     "source": "demo fixture",
     "notes": "Vendor advertises autonomous high-volume outbound and asks for platform automation at scale.",
-    "status": "needs_review",
+    "status": "rejected",
     "fit_score": 28,
     "score_breakdown": {
       "icp_match": 5,
@@ -142,6 +144,7 @@
     "suggested_angle": "Do not position outreach automation. Clarify whether there is a supervised analytics or review workflow worth discussing.",
     "recommended_next_action": "Reject or clarify the use case before drafting any outreach.",
     "created_at": "2026-06-11T22:30:00.000Z",
-    "updated_at": "2026-06-11T22:30:00.000Z"
+    "updated_at": "2026-06-11T22:42:00.000Z",
+    "review_note": "Rejected because request conflicts with human-approved outbound boundary."
   }
 ]

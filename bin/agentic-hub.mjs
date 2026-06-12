@@ -14,6 +14,10 @@ const WORKSPACE_DIRS = [
 ];
 
 const REQUIRED_TARGET_COLUMNS = ["account_name", "website", "segment", "notes", "source"];
+const REQUIRED_OUTCOME_COLUMNS = ["draft_id", "account_id", "manual_status", "sent_at", "reply_at", "meeting_at", "notes"];
+const ACCOUNT_REVIEW_STATUSES = ["approved", "rejected", "needs_more_info"];
+const DRAFT_REVIEW_STATUSES = ["approved", "edited", "rejected"];
+const OUTCOME_STATUSES = ["sent_manual", "replied", "meeting_booked", "no_reply", "stale"];
 const SCORE_WEIGHTS = {
   icp_match: 30,
   pain_signal: 20,
@@ -41,6 +45,15 @@ function main() {
         break;
       case "generate-drafts":
         generateDrafts(workspace, now);
+        break;
+      case "review-account":
+        reviewAccount(workspace, flags, now);
+        break;
+      case "review-draft":
+        reviewDraft(workspace, flags, now);
+        break;
+      case "record-outcome":
+        recordOutcome(workspace, flags, now);
         break;
       case "report":
         generateReport(workspace, now);
@@ -110,6 +123,9 @@ Commands:
   ingest            Read inputs/targets.csv and write state/accounts.json + evidence.json
   generate-briefs   Generate Markdown lead briefs from local state
   generate-drafts   Generate human-review follow-up drafts from lead briefs
+  review-account    Mark an account approved, rejected, or needs_more_info
+  review-draft      Mark a draft approved, edited, or rejected
+  record-outcome    Record a manual outcome after operator-controlled activity
   report            Generate a weekly analytics report from local state
   run               Execute init, ingest, briefs, drafts, report, and validate
   validate          Check the local workspace for MVP completeness and guardrails
@@ -117,7 +133,14 @@ Commands:
 Options:
   --workspace PATH   Workspace folder to read/write
   --now ISO_DATE     Fixed timestamp for deterministic fixture runs
-  --fresh            With run, clear generated outputs/state/logs before execution
+  --fresh            With run, clear generated outputs/state/logs and outcomes before execution
+  --account ID       Account id for review-account
+  --draft ID         Draft id for review-draft
+  --status STATUS    Review status
+  --note TEXT        Optional human review note
+  --sent-at DATE     Manual send timestamp/date for record-outcome
+  --reply-at DATE    Reply timestamp/date for record-outcome
+  --meeting-at DATE  Meeting timestamp/date for record-outcome
 `);
 }
 
@@ -147,6 +170,11 @@ function initWorkspace(workspace, now, options = {}) {
     starterOffer(),
     preserveExisting
   );
+  writeFileIfAllowed(
+    path.join(workspace, "inputs", "outcomes.csv"),
+    starterOutcomesCsv(),
+    preserveExisting
+  );
 
   appendRunLog(workspace, {
     run_id: runId("init", now),
@@ -154,7 +182,7 @@ function initWorkspace(workspace, now, options = {}) {
     pack: "workspace",
     command: "init",
     input_files: [],
-    output_files: ["README.md", "inputs/targets.csv", "config/icp.md", "config/offer.md"],
+    output_files: ["README.md", "inputs/targets.csv", "inputs/outcomes.csv", "config/icp.md", "config/offer.md"],
     status: "completed",
     warnings: [],
     errors: []
@@ -290,20 +318,165 @@ function generateDrafts(workspace, now) {
   console.log(`Generated ${drafts.length} drafts. Skipped ${skipped.length} accounts.`);
 }
 
+function reviewAccount(workspace, flags, now) {
+  ensureWorkspaceDirs(workspace);
+  const accountId = requireFlag(flags, "account");
+  const status = requireFlag(flags, "status");
+  if (!ACCOUNT_REVIEW_STATUSES.includes(status)) {
+    throw new Error(`Invalid account status ${status}. Use one of: ${ACCOUNT_REVIEW_STATUSES.join(", ")}`);
+  }
+
+  const accountsPath = path.join(workspace, "state", "accounts.json");
+  const accounts = readJson(accountsPath);
+  const account = accounts.find((item) => item.id === accountId);
+  if (!account) throw new Error(`Unknown account: ${accountId}`);
+  if (status === "approved" && account.disqualifiers.length > 0) {
+    throw new Error(`${accountId} has disqualifiers and cannot be approved without changing source state.`);
+  }
+
+  account.status = status;
+  account.updated_at = now;
+  account.review_note = flags.note ?? "";
+  writeJson(accountsPath, accounts);
+
+  const events = readEvents(workspace);
+  events.push(eventFor("account", account.id, `account_${status}`, now, {
+    note: flags.note ?? ""
+  }));
+  writeJsonl(path.join(workspace, "state", "events.jsonl"), events);
+
+  appendRunLog(workspace, {
+    run_id: runId(`review_account_${account.id}`, now),
+    timestamp: now,
+    pack: "lead-gen",
+    command: "review-account",
+    input_files: ["state/accounts.json"],
+    output_files: ["state/accounts.json", "state/events.jsonl"],
+    status: "completed",
+    warnings: [],
+    errors: []
+  });
+
+  regenerateLeadBrief(workspace, account, now);
+  console.log(`Updated ${account.id} to ${status}.`);
+}
+
+function reviewDraft(workspace, flags, now) {
+  ensureWorkspaceDirs(workspace);
+  const draftId = requireFlag(flags, "draft");
+  const status = requireFlag(flags, "status");
+  if (!DRAFT_REVIEW_STATUSES.includes(status)) {
+    throw new Error(`Invalid draft status ${status}. Use one of: ${DRAFT_REVIEW_STATUSES.join(", ")}`);
+  }
+
+  const draftsPath = path.join(workspace, "state", "drafts.json");
+  const drafts = readJson(draftsPath);
+  const draft = drafts.find((item) => item.id === draftId);
+  if (!draft) throw new Error(`Unknown draft: ${draftId}`);
+
+  const accounts = readJson(path.join(workspace, "state", "accounts.json"));
+  const account = accounts.find((item) => item.id === draft.account_id);
+  if (!account) throw new Error(`Draft ${draftId} references unknown account ${draft.account_id}`);
+  if (status === "approved" && account.status !== "approved") {
+    throw new Error(`${draftId} cannot be approved until account ${account.id} is approved.`);
+  }
+
+  draft.status = status;
+  draft.updated_at = now;
+  draft.review_note = flags.note ?? "";
+  writeJson(draftsPath, drafts);
+
+  const events = readEvents(workspace);
+  events.push(eventFor("draft", draft.id, `draft_${status}`, now, {
+    account_id: draft.account_id,
+    note: flags.note ?? ""
+  }));
+  writeJsonl(path.join(workspace, "state", "events.jsonl"), events);
+
+  appendRunLog(workspace, {
+    run_id: runId(`review_draft_${draft.id}`, now),
+    timestamp: now,
+    pack: "follow-ups",
+    command: "review-draft",
+    input_files: ["state/drafts.json", "state/accounts.json"],
+    output_files: ["state/drafts.json", "state/events.jsonl", `outputs/drafts/${draft.id}.md`],
+    status: "completed",
+    warnings: [],
+    errors: []
+  });
+
+  regenerateDraft(workspace, account, draft);
+  console.log(`Updated ${draft.id} to ${status}.`);
+}
+
+function recordOutcome(workspace, flags, now) {
+  ensureWorkspaceDirs(workspace);
+  const draftId = requireFlag(flags, "draft");
+  const manualStatus = requireFlag(flags, "status");
+  if (!OUTCOME_STATUSES.includes(manualStatus)) {
+    throw new Error(`Invalid outcome status ${manualStatus}. Use one of: ${OUTCOME_STATUSES.join(", ")}`);
+  }
+
+  const drafts = readJson(path.join(workspace, "state", "drafts.json"));
+  const draft = drafts.find((item) => item.id === draftId);
+  if (!draft) throw new Error(`Unknown draft: ${draftId}`);
+  if (["sent_manual", "replied", "meeting_booked"].includes(manualStatus) && draft.status !== "approved") {
+    throw new Error(`${draftId} must be approved before recording ${manualStatus}.`);
+  }
+
+  const outcomesPath = path.join(workspace, "inputs", "outcomes.csv");
+  const outcomes = readOutcomes(workspace).filter((outcome) => outcome.draft_id !== draftId);
+  outcomes.push({
+    draft_id: draftId,
+    account_id: draft.account_id,
+    manual_status: manualStatus,
+    sent_at: flags["sent-at"] ?? "",
+    reply_at: flags["reply-at"] ?? "",
+    meeting_at: flags["meeting-at"] ?? "",
+    notes: flags.note ?? ""
+  });
+  writeOutcomes(outcomesPath, outcomes);
+
+  const events = readEvents(workspace);
+  events.push(eventFor("draft", draft.id, `outcome_${manualStatus}`, now, {
+    account_id: draft.account_id,
+    sent_at: flags["sent-at"] ?? "",
+    reply_at: flags["reply-at"] ?? "",
+    meeting_at: flags["meeting-at"] ?? "",
+    note: flags.note ?? ""
+  }));
+  writeJsonl(path.join(workspace, "state", "events.jsonl"), events);
+
+  appendRunLog(workspace, {
+    run_id: runId(`record_outcome_${draft.id}`, now),
+    timestamp: now,
+    pack: "analytics",
+    command: "record-outcome",
+    input_files: ["state/drafts.json"],
+    output_files: ["inputs/outcomes.csv", "state/events.jsonl"],
+    status: "completed",
+    warnings: [],
+    errors: []
+  });
+
+  console.log(`Recorded ${manualStatus} for ${draft.id}.`);
+}
+
 function generateReport(workspace, now) {
   ensureWorkspaceDirs(workspace);
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const drafts = readJson(path.join(workspace, "state", "drafts.json"), []);
+  const outcomes = readOutcomes(workspace);
   const events = readEvents(workspace);
   events.push(eventFor("report", "weekly-pipeline-report", "analytics_report_generated", now, {
     output_file: "outputs/reports/weekly-pipeline-report.md",
     metrics_file: "outputs/reports/metrics.csv"
   }));
-  const metrics = buildMetrics(accounts, drafts, events);
+  const metrics = buildMetrics(accounts, drafts, events, outcomes);
   const reportPath = path.join(workspace, "outputs", "reports", "weekly-pipeline-report.md");
   const metricsPath = path.join(workspace, "outputs", "reports", "metrics.csv");
 
-  fs.writeFileSync(reportPath, renderReport(metrics, accounts, drafts, now));
+  fs.writeFileSync(reportPath, renderReport(metrics, accounts, drafts, outcomes, now));
   fs.writeFileSync(metricsPath, renderMetricsCsv(metrics));
 
   writeJsonl(path.join(workspace, "state", "events.jsonl"), events);
@@ -313,7 +486,7 @@ function generateReport(workspace, now) {
     timestamp: now,
     pack: "analytics",
     command: "report",
-    input_files: ["state/accounts.json", "state/drafts.json", "state/events.jsonl"],
+    input_files: ["state/accounts.json", "state/drafts.json", "state/events.jsonl", "inputs/outcomes.csv"],
     output_files: ["outputs/reports/weekly-pipeline-report.md", "outputs/reports/metrics.csv"],
     status: "completed",
     warnings: metrics.warnings,
@@ -344,6 +517,7 @@ function validateWorkspace(workspace) {
   const accounts = readJson(path.join(workspace, "state", "accounts.json"));
   const evidence = readJson(path.join(workspace, "state", "evidence.json"));
   const drafts = readJson(path.join(workspace, "state", "drafts.json"));
+  const outcomes = readOutcomes(workspace);
   const events = readEvents(workspace);
   const errors = [];
 
@@ -357,15 +531,40 @@ function validateWorkspace(workspace) {
   }
 
   for (const draft of drafts) {
-    if (draft.status !== "needs_review") errors.push(`${draft.id} must start as needs_review`);
+    if (!["needs_review", "approved", "edited", "rejected"].includes(draft.status)) errors.push(`${draft.id} has invalid status ${draft.status}`);
     if (draft.status === "sent_external") errors.push(`${draft.id} uses forbidden MVP status sent_external`);
     if (draft.evidence_ids.length === 0) errors.push(`${draft.id} has no evidence references`);
+    const account = accounts.find((item) => item.id === draft.account_id);
+    if (draft.status === "approved" && account?.status !== "approved") errors.push(`${draft.id} is approved but account ${draft.account_id} is not approved`);
+  }
+
+  for (const outcome of outcomes) {
+    const draft = drafts.find((item) => item.id === outcome.draft_id);
+    if (!draft) errors.push(`outcomes.csv references unknown draft ${outcome.draft_id}`);
+    if (outcome.account_id && !accounts.some((item) => item.id === outcome.account_id)) errors.push(`outcomes.csv references unknown account ${outcome.account_id}`);
+    if (["sent_manual", "replied", "meeting_booked"].includes(outcome.manual_status) && draft?.status !== "approved") {
+      errors.push(`outcome ${outcome.draft_id} has ${outcome.manual_status} but draft is not approved`);
+    }
   }
 
   if (events.length === 0) errors.push("events.jsonl has no audit events");
   if (errors.length > 0) throw new Error(`Validation failed:\n- ${errors.join("\n- ")}`);
 
-  console.log(`Validation passed: ${accounts.length} accounts, ${evidence.length} evidence items, ${drafts.length} drafts, ${events.length} events.`);
+  console.log(`Validation passed: ${accounts.length} accounts, ${evidence.length} evidence items, ${drafts.length} drafts, ${outcomes.length} outcomes, ${events.length} events.`);
+}
+
+function regenerateLeadBrief(workspace, account, now) {
+  const evidence = readJson(path.join(workspace, "state", "evidence.json"));
+  const accountEvidence = evidence.filter((item) => item.account_id === account.id);
+  const briefPath = path.join(workspace, "outputs", "lead-briefs", `${account.id}.md`);
+  fs.writeFileSync(briefPath, renderLeadBrief(account, accountEvidence, now));
+}
+
+function regenerateDraft(workspace, account, draft) {
+  const evidence = readJson(path.join(workspace, "state", "evidence.json"));
+  const accountEvidence = evidence.filter((item) => item.account_id === account.id);
+  const draftPath = path.join(workspace, "outputs", "drafts", `${draft.id}.md`);
+  fs.writeFileSync(draftPath, renderDraft(account, draft, accountEvidence));
 }
 
 function ensureWorkspaceDirs(workspace) {
@@ -378,6 +577,7 @@ function resetGeneratedWorkspaceFiles(workspace) {
   for (const generatedDir of ["outputs", "state", "logs"]) {
     fs.rmSync(path.join(workspace, generatedDir), { recursive: true, force: true });
   }
+  fs.rmSync(path.join(workspace, "inputs", "outcomes.csv"), { force: true });
 }
 
 function writeFileIfAllowed(filePath, body, preserveExisting) {
@@ -396,6 +596,20 @@ function validateTargetRows(rows) {
       if (!row[column]?.trim()) {
         throw new Error(`targets.csv row ${index + 2} is missing ${column}`);
       }
+    }
+  });
+}
+
+function validateOutcomeRows(rows) {
+  if (rows.length === 0) return;
+  const columns = Object.keys(rows[0]);
+  const missing = REQUIRED_OUTCOME_COLUMNS.filter((column) => !columns.includes(column));
+  if (missing.length > 0) throw new Error(`outcomes.csv is missing columns: ${missing.join(", ")}`);
+
+  rows.forEach((row, index) => {
+    if (!row.draft_id?.trim()) throw new Error(`outcomes.csv row ${index + 2} is missing draft_id`);
+    if (!OUTCOME_STATUSES.includes(row.manual_status)) {
+      throw new Error(`outcomes.csv row ${index + 2} has invalid manual_status ${row.manual_status}`);
     }
   });
 }
@@ -578,13 +792,17 @@ function buildDraft(account, evidence, now) {
   };
 }
 
-function buildMetrics(accounts, drafts, events) {
+function buildMetrics(accounts, drafts, events, outcomes = []) {
   const highFitAccounts = accounts.filter((account) => account.fit_score >= 75 && account.disqualifiers.length === 0);
   const approvedAccounts = accounts.filter((account) => account.status === "approved");
   const rejectedAccounts = accounts.filter((account) => account.status === "rejected");
+  const sentManual = outcomes.filter((outcome) => ["sent_manual", "replied", "meeting_booked"].includes(outcome.manual_status));
+  const replies = outcomes.filter((outcome) => outcome.manual_status === "replied" || outcome.reply_at);
+  const meetings = outcomes.filter((outcome) => outcome.manual_status === "meeting_booked" || outcome.meeting_at);
+  const staleConversations = outcomes.filter((outcome) => outcome.manual_status === "stale").length;
   const warnings = [];
   if (accounts.length < 10) warnings.push("Tiny fixture sample; do not infer conversion rates.");
-  if (!events.some((event) => event.event_type.includes("reply"))) warnings.push("Reply and meeting outcomes are unavailable in the local fixture.");
+  if (outcomes.length === 0) warnings.push("Reply and meeting outcomes are unavailable until inputs/outcomes.csv is populated.");
 
   return {
     accounts_imported: accounts.length,
@@ -596,11 +814,15 @@ function buildMetrics(accounts, drafts, events) {
     high_fit_accounts: highFitAccounts.length,
     drafts_generated: drafts.length,
     drafts_approved: drafts.filter((draft) => draft.status === "approved").length,
+    drafts_edited: drafts.filter((draft) => draft.status === "edited").length,
     drafts_rejected: drafts.filter((draft) => draft.status === "rejected").length,
     follow_ups_due: drafts.filter((draft) => draft.status === "needs_review").length,
-    stale_conversations: 0,
-    replies: "unavailable",
-    meetings_booked: "unavailable",
+    manual_sends_recorded: sentManual.length,
+    stale_conversations: staleConversations,
+    replies: replies.length,
+    meetings_booked: meetings.length,
+    reply_rate: rate(replies.length, sentManual.length),
+    meeting_rate: rate(meetings.length, sentManual.length),
     event_count: events.length,
     warnings
   };
@@ -611,6 +833,7 @@ function renderLeadBrief(account, evidence, now) {
 
 Generated: ${now}
 Review status: \`${account.status}\`
+Review note: ${account.review_note ? account.review_note : "None yet"}
 
 ## Account Summary
 
@@ -667,6 +890,7 @@ function renderDraft(account, draft, evidence) {
 
 Approval status: \`${draft.status}\`
 Draft type: ${draft.draft_type}
+Review note: ${draft.review_note ? draft.review_note : "None yet"}
 
 ## Account / Contact Context
 
@@ -705,15 +929,15 @@ This is a draft only. The MVP has no send action and no external side effects.
 `;
 }
 
-function renderReport(metrics, accounts, drafts, now) {
-  const segmentRows = segmentSummary(accounts, drafts);
+function renderReport(metrics, accounts, drafts, outcomes, now) {
+  const segmentRows = segmentSummary(accounts, drafts, outcomes);
   return `# Weekly Pipeline Report
 
 Generated: ${now}
 
 ## Executive Summary
 
-The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${metrics.high_fit_accounts} high-fit lead briefs, and created ${metrics.drafts_generated} follow-up drafts that all remain in \`needs_review\`. No outbound sending is implemented.
+The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${metrics.high_fit_accounts} high-fit lead briefs, and created ${metrics.drafts_generated} follow-up drafts. ${metrics.drafts_approved} draft is approved for manual use, ${metrics.drafts_edited} draft needs edits, ${metrics.drafts_rejected} draft is rejected, and ${metrics.follow_ups_due} draft remains in \`needs_review\`. No outbound sending is implemented.
 
 ## Throughput
 
@@ -724,7 +948,15 @@ The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${m
 | Accounts scored | ${metrics.accounts_scored} |
 | High-fit accounts | ${metrics.high_fit_accounts} |
 | Drafts generated | ${metrics.drafts_generated} |
+| Accounts approved | ${metrics.accounts_approved} |
+| Accounts rejected | ${metrics.accounts_rejected} |
+| Drafts approved | ${metrics.drafts_approved} |
+| Drafts edited | ${metrics.drafts_edited} |
+| Drafts rejected | ${metrics.drafts_rejected} |
 | Follow-ups due for review | ${metrics.follow_ups_due} |
+| Manual sends recorded | ${metrics.manual_sends_recorded} |
+| Replies | ${metrics.replies} |
+| Meetings booked | ${metrics.meetings_booked} |
 | Audit events | ${metrics.event_count} |
 
 ## Lead Quality
@@ -736,32 +968,38 @@ The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${m
 ## Follow-Up Queue Health
 
 - Drafts approved: ${metrics.drafts_approved}
+- Drafts edited: ${metrics.drafts_edited}
 - Drafts rejected: ${metrics.drafts_rejected}
 - Drafts waiting for human review: ${metrics.follow_ups_due}
-- The MVP intentionally has no send action.
+- Manual sends recorded in outcomes CSV: ${metrics.manual_sends_recorded}
+- The MVP intentionally has no send action; outcomes are manually recorded after operator-controlled activity outside Agentic Hub.
 
 ## Outcomes
 
-- Replies: unavailable in fixture data.
-- Meetings booked: unavailable in fixture data.
-- Conversion rates are not calculated because there is no outcome denominator yet.
+- Replies: ${metrics.replies}
+- Meetings booked: ${metrics.meetings_booked}
+- Reply rate: ${metrics.reply_rate} of manually recorded sends.
+- Meeting rate: ${metrics.meeting_rate} of manually recorded sends.
+- Denominator: manually recorded sends in \`inputs/outcomes.csv\`, not automated sends.
 
 ## Segment Performance
 
-| Segment | Accounts | Avg score | Drafts |
-| --- | ---: | ---: | ---: |
-${segmentRows.map((row) => `| ${row.segment} | ${row.accounts} | ${row.average_score} | ${row.drafts} |`).join("\n")}
+| Segment | Accounts | Avg score | Drafts | Replies | Meetings |
+| --- | ---: | ---: | ---: | ---: | ---: |
+${segmentRows.map((row) => `| ${row.segment} | ${row.accounts} | ${row.average_score} | ${row.drafts} | ${row.replies} | ${row.meetings} |`).join("\n")}
 
 ## Bottlenecks
 
-${metrics.follow_ups_due > 0 ? `- ${metrics.follow_ups_due} drafts need operator review before any manual sending.` : "- No drafts are waiting for review."}
+${metrics.follow_ups_due > 0 ? `- Drafts needing operator review before manual sending: ${metrics.follow_ups_due}.` : "- No drafts are waiting for first review."}
+- Drafts needing edits before approval: ${metrics.drafts_edited}.
+- Drafts rejected from use without a new review cycle: ${metrics.drafts_rejected}.
 - Buyer/contact names are missing from the fixture, so every draft requires manual recipient confirmation.
 
 ## Recommended Next Actions
 
-1. Review high-fit briefs first and mark each account as \`approved\`, \`rejected\`, or \`needs_more_info\`.
+1. Convert edited drafts into revised drafts only after adding missing proof points.
 2. Add contact names and prior interaction context before using any draft.
-3. Add manual outcome tracking after messages are sent outside Agentic Hub.
+3. Keep \`inputs/outcomes.csv\` updated after manually controlled outreach activity.
 4. Keep disqualified automation requests out of the pipeline unless the use case becomes supervised and compliant.
 
 ## Data Caveats
@@ -779,24 +1017,33 @@ function renderMetricsCsv(metrics) {
     ["average_fit_score", metrics.average_fit_score, "accounts scored", "Rounded whole number"],
     ["high_fit_accounts", metrics.high_fit_accounts, "accounts scored", "Score >= 75 and no disqualifiers"],
     ["drafts_generated", metrics.drafts_generated, "eligible accounts", "Disqualified and low-score accounts skipped"],
-    ["drafts_approved", metrics.drafts_approved, "drafts generated", "Manual state not changed in fixture"],
-    ["drafts_rejected", metrics.drafts_rejected, "drafts generated", "Manual state not changed in fixture"],
+    ["accounts_approved", metrics.accounts_approved, "accounts imported", "Manual review state"],
+    ["accounts_rejected", metrics.accounts_rejected, "accounts imported", "Manual review state"],
+    ["drafts_approved", metrics.drafts_approved, "drafts generated", "Manual review state"],
+    ["drafts_edited", metrics.drafts_edited, "drafts generated", "Manual review state"],
+    ["drafts_rejected", metrics.drafts_rejected, "drafts generated", "Manual review state"],
     ["follow_ups_due", metrics.follow_ups_due, "drafts generated", "Drafts in needs_review"],
-    ["stale_conversations", metrics.stale_conversations, "known conversations", "No prior interaction fixture"],
-    ["replies", metrics.replies, "sent messages", "Unavailable because MVP does not send"],
-    ["meetings_booked", metrics.meetings_booked, "sent messages", "Unavailable because MVP does not send"]
+    ["manual_sends_recorded", metrics.manual_sends_recorded, "inputs/outcomes.csv rows", "Recorded after manual operator activity outside Agentic Hub"],
+    ["stale_conversations", metrics.stale_conversations, "known conversations", "Manual outcome status"],
+    ["replies", metrics.replies, "manual sends recorded", "Manual outcome status or reply_at"],
+    ["meetings_booked", metrics.meetings_booked, "manual sends recorded", "Manual outcome status or meeting_at"],
+    ["reply_rate", metrics.reply_rate, "manual sends recorded", "Replies divided by manual sends recorded"],
+    ["meeting_rate", metrics.meeting_rate, "manual sends recorded", "Meetings divided by manual sends recorded"]
   ];
 
   return rows.map((row) => row.map(csvCell).join(",")).join("\n") + "\n";
 }
 
-function segmentSummary(accounts, drafts) {
+function segmentSummary(accounts, drafts, outcomes = []) {
   const bySegment = new Map();
   for (const account of accounts) {
-    const current = bySegment.get(account.segment) ?? { segment: account.segment, accounts: 0, totalScore: 0, drafts: 0 };
+    const accountOutcomes = outcomes.filter((outcome) => outcome.account_id === account.id);
+    const current = bySegment.get(account.segment) ?? { segment: account.segment, accounts: 0, totalScore: 0, drafts: 0, replies: 0, meetings: 0 };
     current.accounts += 1;
     current.totalScore += account.fit_score;
     current.drafts += drafts.filter((draft) => draft.account_id === account.id).length;
+    current.replies += accountOutcomes.filter((outcome) => outcome.manual_status === "replied" || outcome.reply_at).length;
+    current.meetings += accountOutcomes.filter((outcome) => outcome.manual_status === "meeting_booked" || outcome.meeting_at).length;
     bySegment.set(account.segment, current);
   }
 
@@ -804,7 +1051,9 @@ function segmentSummary(accounts, drafts) {
     segment: row.segment,
     accounts: row.accounts,
     average_score: Math.round(row.totalScore / row.accounts),
-    drafts: row.drafts
+    drafts: row.drafts,
+    replies: row.replies,
+    meetings: row.meetings
   }));
 }
 
@@ -817,6 +1066,8 @@ Run:
 
 \`\`\`sh
 node ../../bin/agentic-hub.mjs run --workspace .
+node ../../bin/agentic-hub.mjs review-account --workspace . --account acct_example_consulting_co --status approved --note "Human reviewed."
+node ../../bin/agentic-hub.mjs review-draft --workspace . --draft draft_example_consulting_co_first_touch --status approved --note "Human approved."
 \`\`\`
 
 No command sends messages, submits forms, uses credentials, or mutates external systems.
@@ -826,6 +1077,11 @@ No command sends messages, submits forms, uses credentials, or mutates external 
 function starterTargetsCsv() {
   return `account_name,website,segment,notes,source
 Example Consulting Co,https://example.com,solo_consultant,"Tracks leads in spreadsheets and wants better follow-up discipline.",manual
+`;
+}
+
+function starterOutcomesCsv() {
+  return `draft_id,account_id,manual_status,sent_at,reply_at,meeting_at,notes
 `;
 }
 
@@ -848,6 +1104,14 @@ function appendRunLog(workspace, entry) {
   fs.appendFileSync(path.join(workspace, "logs", "runs.jsonl"), JSON.stringify(entry) + "\n");
 }
 
+function requireFlag(flags, name) {
+  const value = flags[name];
+  if (value === undefined || value === true || String(value).trim() === "") {
+    throw new Error(`Missing required --${name}`);
+  }
+  return String(value).trim();
+}
+
 function writeJson(filePath, value) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(value, null, 2) + "\n");
@@ -859,6 +1123,23 @@ function readJson(filePath, fallback) {
     throw new Error(`Missing ${filePath}`);
   }
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+function readOutcomes(workspace) {
+  const filePath = path.join(workspace, "inputs", "outcomes.csv");
+  if (!fs.existsSync(filePath)) return [];
+  const rows = parseCsv(fs.readFileSync(filePath, "utf8"));
+  validateOutcomeRows(rows);
+  return rows.filter((row) => row.draft_id);
+}
+
+function writeOutcomes(filePath, outcomes) {
+  const rows = [
+    REQUIRED_OUTCOME_COLUMNS,
+    ...outcomes.map((outcome) => REQUIRED_OUTCOME_COLUMNS.map((column) => outcome[column] ?? ""))
+  ];
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, rows.map((row) => row.map(csvCell).join(",")).join("\n") + "\n");
 }
 
 function writeJsonl(filePath, events) {
@@ -962,6 +1243,12 @@ function csvCell(value) {
   }
   return stringValue;
 }
+
+function rate(numerator, denominator) {
+  if (denominator === 0) return "unavailable";
+  return `${Math.round((numerator / denominator) * 100)}%`;
+}
+
 
 function relative(workspace, filePath) {
   return path.relative(workspace, filePath);

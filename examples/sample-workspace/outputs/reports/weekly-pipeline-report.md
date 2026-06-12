@@ -1,10 +1,10 @@
 # Weekly Pipeline Report
 
-Generated: 2026-06-11T22:30:00.000Z
+Generated: 2026-06-11T22:50:00.000Z
 
 ## Executive Summary
 
-The fixture sprint imported 5 accounts, generated 3 high-fit lead briefs, and created 4 follow-up drafts that all remain in `needs_review`. No outbound sending is implemented.
+The fixture sprint imported 5 accounts, generated 3 high-fit lead briefs, and created 4 follow-up drafts. 1 draft is approved for manual use, 1 draft needs edits, 1 draft is rejected, and 1 draft remains in `needs_review`. No outbound sending is implemented.
 
 ## Throughput
 
@@ -15,8 +15,16 @@ The fixture sprint imported 5 accounts, generated 3 high-fit lead briefs, and cr
 | Accounts scored | 5 |
 | High-fit accounts | 3 |
 | Drafts generated | 4 |
-| Follow-ups due for review | 4 |
-| Audit events | 39 |
+| Accounts approved | 2 |
+| Accounts rejected | 1 |
+| Drafts approved | 1 |
+| Drafts edited | 1 |
+| Drafts rejected | 1 |
+| Follow-ups due for review | 1 |
+| Manual sends recorded | 1 |
+| Replies | 1 |
+| Meetings booked | 1 |
+| Audit events | 47 |
 
 ## Lead Quality
 
@@ -26,40 +34,45 @@ The fixture sprint imported 5 accounts, generated 3 high-fit lead briefs, and cr
 
 ## Follow-Up Queue Health
 
-- Drafts approved: 0
-- Drafts rejected: 0
-- Drafts waiting for human review: 4
-- The MVP intentionally has no send action.
+- Drafts approved: 1
+- Drafts edited: 1
+- Drafts rejected: 1
+- Drafts waiting for human review: 1
+- Manual sends recorded in outcomes CSV: 1
+- The MVP intentionally has no send action; outcomes are manually recorded after operator-controlled activity outside Agentic Hub.
 
 ## Outcomes
 
-- Replies: unavailable in fixture data.
-- Meetings booked: unavailable in fixture data.
-- Conversion rates are not calculated because there is no outcome denominator yet.
+- Replies: 1
+- Meetings booked: 1
+- Reply rate: 100% of manually recorded sends.
+- Meeting rate: 100% of manually recorded sends.
+- Denominator: manually recorded sends in `inputs/outcomes.csv`, not automated sends.
 
 ## Segment Performance
 
-| Segment | Accounts | Avg score | Drafts |
-| --- | ---: | ---: | ---: |
-| solo_consultant | 1 | 86 | 1 |
-| boutique_agency | 1 | 82 | 1 |
-| founder_led_b2b | 1 | 86 | 1 |
-| professional_services | 1 | 71 | 1 |
-| automation_vendor | 1 | 28 | 0 |
+| Segment | Accounts | Avg score | Drafts | Replies | Meetings |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| solo_consultant | 1 | 86 | 1 | 1 | 1 |
+| boutique_agency | 1 | 82 | 1 | 0 | 0 |
+| founder_led_b2b | 1 | 86 | 1 | 0 | 0 |
+| professional_services | 1 | 71 | 1 | 0 | 0 |
+| automation_vendor | 1 | 28 | 0 | 0 | 0 |
 
 ## Bottlenecks
 
-- 4 drafts need operator review before any manual sending.
+- Drafts needing operator review before manual sending: 1.
+- Drafts needing edits before approval: 1.
+- Drafts rejected from use without a new review cycle: 1.
 - Buyer/contact names are missing from the fixture, so every draft requires manual recipient confirmation.
 
 ## Recommended Next Actions
 
-1. Review high-fit briefs first and mark each account as `approved`, `rejected`, or `needs_more_info`.
+1. Convert edited drafts into revised drafts only after adding missing proof points.
 2. Add contact names and prior interaction context before using any draft.
-3. Add manual outcome tracking after messages are sent outside Agentic Hub.
+3. Keep `inputs/outcomes.csv` updated after manually controlled outreach activity.
 4. Keep disqualified automation requests out of the pipeline unless the use case becomes supervised and compliant.
 
 ## Data Caveats
 
 - Tiny fixture sample; do not infer conversion rates.
-- Reply and meeting outcomes are unavailable in the local fixture.

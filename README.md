@@ -38,7 +38,7 @@ Agentic Hub packages these jobs as reusable Codex skills and workflow packs that
 ## Repository Map
 
 - `bin/agentic-hub.mjs` - zero-dependency local CLI for the first MVP workflow.
-- `schemas/` - JSON schemas for accounts, evidence, drafts, and events.
+- `schemas/` - JSON schemas for accounts, evidence, drafts, events, and manual outcomes.
 - `examples/sample-workspace/` - runnable fixture workspace with generated sample outputs.
 - `docs/product-plan.md` - product strategy, positioning, packaging, monetization.
 - `docs/prd.md` - product requirements document for the first shippable version.
@@ -79,6 +79,10 @@ Run against a new local workspace:
 ```sh
 node ./bin/agentic-hub.mjs init --workspace ./workspace
 node ./bin/agentic-hub.mjs run --workspace ./workspace
+node ./bin/agentic-hub.mjs review-account --workspace ./workspace --account acct_example_consulting_co --status approved --note "Human reviewed."
+node ./bin/agentic-hub.mjs review-draft --workspace ./workspace --draft draft_example_consulting_co_first_touch --status approved --note "Human approved."
+node ./bin/agentic-hub.mjs record-outcome --workspace ./workspace --draft draft_example_consulting_co_first_touch --status replied --sent-at 2026-06-12 --reply-at 2026-06-13 --note "Recorded manually after operator-controlled outreach."
+node ./bin/agentic-hub.mjs report --workspace ./workspace
 ```
 
 The fixture writes:
@@ -86,12 +90,13 @@ The fixture writes:
 - `examples/sample-workspace/outputs/lead-briefs/` - evidence-backed account briefs.
 - `examples/sample-workspace/outputs/drafts/` - follow-up drafts that start in `needs_review`.
 - `examples/sample-workspace/outputs/reports/weekly-pipeline-report.md` - analytics report.
+- `examples/sample-workspace/inputs/outcomes.csv` - manually recorded outcomes after operator-controlled activity outside Agentic Hub.
 - `examples/sample-workspace/state/` - inspectable JSON/JSONL state.
 - `examples/sample-workspace/logs/runs.jsonl` - audit log for pack runs.
 
 ### Example Output
 
-The sample sprint imports five fictional accounts, generates five lead briefs, creates four review-gated drafts, skips one disqualified automation-risk account, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
+The sample sprint imports five fictional accounts, generates five lead briefs, creates four review-gated drafts, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a weekly report. The MVP deliberately does not include any send command or external side effect.
 
 Implementation stack: Node.js ESM with plain files. This keeps the workflow easy to run now and leaves a clean path toward a TypeScript web console later.
 

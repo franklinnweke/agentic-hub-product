@@ -5,9 +5,15 @@ accounts_scored,5,accounts imported,
 average_fit_score,71,accounts scored,Rounded whole number
 high_fit_accounts,3,accounts scored,Score >= 75 and no disqualifiers
 drafts_generated,4,eligible accounts,Disqualified and low-score accounts skipped
-drafts_approved,0,drafts generated,Manual state not changed in fixture
-drafts_rejected,0,drafts generated,Manual state not changed in fixture
-follow_ups_due,4,drafts generated,Drafts in needs_review
-stale_conversations,0,known conversations,No prior interaction fixture
-replies,unavailable,sent messages,Unavailable because MVP does not send
-meetings_booked,unavailable,sent messages,Unavailable because MVP does not send
+accounts_approved,2,accounts imported,Manual review state
+accounts_rejected,1,accounts imported,Manual review state
+drafts_approved,1,drafts generated,Manual review state
+drafts_edited,1,drafts generated,Manual review state
+drafts_rejected,1,drafts generated,Manual review state
+follow_ups_due,1,drafts generated,Drafts in needs_review
+manual_sends_recorded,1,inputs/outcomes.csv rows,Recorded after manual operator activity outside Agentic Hub
+stale_conversations,0,known conversations,Manual outcome status
+replies,1,manual sends recorded,Manual outcome status or reply_at
+meetings_booked,1,manual sends recorded,Manual outcome status or meeting_at
+reply_rate,100%,manual sends recorded,Replies divided by manual sends recorded
+meeting_rate,100%,manual sends recorded,Meetings divided by manual sends recorded
