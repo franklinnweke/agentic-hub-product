@@ -40,8 +40,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_mapleworks_digital_website] Website listed for account: https://mapleworks.example
-- [ev_mapleworks_digital_segment] Segment from target list: boutique_agency
 - [ev_mapleworks_digital_note_1] Digital agency serving local services.
+- [ev_mapleworks_digital_note_2] has many old discovery notes.
 
 ## Risk Flags
 

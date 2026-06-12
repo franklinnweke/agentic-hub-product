@@ -41,8 +41,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_vectorops_consulting_website] Website listed for account: https://vectorops.example
-- [ev_vectorops_consulting_segment] Segment from target list: solo_consultant
 - [ev_vectorops_consulting_note_1] Operations consultant serving SaaS founders.
+- [ev_vectorops_consulting_note_2] keeps ICP notes in docs.
 
 ## Risk Flags
 

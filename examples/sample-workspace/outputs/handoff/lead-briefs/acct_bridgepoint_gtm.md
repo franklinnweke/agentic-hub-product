@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_bridgepoint_gtm_website] Website listed for account: https://bridgepoint-gtm.example (website; https://bridgepoint-gtm.example; confidence: medium)
-- [ev_bridgepoint_gtm_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_bridgepoint_gtm_note_1] GTM consultant with curated target lists. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_bridgepoint_gtm_note_2] wants explicit fit scoring. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_bridgepoint_gtm_website] Website listed for account: https://bridgepoint-gtm.example (website; https://bridgepoint-gtm.example; confidence: medium)
+- [ev_bridgepoint_gtm_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_bridgepoint_gtm_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

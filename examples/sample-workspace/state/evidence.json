@@ -45,6 +45,24 @@
     "confidence": "high"
   },
   {
+    "id": "ev_acct_northstar_ops_studio_research_1",
+    "account_id": "acct_northstar_ops_studio",
+    "source_type": "approved_public_source",
+    "source_url": "https://northstar-ops.example/services",
+    "claim": "Public services page says Northstar sells RevOps retainers for founder-led B2B teams.",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "high"
+  },
+  {
+    "id": "ev_acct_northstar_ops_studio_research_2",
+    "account_id": "acct_northstar_ops_studio",
+    "source_type": "manual_research",
+    "source_url": "inputs/research.csv",
+    "claim": "Operator confirmed Northstar tracks lead follow-up in spreadsheets before client calls.",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "medium"
+  },
+  {
     "id": "ev_brightlane_creative_website",
     "account_id": "acct_brightlane_creative",
     "source_type": "website",
@@ -90,6 +108,24 @@
     "confidence": "high"
   },
   {
+    "id": "ev_acct_brightlane_creative_research_3",
+    "account_id": "acct_brightlane_creative",
+    "source_type": "approved_public_source",
+    "source_url": "https://brightlane.example/work",
+    "claim": "Public portfolio page emphasizes referral-driven web projects and recurring client work.",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "high"
+  },
+  {
+    "id": "ev_acct_brightlane_creative_research_4",
+    "account_id": "acct_brightlane_creative",
+    "source_type": "manual_research",
+    "source_url": "inputs/research.csv",
+    "claim": "Operator note says Brightlane wants an agency-specific proof point before approving a follow-up.",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "medium"
+  },
+  {
     "id": "ev_atlas_founder_labs_website",
     "account_id": "acct_atlas_founder_labs",
     "source_type": "website",
@@ -131,6 +167,15 @@
     "source_type": "target_csv",
     "source_url": "inputs/targets.csv",
     "claim": "Imported from source: demo fixture",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "high"
+  },
+  {
+    "id": "ev_acct_atlas_founder_labs_research_5",
+    "account_id": "acct_atlas_founder_labs",
+    "source_type": "approved_public_source",
+    "source_url": "https://atlas-founder-labs.example/product",
+    "claim": "Public product page describes founder-led demos and investor update workflows.",
     "captured_at": "2026-06-11T22:30:00.000Z",
     "confidence": "high"
   },
@@ -180,6 +225,15 @@
     "confidence": "high"
   },
   {
+    "id": "ev_acct_cedar_grant_partners_research_6",
+    "account_id": "acct_cedar_grant_partners",
+    "source_type": "customer_provided",
+    "source_url": "inputs/research.csv",
+    "claim": "Client-provided context says compliance-safe recap language matters for grant deadline follow-ups.",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "high"
+  },
+  {
     "id": "ev_harbor_it_advisors_website",
     "account_id": "acct_harbor_it_advisors",
     "source_type": "website",
@@ -221,6 +275,15 @@
     "source_type": "target_csv",
     "source_url": "inputs/targets.csv",
     "claim": "Imported from source: demo fixture",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "high"
+  },
+  {
+    "id": "ev_acct_harbor_it_advisors_research_7",
+    "account_id": "acct_harbor_it_advisors",
+    "source_type": "approved_public_source",
+    "source_url": "https://harbor-it.example/services",
+    "claim": "Public services page highlights managed IT renewals and referral-driven advisory work.",
     "captured_at": "2026-06-11T22:30:00.000Z",
     "confidence": "high"
   },
@@ -270,6 +333,15 @@
     "confidence": "high"
   },
   {
+    "id": "ev_acct_signalworks_strategy_research_8",
+    "account_id": "acct_signalworks_strategy",
+    "source_type": "manual_research",
+    "source_url": "inputs/research.csv",
+    "claim": "Operator research notes SignalWorks prefers warm founder referrals over broad outbound lists.",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "medium"
+  },
+  {
     "id": "ev_ridgeway_product_studio_website",
     "account_id": "acct_ridgeway_product_studio",
     "source_type": "website",
@@ -315,6 +387,15 @@
     "confidence": "high"
   },
   {
+    "id": "ev_acct_ridgeway_product_studio_research_9",
+    "account_id": "acct_ridgeway_product_studio",
+    "source_type": "approved_public_source",
+    "source_url": "https://ridgeway-product.example/process",
+    "claim": "Public process page describes proposal follow-up as part of productized discovery.",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "high"
+  },
+  {
     "id": "ev_launchpad_cfo_website",
     "account_id": "acct_launchpad_cfo",
     "source_type": "website",
@@ -356,6 +437,15 @@
     "source_type": "target_csv",
     "source_url": "inputs/targets.csv",
     "claim": "Imported from source: demo fixture",
+    "captured_at": "2026-06-11T22:30:00.000Z",
+    "confidence": "high"
+  },
+  {
+    "id": "ev_acct_launchpad_cfo_research_10",
+    "account_id": "acct_launchpad_cfo",
+    "source_type": "customer_provided",
+    "source_url": "inputs/research.csv",
+    "claim": "Client-provided context says referral follow-up consistency is a bottleneck for fractional CFO services.",
     "captured_at": "2026-06-11T22:30:00.000Z",
     "confidence": "high"
   },

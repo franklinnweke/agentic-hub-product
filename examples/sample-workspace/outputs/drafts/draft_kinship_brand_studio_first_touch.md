@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_kinship_brand_studio_website] Website listed for account: https://kinship-brand.example
-- [ev_kinship_brand_studio_segment] Segment from target list: boutique_agency
 - [ev_kinship_brand_studio_note_1] Brand studio serving B2B services firms.
+- [ev_kinship_brand_studio_note_2] relies on referrals.
 
 ## Risk Flags
 

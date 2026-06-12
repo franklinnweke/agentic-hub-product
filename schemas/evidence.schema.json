@@ -29,7 +29,10 @@
         "operator_note",
         "website",
         "manual_context",
-        "outcome_csv"
+        "outcome_csv",
+        "approved_public_source",
+        "manual_research",
+        "customer_provided"
       ]
     },
     "source_url": {

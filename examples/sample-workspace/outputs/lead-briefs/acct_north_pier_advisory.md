@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_north_pier_advisory_website] Website listed for account: https://north-pier.example (website; https://north-pier.example; confidence: medium)
-- [ev_north_pier_advisory_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_north_pier_advisory_note_1] Advisory practice selling compliance retainers. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_north_pier_advisory_note_2] relationship-heavy sales motion. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_north_pier_advisory_website] Website listed for account: https://north-pier.example (website; https://north-pier.example; confidence: medium)
+- [ev_north_pier_advisory_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_north_pier_advisory_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

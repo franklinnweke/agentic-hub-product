@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_evergreen_tax_group_website] Website listed for account: https://evergreen-tax.example
-- [ev_evergreen_tax_group_segment] Segment from target list: professional_services
 - [ev_evergreen_tax_group_note_1] Tax advisory firm with seasonal high-value prospects.
+- [ev_evergreen_tax_group_note_2] deadline-driven follow-up windows.
 
 ## Risk Flags
 

@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_prairie_managed_services_website] Website listed for account: https://prairie-ms.example
-- [ev_prairie_managed_services_segment] Segment from target list: professional_services
 - [ev_prairie_managed_services_note_1] Managed services provider with local commercial prospects.
+- [ev_prairie_managed_services_note_2] renewal windows tracked manually.
 
 ## Risk Flags
 

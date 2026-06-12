@@ -33,10 +33,11 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_harbor_it_advisors_website] Website listed for account: https://harbor-it.example (website; https://harbor-it.example; confidence: medium)
-- [ev_harbor_it_advisors_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
+- [ev_acct_harbor_it_advisors_research_7] Public services page highlights managed IT renewals and referral-driven advisory work. (approved_public_source; https://harbor-it.example/services; confidence: high)
 - [ev_harbor_it_advisors_note_1] Managed IT advisory firm with high-ticket retainers. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_harbor_it_advisors_note_2] many referral leads. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_harbor_it_advisors_website] Website listed for account: https://harbor-it.example (website; https://harbor-it.example; confidence: medium)
+- [ev_harbor_it_advisors_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_harbor_it_advisors_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context
@@ -45,7 +46,7 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Missing Information
 
-- Recent public proof beyond operator notes
+- None after local evidence and contact intake.
 
 ## Disqualifiers Checked
 

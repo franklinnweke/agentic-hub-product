@@ -40,13 +40,13 @@ Franklin
 
 ## Personalization Evidence
 
-- [ev_atlas_founder_labs_website] Website listed for account: https://atlas-founder-labs.example
-- [ev_atlas_founder_labs_segment] Segment from target list: founder_led_b2b
 - [ev_atlas_founder_labs_note_1] Early B2B SaaS team doing founder-led sales.
+- [ev_atlas_founder_labs_note_2] many demo notes in docs.
+- [ev_acct_atlas_founder_labs_research_5] Public product page describes founder-led demos and investor update workflows.
 
 ## Risk Flags
 
-- Missing: Recent public proof beyond operator notes
+- No automated risk flags. Operator review still required.
 
 ## Suggested Send Window
 

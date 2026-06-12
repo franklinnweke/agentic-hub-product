@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_lumen_launch_studio_website] Website listed for account: https://lumen-launch.example
-- [ev_lumen_launch_studio_segment] Segment from target list: boutique_agency
 - [ev_lumen_launch_studio_note_1] Launch studio with packaged offers.
+- [ev_lumen_launch_studio_note_2] prospects come from webinars and referrals.
 
 ## Risk Flags
 

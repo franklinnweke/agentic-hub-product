@@ -33,10 +33,12 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_northstar_ops_studio_website] Website listed for account: https://northstar-ops.example (website; https://northstar-ops.example; confidence: medium)
-- [ev_northstar_ops_studio_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
+- [ev_acct_northstar_ops_studio_research_1] Public services page says Northstar sells RevOps retainers for founder-led B2B teams. (approved_public_source; https://northstar-ops.example/services; confidence: high)
+- [ev_acct_northstar_ops_studio_research_2] Operator confirmed Northstar tracks lead follow-up in spreadsheets before client calls. (manual_research; inputs/research.csv; confidence: medium)
 - [ev_northstar_ops_studio_note_1] Founder sells RevOps retainers. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_northstar_ops_studio_note_2] tracks leads in spreadsheets. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_northstar_ops_studio_website] Website listed for account: https://northstar-ops.example (website; https://northstar-ops.example; confidence: medium)
+- [ev_northstar_ops_studio_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_northstar_ops_studio_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context
@@ -45,7 +47,7 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Missing Information
 
-- Recent public proof beyond operator notes
+- None after local evidence and contact intake.
 
 ## Disqualifiers Checked
 

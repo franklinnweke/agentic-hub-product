@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_fathom_customer_lab_website] Website listed for account: https://fathom-customer.example (website; https://fathom-customer.example; confidence: medium)
-- [ev_fathom_customer_lab_segment] Segment from target list: founder_led_b2b (target_csv; inputs/targets.csv; confidence: high)
 - [ev_fathom_customer_lab_note_1] Customer research SaaS founder running founder-led sales. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_fathom_customer_lab_note_2] demo recaps live in docs. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_fathom_customer_lab_website] Website listed for account: https://fathom-customer.example (website; https://fathom-customer.example; confidence: medium)
+- [ev_fathom_customer_lab_segment] Segment from target list: founder_led_b2b (target_csv; inputs/targets.csv; confidence: high)
 - [ev_fathom_customer_lab_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

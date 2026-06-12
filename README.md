@@ -115,6 +115,7 @@ The fixture writes:
 - `examples/sample-workspace/outputs/screenshots/operator-console.jpg` - rendered console screenshot for GitHub review.
 - `examples/sample-workspace/outputs/handoff/` - client-safe handoff bundle that excludes raw inputs, state, and logs by default.
 - `examples/sample-workspace/inputs/contacts.csv` - local operator-provided buyer/contact context.
+- `examples/sample-workspace/inputs/research.csv` - manually captured approved-source research evidence.
 - `examples/sample-workspace/inputs/previous_interactions.md` - local operator-provided prior interaction context for warm follow-ups, recaps, revives, and referrals.
 - `examples/sample-workspace/inputs/outcomes.csv` - manually recorded outcomes after operator-controlled activity outside Agentic Hub.
 - `examples/sample-workspace/state/` - inspectable JSON/JSONL state.
@@ -122,7 +123,7 @@ The fixture writes:
 
 ### Example Output
 
-The sample sprint imports 25 fictional accounts, loads 10 local contact records and 6 prior interaction notes, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a deterministic quality eval, weekly report, and static operator console with draft type mix. The MVP deliberately does not include any send command or external side effect.
+The sample sprint imports 25 fictional accounts, loads 10 local contact records, 10 manually captured research evidence rows, and 6 prior interaction notes, generates 25 lead briefs, creates 24 initial review-gated drafts plus one revised draft, skips one disqualified automation-risk account, records manual review decisions, records one manual outcome, and produces a deterministic quality eval, weekly report, and static operator console with draft type mix. The MVP deliberately does not include any send command or external side effect.
 
 Read the guided proof path in `docs/demo-walkthrough.md` and the sanitized proof narrative in `docs/case-study-fixture-sprint.md`.
 

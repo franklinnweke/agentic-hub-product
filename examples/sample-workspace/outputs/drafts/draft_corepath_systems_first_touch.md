@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_corepath_systems_website] Website listed for account: https://corepath.example
-- [ev_corepath_systems_segment] Segment from target list: professional_services
 - [ev_corepath_systems_note_1] Systems integrator with enterprise service retainers.
+- [ev_corepath_systems_note_2] long sales cycles.
 
 ## Risk Flags
 

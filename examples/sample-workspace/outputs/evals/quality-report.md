@@ -10,8 +10,8 @@ This deterministic eval checks whether the local sprint artifacts are specific, 
 | --- | ---: |
 | Accounts evaluated | 25 |
 | Drafts evaluated | 25 |
-| Average account score | 72/100 |
-| Average draft score | 85/100 |
+| Average account score | 73/100 |
+| Average draft score | 83/100 |
 | Accounts review-ready | 15 |
 | Drafts review-ready | 23 |
 | Quality warnings | 34 |
@@ -26,14 +26,14 @@ This deterministic eval checks whether the local sprint artifacts are specific, 
 
 | Account | Status | Score | Band | Signals | Warnings |
 | --- | --- | ---: | --- | --- | --- |
-| Northstar Ops Studio | approved | 95 | strong | 5 evidence; 1 contacts; 0 interactions; 86/100 fit; high | None |
-| Brightlane Creative | approved | 95 | strong | 5 evidence; 1 contacts; 1 interactions; 82/100 fit; high | None |
-| Atlas Founder Labs | needs_review | 88 | strong | 5 evidence; 1 contacts; 0 interactions; 86/100 fit; high | None |
-| Cedar Grant Partners | needs_review | 80 | reviewable | 5 evidence; 1 contacts; 1 interactions; 71/100 fit; high | None |
-| Harbor IT Advisors | needs_review | 88 | strong | 5 evidence; 1 contacts; 1 interactions; 79/100 fit; high | None |
-| SignalWorks Strategy | needs_review | 88 | strong | 5 evidence; 1 contacts; 1 interactions; 80/100 fit; high | None |
-| Ridgeway Product Studio | needs_review | 88 | strong | 5 evidence; 1 contacts; 0 interactions; 82/100 fit; high | None |
-| LaunchPad CFO | needs_review | 80 | reviewable | 5 evidence; 1 contacts; 0 interactions; 73/100 fit; high | None |
+| Northstar Ops Studio | approved | 100 | strong | 7 evidence; 1 contacts; 0 interactions; 86/100 fit; high | None |
+| Brightlane Creative | approved | 100 | strong | 7 evidence; 1 contacts; 1 interactions; 82/100 fit; high | None |
+| Atlas Founder Labs | needs_review | 93 | strong | 6 evidence; 1 contacts; 0 interactions; 86/100 fit; high | None |
+| Cedar Grant Partners | needs_review | 85 | strong | 6 evidence; 1 contacts; 1 interactions; 71/100 fit; high | None |
+| Harbor IT Advisors | needs_review | 93 | strong | 6 evidence; 1 contacts; 1 interactions; 79/100 fit; high | None |
+| SignalWorks Strategy | needs_review | 93 | strong | 6 evidence; 1 contacts; 1 interactions; 80/100 fit; high | None |
+| Ridgeway Product Studio | needs_review | 93 | strong | 6 evidence; 1 contacts; 0 interactions; 82/100 fit; high | None |
+| LaunchPad CFO | needs_review | 85 | strong | 6 evidence; 1 contacts; 0 interactions; 73/100 fit; high | None |
 | VectorOps Consulting | needs_review | 88 | strong | 5 evidence; 1 contacts; 0 interactions; 80/100 fit; high | None |
 | Bluebird Web Co | needs_review | 80 | reviewable | 5 evidence; 1 contacts; 0 interactions; 72/100 fit; high | None |
 | Summit RevOps Lab | needs_review | 68 | needs work | 5 evidence; 0 contacts; 0 interactions; 76/100 fit; high | missing local contact context |
@@ -56,14 +56,14 @@ This deterministic eval checks whether the local sprint artifacts are specific, 
 
 | Account | Draft | Status | Score | Band | Signals | Warnings |
 | --- | --- | --- | ---: | --- | --- | --- |
-| Northstar Ops Studio | draft_northstar_ops_studio_first_touch | approved | 100 | strong | first_touch; 3 evidence; contact context; no prior context; 1 risk flags | None |
-| Brightlane Creative | draft_brightlane_creative_warm_follow_up | superseded | 70 | reviewable | warm_follow_up; 3 evidence; contact context; prior context; 1 risk flags | None |
-| Atlas Founder Labs | draft_atlas_founder_labs_first_touch | needs_review | 95 | strong | first_touch; 3 evidence; contact context; no prior context; 1 risk flags | None |
-| Cedar Grant Partners | draft_cedar_grant_partners_meeting_recap | rejected | 65 | needs work | meeting_recap; 3 evidence; contact context; prior context; 1 risk flags | rejected by operator |
-| Harbor IT Advisors | draft_harbor_it_advisors_stale_opportunity_revive | edited | 95 | strong | stale_opportunity_revive; 3 evidence; contact context; prior context; 1 risk flags | None |
-| SignalWorks Strategy | draft_signalworks_strategy_referral_request | needs_review | 95 | strong | referral_request; 3 evidence; contact context; prior context; 1 risk flags | None |
-| Ridgeway Product Studio | draft_ridgeway_product_studio_first_touch | needs_review | 95 | strong | first_touch; 3 evidence; contact context; no prior context; 1 risk flags | None |
-| LaunchPad CFO | draft_launchpad_cfo_first_touch | needs_review | 95 | strong | first_touch; 3 evidence; contact context; no prior context; 1 risk flags | None |
+| Northstar Ops Studio | draft_northstar_ops_studio_first_touch | approved | 96 | strong | first_touch; 3 evidence; contact context; no prior context; 0 risk flags | None |
+| Brightlane Creative | draft_brightlane_creative_warm_follow_up | superseded | 70 | reviewable | warm_follow_up; 3 evidence; contact context; prior context; 0 risk flags | None |
+| Atlas Founder Labs | draft_atlas_founder_labs_first_touch | needs_review | 91 | strong | first_touch; 3 evidence; contact context; no prior context; 0 risk flags | None |
+| Cedar Grant Partners | draft_cedar_grant_partners_meeting_recap | rejected | 65 | needs work | meeting_recap; 3 evidence; contact context; prior context; 0 risk flags | rejected by operator |
+| Harbor IT Advisors | draft_harbor_it_advisors_stale_opportunity_revive | edited | 91 | strong | stale_opportunity_revive; 3 evidence; contact context; prior context; 0 risk flags | None |
+| SignalWorks Strategy | draft_signalworks_strategy_referral_request | needs_review | 91 | strong | referral_request; 3 evidence; contact context; prior context; 0 risk flags | None |
+| Ridgeway Product Studio | draft_ridgeway_product_studio_first_touch | needs_review | 91 | strong | first_touch; 3 evidence; contact context; no prior context; 0 risk flags | None |
+| LaunchPad CFO | draft_launchpad_cfo_first_touch | needs_review | 91 | strong | first_touch; 3 evidence; contact context; no prior context; 0 risk flags | None |
 | VectorOps Consulting | draft_vectorops_consulting_first_touch | needs_review | 95 | strong | first_touch; 3 evidence; contact context; no prior context; 1 risk flags | None |
 | Bluebird Web Co | draft_bluebird_web_co_first_touch | needs_review | 95 | strong | first_touch; 3 evidence; contact context; no prior context; 1 risk flags | None |
 | Summit RevOps Lab | draft_summit_revops_lab_first_touch | needs_review | 80 | reviewable | first_touch; 3 evidence; no contact; no prior context; 2 risk flags | missing contact context |
@@ -80,7 +80,7 @@ This deterministic eval checks whether the local sprint artifacts are specific, 
 | CorePath Systems | draft_corepath_systems_first_touch | needs_review | 80 | reviewable | first_touch; 3 evidence; no contact; no prior context; 3 risk flags | missing contact context |
 | Lumen Launch Studio | draft_lumen_launch_studio_first_touch | needs_review | 80 | reviewable | first_touch; 3 evidence; no contact; no prior context; 3 risk flags | missing contact context |
 | Tandem Ops Partners | draft_tandem_ops_partners_first_touch | needs_review | 80 | reviewable | first_touch; 3 evidence; no contact; no prior context; 2 risk flags | missing contact context |
-| Brightlane Creative | draft_brightlane_creative_warm_follow_up_rev1 | needs_review | 95 | strong | warm_follow_up; 3 evidence; contact context; prior context; 1 risk flags | None |
+| Brightlane Creative | draft_brightlane_creative_warm_follow_up_rev1 | needs_review | 91 | strong | warm_follow_up; 3 evidence; contact context; prior context; 0 risk flags | None |
 
 ## Eval Caveats
 

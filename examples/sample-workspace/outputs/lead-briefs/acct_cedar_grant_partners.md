@@ -33,10 +33,11 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_cedar_grant_partners_website] Website listed for account: https://cedar-grants.example (website; https://cedar-grants.example; confidence: medium)
-- [ev_cedar_grant_partners_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
+- [ev_acct_cedar_grant_partners_research_6] Client-provided context says compliance-safe recap language matters for grant deadline follow-ups. (customer_provided; inputs/research.csv; confidence: high)
 - [ev_cedar_grant_partners_note_1] Grant writing consultancy with many warm relationships. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_cedar_grant_partners_note_2] deadline-driven follow-up windows. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_cedar_grant_partners_website] Website listed for account: https://cedar-grants.example (website; https://cedar-grants.example; confidence: medium)
+- [ev_cedar_grant_partners_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_cedar_grant_partners_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context
@@ -45,7 +46,7 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Missing Information
 
-- Recent public proof beyond operator notes
+- None after local evidence and contact intake.
 
 ## Disqualifiers Checked
 

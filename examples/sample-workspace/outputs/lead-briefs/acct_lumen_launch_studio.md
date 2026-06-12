@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_lumen_launch_studio_website] Website listed for account: https://lumen-launch.example (website; https://lumen-launch.example; confidence: medium)
-- [ev_lumen_launch_studio_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_lumen_launch_studio_note_1] Launch studio with packaged offers. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_lumen_launch_studio_note_2] prospects come from webinars and referrals. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_lumen_launch_studio_website] Website listed for account: https://lumen-launch.example (website; https://lumen-launch.example; confidence: medium)
+- [ev_lumen_launch_studio_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_lumen_launch_studio_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

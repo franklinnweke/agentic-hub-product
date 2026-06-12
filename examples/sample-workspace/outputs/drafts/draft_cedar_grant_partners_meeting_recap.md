@@ -41,13 +41,13 @@ Franklin
 
 ## Personalization Evidence
 
-- [ev_cedar_grant_partners_website] Website listed for account: https://cedar-grants.example
-- [ev_cedar_grant_partners_segment] Segment from target list: professional_services
 - [ev_cedar_grant_partners_note_1] Grant writing consultancy with many warm relationships.
+- [ev_cedar_grant_partners_note_2] deadline-driven follow-up windows.
+- [ev_acct_cedar_grant_partners_research_6] Client-provided context says compliance-safe recap language matters for grant deadline follow-ups.
 
 ## Risk Flags
 
-- Missing: Recent public proof beyond operator notes
+- No automated risk flags. Operator review still required.
 
 ## Suggested Send Window
 

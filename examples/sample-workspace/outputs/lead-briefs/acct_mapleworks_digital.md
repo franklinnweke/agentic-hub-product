@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_mapleworks_digital_website] Website listed for account: https://mapleworks.example (website; https://mapleworks.example; confidence: medium)
-- [ev_mapleworks_digital_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_mapleworks_digital_note_1] Digital agency serving local services. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_mapleworks_digital_note_2] has many old discovery notes. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_mapleworks_digital_website] Website listed for account: https://mapleworks.example (website; https://mapleworks.example; confidence: medium)
+- [ev_mapleworks_digital_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_mapleworks_digital_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_summit_revops_lab_website] Website listed for account: https://summit-revops.example
-- [ev_summit_revops_lab_segment] Segment from target list: solo_consultant
 - [ev_summit_revops_lab_note_1] RevOps advisor with high-value CRM cleanup projects.
+- [ev_summit_revops_lab_note_2] has a target account sheet.
 
 ## Risk Flags
 

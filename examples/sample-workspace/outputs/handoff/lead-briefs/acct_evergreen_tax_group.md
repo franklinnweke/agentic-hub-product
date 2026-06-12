@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_evergreen_tax_group_website] Website listed for account: https://evergreen-tax.example (website; https://evergreen-tax.example; confidence: medium)
-- [ev_evergreen_tax_group_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_evergreen_tax_group_note_1] Tax advisory firm with seasonal high-value prospects. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_evergreen_tax_group_note_2] deadline-driven follow-up windows. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_evergreen_tax_group_website] Website listed for account: https://evergreen-tax.example (website; https://evergreen-tax.example; confidence: medium)
+- [ev_evergreen_tax_group_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_evergreen_tax_group_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

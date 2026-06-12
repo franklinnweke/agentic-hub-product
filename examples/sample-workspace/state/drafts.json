@@ -15,13 +15,11 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_northstar_ops_studio_website",
-      "ev_northstar_ops_studio_segment",
+      "ev_acct_northstar_ops_studio_research_1",
+      "ev_acct_northstar_ops_studio_research_2",
       "ev_northstar_ops_studio_note_1"
     ],
-    "risk_flags": [
-      "Missing: Recent public proof beyond operator notes"
-    ],
+    "risk_flags": [],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
     "created_at": "2026-06-11T22:30:00.000Z",
@@ -44,13 +42,11 @@
     "interaction_id": "interaction_acct_brightlane_creative",
     "interaction_summary": "Andre asked for a short example of how an agency referral pipeline report would look after a discovery call.",
     "evidence_ids": [
-      "ev_brightlane_creative_website",
-      "ev_brightlane_creative_segment",
+      "ev_acct_brightlane_creative_research_3",
+      "ev_acct_brightlane_creative_research_4",
       "ev_brightlane_creative_note_1"
     ],
-    "risk_flags": [
-      "Missing: Recent public proof beyond operator notes"
-    ],
+    "risk_flags": [],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Send a concise follow-up with one agency-specific proof point and offer a three-account sample.",
     "created_at": "2026-06-11T22:30:00.000Z",
@@ -74,13 +70,11 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_atlas_founder_labs_website",
-      "ev_atlas_founder_labs_segment",
-      "ev_atlas_founder_labs_note_1"
+      "ev_acct_atlas_founder_labs_research_5",
+      "ev_atlas_founder_labs_note_1",
+      "ev_atlas_founder_labs_note_2"
     ],
-    "risk_flags": [
-      "Missing: Recent public proof beyond operator notes"
-    ],
+    "risk_flags": [],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
     "created_at": "2026-06-11T22:30:00.000Z",
@@ -102,13 +96,11 @@
     "interaction_id": "interaction_acct_cedar_grant_partners",
     "interaction_summary": "Prior conversation focused on deadline-sensitive grant follow-ups and compliance-safe language.",
     "evidence_ids": [
-      "ev_cedar_grant_partners_website",
-      "ev_cedar_grant_partners_segment",
-      "ev_cedar_grant_partners_note_1"
+      "ev_acct_cedar_grant_partners_research_6",
+      "ev_cedar_grant_partners_note_1",
+      "ev_cedar_grant_partners_note_2"
     ],
-    "risk_flags": [
-      "Missing: Recent public proof beyond operator notes"
-    ],
+    "risk_flags": [],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Recap the compliance concern and ask whether legal review is needed before any draft is used.",
     "created_at": "2026-06-11T22:30:00.000Z",
@@ -131,13 +123,11 @@
     "interaction_id": "interaction_acct_harbor_it_advisors",
     "interaction_summary": "Renewal follow-up idea was discussed last month but stalled before a concrete next step.",
     "evidence_ids": [
-      "ev_harbor_it_advisors_website",
-      "ev_harbor_it_advisors_segment",
-      "ev_harbor_it_advisors_note_1"
+      "ev_acct_harbor_it_advisors_research_7",
+      "ev_harbor_it_advisors_note_1",
+      "ev_harbor_it_advisors_note_2"
     ],
-    "risk_flags": [
-      "Missing: Recent public proof beyond operator notes"
-    ],
+    "risk_flags": [],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Ask whether renewal follow-up discipline is still worth revisiting this quarter.",
     "created_at": "2026-06-11T22:30:00.000Z",
@@ -160,13 +150,11 @@
     "interaction_id": "interaction_acct_signalworks_strategy",
     "interaction_summary": "Nora mentioned warm founder referrals as the best source of qualified consulting opportunities.",
     "evidence_ids": [
-      "ev_signalworks_strategy_website",
-      "ev_signalworks_strategy_segment",
-      "ev_signalworks_strategy_note_1"
+      "ev_acct_signalworks_strategy_research_8",
+      "ev_signalworks_strategy_note_1",
+      "ev_signalworks_strategy_note_2"
     ],
-    "risk_flags": [
-      "Missing: Recent public proof beyond operator notes"
-    ],
+    "risk_flags": [],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Ask for one specific referral profile rather than broad introductions.",
     "created_at": "2026-06-11T22:30:00.000Z",
@@ -188,13 +176,11 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_ridgeway_product_studio_website",
-      "ev_ridgeway_product_studio_segment",
-      "ev_ridgeway_product_studio_note_1"
+      "ev_acct_ridgeway_product_studio_research_9",
+      "ev_ridgeway_product_studio_note_1",
+      "ev_ridgeway_product_studio_note_2"
     ],
-    "risk_flags": [
-      "Missing: Recent public proof beyond operator notes"
-    ],
+    "risk_flags": [],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
     "created_at": "2026-06-11T22:30:00.000Z",
@@ -216,13 +202,11 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_launchpad_cfo_website",
-      "ev_launchpad_cfo_segment",
-      "ev_launchpad_cfo_note_1"
+      "ev_acct_launchpad_cfo_research_10",
+      "ev_launchpad_cfo_note_1",
+      "ev_launchpad_cfo_note_2"
     ],
-    "risk_flags": [
-      "Missing: Recent public proof beyond operator notes"
-    ],
+    "risk_flags": [],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Wait 5 business days, then draft one low-pressure follow-up only if still relevant.",
     "created_at": "2026-06-11T22:30:00.000Z",
@@ -244,9 +228,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_vectorops_consulting_website",
-      "ev_vectorops_consulting_segment",
-      "ev_vectorops_consulting_note_1"
+      "ev_vectorops_consulting_note_1",
+      "ev_vectorops_consulting_note_2",
+      "ev_vectorops_consulting_website"
     ],
     "risk_flags": [
       "Missing: Recent public proof beyond operator notes"
@@ -272,9 +256,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_bluebird_web_co_website",
-      "ev_bluebird_web_co_segment",
-      "ev_bluebird_web_co_note_1"
+      "ev_bluebird_web_co_note_1",
+      "ev_bluebird_web_co_note_2",
+      "ev_bluebird_web_co_website"
     ],
     "risk_flags": [
       "Missing: Recent public proof beyond operator notes"
@@ -300,9 +284,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_summit_revops_lab_website",
-      "ev_summit_revops_lab_segment",
-      "ev_summit_revops_lab_note_1"
+      "ev_summit_revops_lab_note_1",
+      "ev_summit_revops_lab_note_2",
+      "ev_summit_revops_lab_website"
     ],
     "risk_flags": [
       "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context",
@@ -329,9 +313,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_kinship_brand_studio_website",
-      "ev_kinship_brand_studio_segment",
-      "ev_kinship_brand_studio_note_1"
+      "ev_kinship_brand_studio_note_1",
+      "ev_kinship_brand_studio_note_2",
+      "ev_kinship_brand_studio_website"
     ],
     "risk_flags": [
       "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
@@ -358,9 +342,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_prairie_managed_services_website",
-      "ev_prairie_managed_services_segment",
-      "ev_prairie_managed_services_note_1"
+      "ev_prairie_managed_services_note_1",
+      "ev_prairie_managed_services_note_2",
+      "ev_prairie_managed_services_website"
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
@@ -388,9 +372,9 @@
     "interaction_id": "interaction_acct_orbit_founder_office",
     "interaction_summary": "Demo notes and investor update follow-ups were discussed as the highest-friction context sources.",
     "evidence_ids": [
-      "ev_orbit_founder_office_website",
-      "ev_orbit_founder_office_segment",
-      "ev_orbit_founder_office_note_1"
+      "ev_orbit_founder_office_note_1",
+      "ev_orbit_founder_office_note_2",
+      "ev_orbit_founder_office_website"
     ],
     "risk_flags": [
       "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
@@ -417,9 +401,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_north_pier_advisory_website",
-      "ev_north_pier_advisory_segment",
-      "ev_north_pier_advisory_note_1"
+      "ev_north_pier_advisory_note_1",
+      "ev_north_pier_advisory_note_2",
+      "ev_north_pier_advisory_website"
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
@@ -447,9 +431,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_copperline_creative_ops_website",
-      "ev_copperline_creative_ops_segment",
-      "ev_copperline_creative_ops_note_1"
+      "ev_copperline_creative_ops_note_1",
+      "ev_copperline_creative_ops_note_2",
+      "ev_copperline_creative_ops_website"
     ],
     "risk_flags": [
       "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
@@ -476,9 +460,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_beacon_ai_enablement_website",
-      "ev_beacon_ai_enablement_segment",
-      "ev_beacon_ai_enablement_note_1"
+      "ev_beacon_ai_enablement_note_1",
+      "ev_beacon_ai_enablement_note_2",
+      "ev_beacon_ai_enablement_website"
     ],
     "risk_flags": [
       "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
@@ -505,9 +489,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_fathom_customer_lab_website",
-      "ev_fathom_customer_lab_segment",
-      "ev_fathom_customer_lab_note_1"
+      "ev_fathom_customer_lab_note_1",
+      "ev_fathom_customer_lab_note_2",
+      "ev_fathom_customer_lab_website"
     ],
     "risk_flags": [
       "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
@@ -534,9 +518,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_evergreen_tax_group_website",
-      "ev_evergreen_tax_group_segment",
-      "ev_evergreen_tax_group_note_1"
+      "ev_evergreen_tax_group_note_1",
+      "ev_evergreen_tax_group_note_2",
+      "ev_evergreen_tax_group_website"
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
@@ -564,9 +548,9 @@
     "interaction_id": "interaction_acct_mapleworks_digital",
     "interaction_summary": "Old discovery notes suggest several stale local-services opportunities that were never revived.",
     "evidence_ids": [
-      "ev_mapleworks_digital_website",
-      "ev_mapleworks_digital_segment",
-      "ev_mapleworks_digital_note_1"
+      "ev_mapleworks_digital_note_1",
+      "ev_mapleworks_digital_note_2",
+      "ev_mapleworks_digital_website"
     ],
     "risk_flags": [
       "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context",
@@ -593,9 +577,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_bridgepoint_gtm_website",
-      "ev_bridgepoint_gtm_segment",
-      "ev_bridgepoint_gtm_note_1"
+      "ev_bridgepoint_gtm_note_1",
+      "ev_bridgepoint_gtm_note_2",
+      "ev_bridgepoint_gtm_website"
     ],
     "risk_flags": [
       "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes; Follow-up trigger or current relationship context",
@@ -622,9 +606,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_corepath_systems_website",
-      "ev_corepath_systems_segment",
-      "ev_corepath_systems_note_1"
+      "ev_corepath_systems_note_1",
+      "ev_corepath_systems_note_2",
+      "ev_corepath_systems_website"
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
@@ -652,9 +636,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_lumen_launch_studio_website",
-      "ev_lumen_launch_studio_segment",
-      "ev_lumen_launch_studio_note_1"
+      "ev_lumen_launch_studio_note_1",
+      "ev_lumen_launch_studio_note_2",
+      "ev_lumen_launch_studio_website"
     ],
     "risk_flags": [
       "Confidence is medium; operator should verify before sending.",
@@ -682,9 +666,9 @@
     "interaction_id": "",
     "interaction_summary": "",
     "evidence_ids": [
-      "ev_tandem_ops_partners_website",
-      "ev_tandem_ops_partners_segment",
-      "ev_tandem_ops_partners_note_1"
+      "ev_tandem_ops_partners_note_1",
+      "ev_tandem_ops_partners_note_2",
+      "ev_tandem_ops_partners_website"
     ],
     "risk_flags": [
       "Missing: Named buyer or decision-maker; Recent public proof beyond operator notes",
@@ -711,13 +695,11 @@
     "interaction_id": "interaction_acct_brightlane_creative",
     "interaction_summary": "Andre asked for a short example of how an agency referral pipeline report would look after a discovery call.",
     "evidence_ids": [
-      "ev_brightlane_creative_website",
-      "ev_brightlane_creative_segment",
+      "ev_acct_brightlane_creative_research_3",
+      "ev_acct_brightlane_creative_research_4",
       "ev_brightlane_creative_note_1"
     ],
-    "risk_flags": [
-      "Missing: Recent public proof beyond operator notes"
-    ],
+    "risk_flags": [],
     "suggested_send_window": "Operator-selected after manual review",
     "next_action_if_no_reply": "Send a concise follow-up with one agency-specific proof point and offer a three-account sample.",
     "created_at": "2026-06-11T22:46:30.000Z",

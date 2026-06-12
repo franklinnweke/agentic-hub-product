@@ -33,10 +33,12 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_brightlane_creative_website] Website listed for account: https://brightlane.example (website; https://brightlane.example; confidence: medium)
-- [ev_brightlane_creative_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
+- [ev_acct_brightlane_creative_research_3] Public portfolio page emphasizes referral-driven web projects and recurring client work. (approved_public_source; https://brightlane.example/work; confidence: high)
+- [ev_acct_brightlane_creative_research_4] Operator note says Brightlane wants an agency-specific proof point before approving a follow-up. (manual_research; inputs/research.csv; confidence: medium)
 - [ev_brightlane_creative_note_1] Eight-person web agency with project-based leads. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_brightlane_creative_note_2] inconsistent follow-up process. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_brightlane_creative_website] Website listed for account: https://brightlane.example (website; https://brightlane.example; confidence: medium)
+- [ev_brightlane_creative_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_brightlane_creative_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context
@@ -45,7 +47,7 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Missing Information
 
-- Recent public proof beyond operator notes
+- None after local evidence and contact intake.
 
 ## Disqualifiers Checked
 

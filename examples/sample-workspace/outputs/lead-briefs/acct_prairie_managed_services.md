@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_prairie_managed_services_website] Website listed for account: https://prairie-ms.example (website; https://prairie-ms.example; confidence: medium)
-- [ev_prairie_managed_services_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_prairie_managed_services_note_1] Managed services provider with local commercial prospects. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_prairie_managed_services_note_2] renewal windows tracked manually. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_prairie_managed_services_website] Website listed for account: https://prairie-ms.example (website; https://prairie-ms.example; confidence: medium)
+- [ev_prairie_managed_services_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_prairie_managed_services_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

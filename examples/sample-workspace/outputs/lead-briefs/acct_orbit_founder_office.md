@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_orbit_founder_office_website] Website listed for account: https://orbit-founder.example (website; https://orbit-founder.example; confidence: medium)
-- [ev_orbit_founder_office_segment] Segment from target list: founder_led_b2b (target_csv; inputs/targets.csv; confidence: high)
 - [ev_orbit_founder_office_note_1] Founder-led software team with customer discovery calls in docs. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_orbit_founder_office_note_2] investor updates in email. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_orbit_founder_office_website] Website listed for account: https://orbit-founder.example (website; https://orbit-founder.example; confidence: medium)
+- [ev_orbit_founder_office_segment] Segment from target list: founder_led_b2b (target_csv; inputs/targets.csv; confidence: high)
 - [ev_orbit_founder_office_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

@@ -33,9 +33,9 @@ This account is risky for the MVP because it appears to conflict with Agentic Hu
 
 ## Evidence
 
+- [ev_quickscale_outreach_note_1] Vendor advertises autonomous high-volume outbound and asks for platform automation at scale. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_quickscale_outreach_website] Website listed for account: https://quickscale-outreach.example (website; https://quickscale-outreach.example; confidence: medium)
 - [ev_quickscale_outreach_segment] Segment from target list: automation_vendor (target_csv; inputs/targets.csv; confidence: high)
-- [ev_quickscale_outreach_note_1] Vendor advertises autonomous high-volume outbound and asks for platform automation at scale. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_quickscale_outreach_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

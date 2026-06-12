@@ -42,13 +42,13 @@ Franklin
 
 ## Personalization Evidence
 
-- [ev_brightlane_creative_website] Website listed for account: https://brightlane.example
-- [ev_brightlane_creative_segment] Segment from target list: boutique_agency
 - [ev_brightlane_creative_note_1] Eight-person web agency with project-based leads.
+- [ev_acct_brightlane_creative_research_3] Public portfolio page emphasizes referral-driven web projects and recurring client work.
+- [ev_acct_brightlane_creative_research_4] Operator note says Brightlane wants an agency-specific proof point before approving a follow-up.
 
 ## Risk Flags
 
-- Missing: Recent public proof beyond operator notes
+- No automated risk flags. Operator review still required.
 
 ## Suggested Send Window
 

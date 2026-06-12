@@ -1,12 +1,12 @@
 type,id,name,status,score,band,signals,warnings
-account,acct_northstar_ops_studio,Northstar Ops Studio,approved,95,strong,5 evidence; 1 contacts; 0 interactions; 86/100 fit; high,
-account,acct_brightlane_creative,Brightlane Creative,approved,95,strong,5 evidence; 1 contacts; 1 interactions; 82/100 fit; high,
-account,acct_atlas_founder_labs,Atlas Founder Labs,needs_review,88,strong,5 evidence; 1 contacts; 0 interactions; 86/100 fit; high,
-account,acct_cedar_grant_partners,Cedar Grant Partners,needs_review,80,reviewable,5 evidence; 1 contacts; 1 interactions; 71/100 fit; high,
-account,acct_harbor_it_advisors,Harbor IT Advisors,needs_review,88,strong,5 evidence; 1 contacts; 1 interactions; 79/100 fit; high,
-account,acct_signalworks_strategy,SignalWorks Strategy,needs_review,88,strong,5 evidence; 1 contacts; 1 interactions; 80/100 fit; high,
-account,acct_ridgeway_product_studio,Ridgeway Product Studio,needs_review,88,strong,5 evidence; 1 contacts; 0 interactions; 82/100 fit; high,
-account,acct_launchpad_cfo,LaunchPad CFO,needs_review,80,reviewable,5 evidence; 1 contacts; 0 interactions; 73/100 fit; high,
+account,acct_northstar_ops_studio,Northstar Ops Studio,approved,100,strong,7 evidence; 1 contacts; 0 interactions; 86/100 fit; high,
+account,acct_brightlane_creative,Brightlane Creative,approved,100,strong,7 evidence; 1 contacts; 1 interactions; 82/100 fit; high,
+account,acct_atlas_founder_labs,Atlas Founder Labs,needs_review,93,strong,6 evidence; 1 contacts; 0 interactions; 86/100 fit; high,
+account,acct_cedar_grant_partners,Cedar Grant Partners,needs_review,85,strong,6 evidence; 1 contacts; 1 interactions; 71/100 fit; high,
+account,acct_harbor_it_advisors,Harbor IT Advisors,needs_review,93,strong,6 evidence; 1 contacts; 1 interactions; 79/100 fit; high,
+account,acct_signalworks_strategy,SignalWorks Strategy,needs_review,93,strong,6 evidence; 1 contacts; 1 interactions; 80/100 fit; high,
+account,acct_ridgeway_product_studio,Ridgeway Product Studio,needs_review,93,strong,6 evidence; 1 contacts; 0 interactions; 82/100 fit; high,
+account,acct_launchpad_cfo,LaunchPad CFO,needs_review,85,strong,6 evidence; 1 contacts; 0 interactions; 73/100 fit; high,
 account,acct_vectorops_consulting,VectorOps Consulting,needs_review,88,strong,5 evidence; 1 contacts; 0 interactions; 80/100 fit; high,
 account,acct_bluebird_web_co,Bluebird Web Co,needs_review,80,reviewable,5 evidence; 1 contacts; 0 interactions; 72/100 fit; high,
 account,acct_summit_revops_lab,Summit RevOps Lab,needs_review,68,needs work,5 evidence; 0 contacts; 0 interactions; 76/100 fit; high,missing local contact context
@@ -24,14 +24,14 @@ account,acct_corepath_systems,CorePath Systems,needs_review,58,needs work,5 evid
 account,acct_lumen_launch_studio,Lumen Launch Studio,needs_review,53,needs work,5 evidence; 0 contacts; 0 interactions; 68/100 fit; medium,missing local contact context
 account,acct_tandem_ops_partners,Tandem Ops Partners,needs_review,65,needs work,5 evidence; 0 contacts; 0 interactions; 74/100 fit; high,missing local contact context
 account,acct_quickscale_outreach,QuickScale Outreach,rejected,25,blocked,4 evidence; 0 contacts; 0 interactions; 28/100 fit; low,low fit score or disqualified; low confidence; missing local contact context; rejected by operator
-draft,draft_northstar_ops_studio_first_touch,Northstar Ops Studio,approved,100,strong,first_touch; 3 evidence; contact context; no prior context; 1 risk flags,
-draft,draft_brightlane_creative_warm_follow_up,Brightlane Creative,superseded,70,reviewable,warm_follow_up; 3 evidence; contact context; prior context; 1 risk flags,
-draft,draft_atlas_founder_labs_first_touch,Atlas Founder Labs,needs_review,95,strong,first_touch; 3 evidence; contact context; no prior context; 1 risk flags,
-draft,draft_cedar_grant_partners_meeting_recap,Cedar Grant Partners,rejected,65,needs work,meeting_recap; 3 evidence; contact context; prior context; 1 risk flags,rejected by operator
-draft,draft_harbor_it_advisors_stale_opportunity_revive,Harbor IT Advisors,edited,95,strong,stale_opportunity_revive; 3 evidence; contact context; prior context; 1 risk flags,
-draft,draft_signalworks_strategy_referral_request,SignalWorks Strategy,needs_review,95,strong,referral_request; 3 evidence; contact context; prior context; 1 risk flags,
-draft,draft_ridgeway_product_studio_first_touch,Ridgeway Product Studio,needs_review,95,strong,first_touch; 3 evidence; contact context; no prior context; 1 risk flags,
-draft,draft_launchpad_cfo_first_touch,LaunchPad CFO,needs_review,95,strong,first_touch; 3 evidence; contact context; no prior context; 1 risk flags,
+draft,draft_northstar_ops_studio_first_touch,Northstar Ops Studio,approved,96,strong,first_touch; 3 evidence; contact context; no prior context; 0 risk flags,
+draft,draft_brightlane_creative_warm_follow_up,Brightlane Creative,superseded,70,reviewable,warm_follow_up; 3 evidence; contact context; prior context; 0 risk flags,
+draft,draft_atlas_founder_labs_first_touch,Atlas Founder Labs,needs_review,91,strong,first_touch; 3 evidence; contact context; no prior context; 0 risk flags,
+draft,draft_cedar_grant_partners_meeting_recap,Cedar Grant Partners,rejected,65,needs work,meeting_recap; 3 evidence; contact context; prior context; 0 risk flags,rejected by operator
+draft,draft_harbor_it_advisors_stale_opportunity_revive,Harbor IT Advisors,edited,91,strong,stale_opportunity_revive; 3 evidence; contact context; prior context; 0 risk flags,
+draft,draft_signalworks_strategy_referral_request,SignalWorks Strategy,needs_review,91,strong,referral_request; 3 evidence; contact context; prior context; 0 risk flags,
+draft,draft_ridgeway_product_studio_first_touch,Ridgeway Product Studio,needs_review,91,strong,first_touch; 3 evidence; contact context; no prior context; 0 risk flags,
+draft,draft_launchpad_cfo_first_touch,LaunchPad CFO,needs_review,91,strong,first_touch; 3 evidence; contact context; no prior context; 0 risk flags,
 draft,draft_vectorops_consulting_first_touch,VectorOps Consulting,needs_review,95,strong,first_touch; 3 evidence; contact context; no prior context; 1 risk flags,
 draft,draft_bluebird_web_co_first_touch,Bluebird Web Co,needs_review,95,strong,first_touch; 3 evidence; contact context; no prior context; 1 risk flags,
 draft,draft_summit_revops_lab_first_touch,Summit RevOps Lab,needs_review,80,reviewable,first_touch; 3 evidence; no contact; no prior context; 2 risk flags,missing contact context
@@ -48,4 +48,4 @@ draft,draft_bridgepoint_gtm_first_touch,Bridgepoint GTM,needs_review,80,reviewab
 draft,draft_corepath_systems_first_touch,CorePath Systems,needs_review,80,reviewable,first_touch; 3 evidence; no contact; no prior context; 3 risk flags,missing contact context
 draft,draft_lumen_launch_studio_first_touch,Lumen Launch Studio,needs_review,80,reviewable,first_touch; 3 evidence; no contact; no prior context; 3 risk flags,missing contact context
 draft,draft_tandem_ops_partners_first_touch,Tandem Ops Partners,needs_review,80,reviewable,first_touch; 3 evidence; no contact; no prior context; 2 risk flags,missing contact context
-draft,draft_brightlane_creative_warm_follow_up_rev1,Brightlane Creative,needs_review,95,strong,warm_follow_up; 3 evidence; contact context; prior context; 1 risk flags,
+draft,draft_brightlane_creative_warm_follow_up_rev1,Brightlane Creative,needs_review,91,strong,warm_follow_up; 3 evidence; contact context; prior context; 0 risk flags,

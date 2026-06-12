@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_bluebird_web_co_website] Website listed for account: https://bluebird-web.example (website; https://bluebird-web.example; confidence: medium)
-- [ev_bluebird_web_co_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_bluebird_web_co_note_1] Small web agency with inbound audit requests. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_bluebird_web_co_note_2] slow follow-up after discovery calls. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_bluebird_web_co_website] Website listed for account: https://bluebird-web.example (website; https://bluebird-web.example; confidence: medium)
+- [ev_bluebird_web_co_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_bluebird_web_co_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

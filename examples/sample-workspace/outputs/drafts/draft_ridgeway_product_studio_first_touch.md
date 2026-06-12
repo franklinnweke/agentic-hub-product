@@ -40,13 +40,13 @@ Franklin
 
 ## Personalization Evidence
 
-- [ev_ridgeway_product_studio_website] Website listed for account: https://ridgeway-product.example
-- [ev_ridgeway_product_studio_segment] Segment from target list: boutique_agency
 - [ev_ridgeway_product_studio_note_1] Six-person product studio selling discovery sprints.
+- [ev_ridgeway_product_studio_note_2] tracks prospects in a sheet.
+- [ev_acct_ridgeway_product_studio_research_9] Public process page describes proposal follow-up as part of productized discovery.
 
 ## Risk Flags
 
-- Missing: Recent public proof beyond operator notes
+- No automated risk flags. Operator review still required.
 
 ## Suggested Send Window
 

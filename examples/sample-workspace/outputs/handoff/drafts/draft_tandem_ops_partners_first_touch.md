@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_tandem_ops_partners_website] Website listed for account: https://tandem-ops.example
-- [ev_tandem_ops_partners_segment] Segment from target list: solo_consultant
 - [ev_tandem_ops_partners_note_1] Two-person ops consultancy with relationship-heavy pipeline.
+- [ev_tandem_ops_partners_note_2] follow-up reminders in memory.
 
 ## Risk Flags
 

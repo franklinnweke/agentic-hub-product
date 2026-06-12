@@ -41,13 +41,13 @@ Franklin
 
 ## Personalization Evidence
 
-- [ev_harbor_it_advisors_website] Website listed for account: https://harbor-it.example
-- [ev_harbor_it_advisors_segment] Segment from target list: professional_services
 - [ev_harbor_it_advisors_note_1] Managed IT advisory firm with high-ticket retainers.
+- [ev_harbor_it_advisors_note_2] many referral leads.
+- [ev_acct_harbor_it_advisors_research_7] Public services page highlights managed IT renewals and referral-driven advisory work.
 
 ## Risk Flags
 
-- Missing: Recent public proof beyond operator notes
+- No automated risk flags. Operator review still required.
 
 ## Suggested Send Window
 

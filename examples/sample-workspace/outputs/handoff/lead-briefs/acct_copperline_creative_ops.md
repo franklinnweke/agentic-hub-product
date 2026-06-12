@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_copperline_creative_ops_website] Website listed for account: https://copperline.example (website; https://copperline.example; confidence: medium)
-- [ev_copperline_creative_ops_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_copperline_creative_ops_note_1] Creative operations agency with proposal pipeline in spreadsheets. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_copperline_creative_ops_note_2] inconsistent referral follow-up. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_copperline_creative_ops_website] Website listed for account: https://copperline.example (website; https://copperline.example; confidence: medium)
+- [ev_copperline_creative_ops_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_copperline_creative_ops_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

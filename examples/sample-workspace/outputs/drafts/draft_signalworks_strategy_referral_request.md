@@ -41,13 +41,13 @@ Franklin
 
 ## Personalization Evidence
 
-- [ev_signalworks_strategy_website] Website listed for account: https://signalworks.example
-- [ev_signalworks_strategy_segment] Segment from target list: solo_consultant
 - [ev_signalworks_strategy_note_1] Independent strategy consultant with warm founder referrals.
+- [ev_signalworks_strategy_note_2] follow-up notes split across docs.
+- [ev_acct_signalworks_strategy_research_8] Operator research notes SignalWorks prefers warm founder referrals over broad outbound lists.
 
 ## Risk Flags
 
-- Missing: Recent public proof beyond operator notes
+- No automated risk flags. Operator review still required.
 
 ## Suggested Send Window
 

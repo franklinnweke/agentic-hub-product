@@ -33,10 +33,11 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_signalworks_strategy_website] Website listed for account: https://signalworks.example (website; https://signalworks.example; confidence: medium)
-- [ev_signalworks_strategy_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
+- [ev_acct_signalworks_strategy_research_8] Operator research notes SignalWorks prefers warm founder referrals over broad outbound lists. (manual_research; inputs/research.csv; confidence: medium)
 - [ev_signalworks_strategy_note_1] Independent strategy consultant with warm founder referrals. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_signalworks_strategy_note_2] follow-up notes split across docs. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_signalworks_strategy_website] Website listed for account: https://signalworks.example (website; https://signalworks.example; confidence: medium)
+- [ev_signalworks_strategy_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_signalworks_strategy_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context
@@ -45,7 +46,7 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Missing Information
 
-- Recent public proof beyond operator notes
+- None after local evidence and contact intake.
 
 ## Disqualifiers Checked
 

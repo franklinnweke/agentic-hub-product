@@ -33,14 +33,15 @@ Agentic Hub is not an email generator. It is a supervised operating loop:
 
 1. A rough target list enters through `inputs/targets.csv`.
 2. Local contact context enters through `inputs/contacts.csv`.
-3. Prior relationship context enters through `inputs/previous_interactions.md`.
-4. The CLI normalizes accounts and evidence into `state/`.
-5. Lead briefs explain fit, evidence, missing information, disqualifiers, and recommended next action.
-6. Follow-up drafts start in `needs_review`, never `sent`.
-7. Human review can approve, edit, reject, or revise drafts.
-8. Manual outcomes are recorded only after operator-controlled activity outside Agentic Hub.
-9. Analytics reports reconcile local state into a weekly operating readout.
-10. Export creates a client-safe handoff bundle without raw workspace internals.
+3. Manually captured research evidence enters through `inputs/research.csv`.
+4. Prior relationship context enters through `inputs/previous_interactions.md`.
+5. The CLI normalizes accounts and evidence into `state/`.
+6. Lead briefs explain fit, evidence, missing information, disqualifiers, and recommended next action.
+7. Follow-up drafts start in `needs_review`, never `sent`.
+8. Human review can approve, edit, reject, or revise drafts.
+9. Manual outcomes are recorded only after operator-controlled activity outside Agentic Hub.
+10. Analytics reports reconcile local state into a weekly operating readout.
+11. Export creates a client-safe handoff bundle without raw workspace internals.
 
 ## Proof Points
 

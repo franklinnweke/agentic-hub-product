@@ -45,6 +45,7 @@ workspace/
   inputs/
     targets.csv
     contacts.csv
+    research.csv
     previous_interactions.md
   outputs/
     lead-briefs/

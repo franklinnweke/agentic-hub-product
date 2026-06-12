@@ -41,8 +41,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_bluebird_web_co_website] Website listed for account: https://bluebird-web.example
-- [ev_bluebird_web_co_segment] Segment from target list: boutique_agency
 - [ev_bluebird_web_co_note_1] Small web agency with inbound audit requests.
+- [ev_bluebird_web_co_note_2] slow follow-up after discovery calls.
 
 ## Risk Flags
 

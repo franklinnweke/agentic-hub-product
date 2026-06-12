@@ -19,6 +19,7 @@ const WORKSPACE_DIRS = [
 
 const REQUIRED_TARGET_COLUMNS = ["account_name", "website", "segment", "notes", "source"];
 const REQUIRED_CONTACT_COLUMNS = ["account_id", "name", "role", "context", "source", "confidence"];
+const REQUIRED_RESEARCH_COLUMNS = ["account_id", "source_type", "source_url", "claim", "confidence"];
 const REQUIRED_OUTCOME_COLUMNS = ["draft_id", "account_id", "manual_status", "sent_at", "reply_at", "meeting_at", "notes"];
 const ACCOUNT_REVIEW_STATUSES = ["approved", "rejected", "needs_more_info"];
 const DRAFT_REVIEW_STATUSES = ["approved", "edited", "rejected"];
@@ -207,6 +208,11 @@ function initWorkspace(workspace, now, options = {}) {
     preserveExisting
   );
   writeFileIfAllowed(
+    path.join(workspace, "inputs", "research.csv"),
+    starterResearchCsv(),
+    preserveExisting
+  );
+  writeFileIfAllowed(
     path.join(workspace, "inputs", "previous_interactions.md"),
     starterPreviousInteractions(),
     preserveExisting
@@ -218,7 +224,7 @@ function initWorkspace(workspace, now, options = {}) {
     pack: "workspace",
     command: "init",
     input_files: [],
-    output_files: ["README.md", "inputs/targets.csv", "inputs/contacts.csv", "inputs/previous_interactions.md", "inputs/outcomes.csv", "config/icp.md", "config/offer.md"],
+    output_files: ["README.md", "inputs/targets.csv", "inputs/contacts.csv", "inputs/research.csv", "inputs/previous_interactions.md", "inputs/outcomes.csv", "config/icp.md", "config/offer.md"],
     status: "completed",
     warnings: [],
     errors: []
@@ -237,6 +243,7 @@ function ingestTargets(workspace, now) {
   const rows = parseCsv(fs.readFileSync(targetPath, "utf8"));
   validateTargetRows(rows);
   const contacts = readContactsInput(workspace, now);
+  const researchEvidence = readResearchInput(workspace, now);
   const interactions = readPreviousInteractionsInput(workspace, now);
 
   const accounts = [];
@@ -246,7 +253,10 @@ function ingestTargets(workspace, now) {
   for (const row of rows) {
     const account = buildAccount(row, now);
     accounts.push(account);
-    const accountEvidence = buildEvidence(account, row, now);
+    const accountEvidence = [
+      ...buildEvidence(account, row, now),
+      ...researchEvidence.filter((item) => item.account_id === account.id)
+    ];
     evidence.push(...accountEvidence);
     events.push(eventFor("account", account.id, "account_imported", now, {
       source: row.source,
@@ -260,6 +270,7 @@ function ingestTargets(workspace, now) {
     }
   }
   applyContactsToAccounts(accounts, contacts, now);
+  applyResearchToAccounts(accounts, researchEvidence, now);
 
   writeJson(path.join(workspace, "state", "accounts.json"), accounts);
   writeJson(path.join(workspace, "state", "evidence.json"), evidence);
@@ -272,14 +283,14 @@ function ingestTargets(workspace, now) {
     timestamp: now,
     pack: "lead-gen",
     command: "ingest",
-    input_files: ["inputs/targets.csv", "inputs/contacts.csv", "inputs/previous_interactions.md"],
+    input_files: ["inputs/targets.csv", "inputs/contacts.csv", "inputs/research.csv", "inputs/previous_interactions.md"],
     output_files: ["state/accounts.json", "state/evidence.json", "state/contacts.json", "state/interactions.json", "state/events.jsonl"],
     status: "completed",
     warnings: accounts.filter((account) => account.confidence === "low").map((account) => `${account.id} has low confidence`),
     errors: []
   });
 
-  console.log(`Ingested ${accounts.length} accounts, ${contacts.length} contacts, ${interactions.length} interactions, and ${evidence.length} evidence items.`);
+  console.log(`Ingested ${accounts.length} accounts, ${contacts.length} contacts, ${researchEvidence.length} research evidence items, ${interactions.length} interactions, and ${evidence.length} evidence items.`);
 }
 
 function generateBriefs(workspace, now) {
@@ -293,7 +304,7 @@ function generateBriefs(workspace, now) {
   for (const account of accounts) {
     const accountEvidence = evidence.filter((item) => item.account_id === account.id);
     const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
-    const brief = renderLeadBrief(account, accountEvidence, accountContacts, now);
+    const brief = renderLeadBrief(account, prioritizeEvidence(accountEvidence), accountContacts, now);
     const briefPath = path.join(workspace, "outputs", "lead-briefs", `${account.id}.md`);
     fs.writeFileSync(briefPath, brief);
     outputFiles.push(relative(workspace, briefPath));
@@ -815,6 +826,12 @@ function validateWorkspace(workspace) {
     if (!fs.existsSync(briefPath)) errors.push(`${account.id} is missing a lead brief`);
   }
 
+  for (const item of evidence) {
+    if (!item.account_id || !accounts.some((account) => account.id === item.account_id)) errors.push(`Evidence references unknown account ${item.account_id}`);
+    if (!["target_csv", "operator_note", "website", "manual_context", "outcome_csv", "approved_public_source", "manual_research", "customer_provided"].includes(item.source_type)) errors.push(`${item.id} has invalid source_type ${item.source_type}`);
+    if (!["low", "medium", "high"].includes(item.confidence)) errors.push(`${item.id} has invalid confidence ${item.confidence}`);
+  }
+
   for (const contact of contacts) {
     if (!contact.account_id || !accounts.some((account) => account.id === contact.account_id)) errors.push(`Contact references unknown account ${contact.account_id}`);
     if (!contact.name || !contact.role) errors.push(`Invalid contact record: ${JSON.stringify(contact)}`);
@@ -859,7 +876,7 @@ function regenerateLeadBrief(workspace, account, now) {
   const accountEvidence = evidence.filter((item) => item.account_id === account.id);
   const accountContacts = contacts.filter((contact) => contact.account_id === account.id);
   const briefPath = path.join(workspace, "outputs", "lead-briefs", `${account.id}.md`);
-  fs.writeFileSync(briefPath, renderLeadBrief(account, accountEvidence, accountContacts, now));
+  fs.writeFileSync(briefPath, renderLeadBrief(account, prioritizeEvidence(accountEvidence), accountContacts, now));
 }
 
 function regenerateDraft(workspace, account, draft) {
@@ -938,6 +955,25 @@ function validateContactRows(rows) {
   });
 }
 
+function validateResearchRows(rows) {
+  if (rows.length === 0) return;
+  const columns = Object.keys(rows[0]);
+  const missing = REQUIRED_RESEARCH_COLUMNS.filter((column) => !columns.includes(column));
+  if (missing.length > 0) throw new Error(`research.csv is missing columns: ${missing.join(", ")}`);
+
+  rows.forEach((row, index) => {
+    for (const column of REQUIRED_RESEARCH_COLUMNS) {
+      if (!row[column]?.trim()) throw new Error(`research.csv row ${index + 2} is missing ${column}`);
+    }
+    if (!["approved_public_source", "manual_research", "customer_provided"].includes(row.source_type)) {
+      throw new Error(`research.csv row ${index + 2} has invalid source_type ${row.source_type}`);
+    }
+    if (!["low", "medium", "high"].includes(row.confidence)) {
+      throw new Error(`research.csv row ${index + 2} has invalid confidence ${row.confidence}`);
+    }
+  });
+}
+
 function validateOutcomeRows(rows) {
   if (rows.length === 0) return;
   const columns = Object.keys(rows[0]);
@@ -1003,6 +1039,24 @@ function readContactsInput(workspace, now) {
     }));
 }
 
+function readResearchInput(workspace, now) {
+  const filePath = path.join(workspace, "inputs", "research.csv");
+  if (!fs.existsSync(filePath)) return [];
+  const rows = parseCsv(fs.readFileSync(filePath, "utf8"));
+  validateResearchRows(rows);
+  return rows
+    .filter((row) => row.account_id)
+    .map((row, index) => ({
+      id: `ev_${slug(`${row.account_id}_research_${index + 1}`)}`,
+      account_id: row.account_id.trim(),
+      source_type: row.source_type.trim(),
+      source_url: row.source_url.trim(),
+      claim: row.claim.trim(),
+      captured_at: now,
+      confidence: row.confidence.trim()
+    }));
+}
+
 function readPreviousInteractionsInput(workspace, now) {
   const filePath = path.join(workspace, "inputs", "previous_interactions.md");
   if (!fs.existsSync(filePath)) return [];
@@ -1050,6 +1104,18 @@ function applyContactsToAccounts(accounts, contacts, now) {
   }
 }
 
+function applyResearchToAccounts(accounts, researchEvidence, now) {
+  const accountsWithResearch = new Set(researchEvidence.map((item) => item.account_id));
+  for (const account of accounts) {
+    if (!accountsWithResearch.has(account.id)) continue;
+    account.missing_information = account.missing_information.filter((item) => item !== "Recent public proof beyond operator notes");
+    if (account.confidence === "medium" && account.fit_score >= 70 && account.disqualifiers.length === 0) {
+      account.confidence = "high";
+    }
+    account.updated_at = now;
+  }
+}
+
 function buildEvidence(account, row, now) {
   const accountId = account.id;
   const noteClaims = splitClaims(row.notes).slice(0, 2).map((claim, index) => ({
@@ -1092,6 +1158,28 @@ function buildEvidence(account, row, now) {
       confidence: "high"
     }
   ];
+}
+
+function prioritizeEvidence(evidence) {
+  const priority = {
+    approved_public_source: 0,
+    customer_provided: 1,
+    manual_research: 2,
+    operator_note: 3,
+    website: 4,
+    target_csv: 5,
+    manual_context: 6,
+    outcome_csv: 7
+  };
+  return [...evidence].sort((left, right) => {
+    const priorityDelta = (priority[left.source_type] ?? 99) - (priority[right.source_type] ?? 99);
+    if (priorityDelta !== 0) return priorityDelta;
+    if (left.confidence !== right.confidence) {
+      const confidence = { high: 0, medium: 1, low: 2 };
+      return (confidence[left.confidence] ?? 9) - (confidence[right.confidence] ?? 9);
+    }
+    return left.id.localeCompare(right.id);
+  });
 }
 
 function scoreTarget(row) {
@@ -1158,7 +1246,7 @@ function suggestedAngle(row, disqualifiers) {
 }
 
 function buildDraft(account, evidence, contacts, interaction, now) {
-  const primaryEvidence = evidence.slice(0, 3);
+  const primaryEvidence = prioritizeEvidence(evidence).slice(0, 3);
   const bestPersonalization = primaryEvidence.find((item) => item.source_type === "operator_note") ?? primaryEvidence[1] ?? primaryEvidence[0];
   const primaryContact = selectPrimaryContact(contacts);
   const draftType = interaction?.draft_type ?? "first_touch";
@@ -1481,7 +1569,7 @@ ${contacts.length > 0 ? contacts.map((contact) => `- [${contact.id}] ${contact.n
 
 ## Missing Information
 
-${account.missing_information.map((item) => `- ${item}`).join("\n")}
+${account.missing_information.length > 0 ? account.missing_information.map((item) => `- ${item}`).join("\n") : "- None after local evidence and contact intake."}
 
 ## Disqualifiers Checked
 
@@ -2568,6 +2656,12 @@ function starterOutcomesCsv() {
 function starterContactsCsv() {
   return `account_id,name,role,context,source,confidence
 acct_example_consulting_co,Example Buyer,Founder,Operator-provided tentative buyer for local review only,manual,medium
+`;
+}
+
+function starterResearchCsv() {
+  return `account_id,source_type,source_url,claim,confidence
+acct_example_consulting_co,manual_research,inputs/research.csv,Example manually captured research claim for local review only,medium
 `;
 }
 

@@ -1,0 +1,11 @@
+account_id,source_type,source_url,claim,confidence
+acct_northstar_ops_studio,approved_public_source,https://northstar-ops.example/services,"Public services page says Northstar sells RevOps retainers for founder-led B2B teams.",high
+acct_northstar_ops_studio,manual_research,inputs/research.csv,"Operator confirmed Northstar tracks lead follow-up in spreadsheets before client calls.",medium
+acct_brightlane_creative,approved_public_source,https://brightlane.example/work,"Public portfolio page emphasizes referral-driven web projects and recurring client work.",high
+acct_brightlane_creative,manual_research,inputs/research.csv,"Operator note says Brightlane wants an agency-specific proof point before approving a follow-up.",medium
+acct_atlas_founder_labs,approved_public_source,https://atlas-founder-labs.example/product,"Public product page describes founder-led demos and investor update workflows.",high
+acct_cedar_grant_partners,customer_provided,inputs/research.csv,"Client-provided context says compliance-safe recap language matters for grant deadline follow-ups.",high
+acct_harbor_it_advisors,approved_public_source,https://harbor-it.example/services,"Public services page highlights managed IT renewals and referral-driven advisory work.",high
+acct_signalworks_strategy,manual_research,inputs/research.csv,"Operator research notes SignalWorks prefers warm founder referrals over broad outbound lists.",medium
+acct_ridgeway_product_studio,approved_public_source,https://ridgeway-product.example/process,"Public process page describes proposal follow-up as part of productized discovery.",high
+acct_launchpad_cfo,customer_provided,inputs/research.csv,"Client-provided context says referral follow-up consistency is a bottleneck for fractional CFO services.",high

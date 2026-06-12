@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_summit_revops_lab_website] Website listed for account: https://summit-revops.example (website; https://summit-revops.example; confidence: medium)
-- [ev_summit_revops_lab_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_summit_revops_lab_note_1] RevOps advisor with high-value CRM cleanup projects. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_summit_revops_lab_note_2] has a target account sheet. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_summit_revops_lab_website] Website listed for account: https://summit-revops.example (website; https://summit-revops.example; confidence: medium)
+- [ev_summit_revops_lab_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_summit_revops_lab_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

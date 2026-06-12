@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_corepath_systems_website] Website listed for account: https://corepath.example (website; https://corepath.example; confidence: medium)
-- [ev_corepath_systems_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_corepath_systems_note_1] Systems integrator with enterprise service retainers. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_corepath_systems_note_2] long sales cycles. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_corepath_systems_website] Website listed for account: https://corepath.example (website; https://corepath.example; confidence: medium)
+- [ev_corepath_systems_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_corepath_systems_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

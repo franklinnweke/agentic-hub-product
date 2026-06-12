@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_beacon_ai_enablement_website] Website listed for account: https://beacon-ai.example (website; https://beacon-ai.example; confidence: medium)
-- [ev_beacon_ai_enablement_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_beacon_ai_enablement_note_1] AI enablement consultant with workshop leads. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_beacon_ai_enablement_note_2] many manual notes. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_beacon_ai_enablement_website] Website listed for account: https://beacon-ai.example (website; https://beacon-ai.example; confidence: medium)
+- [ev_beacon_ai_enablement_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_beacon_ai_enablement_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

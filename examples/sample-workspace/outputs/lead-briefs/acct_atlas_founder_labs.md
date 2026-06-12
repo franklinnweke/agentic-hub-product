@@ -33,10 +33,11 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_atlas_founder_labs_website] Website listed for account: https://atlas-founder-labs.example (website; https://atlas-founder-labs.example; confidence: medium)
-- [ev_atlas_founder_labs_segment] Segment from target list: founder_led_b2b (target_csv; inputs/targets.csv; confidence: high)
+- [ev_acct_atlas_founder_labs_research_5] Public product page describes founder-led demos and investor update workflows. (approved_public_source; https://atlas-founder-labs.example/product; confidence: high)
 - [ev_atlas_founder_labs_note_1] Early B2B SaaS team doing founder-led sales. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_atlas_founder_labs_note_2] many demo notes in docs. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_atlas_founder_labs_website] Website listed for account: https://atlas-founder-labs.example (website; https://atlas-founder-labs.example; confidence: medium)
+- [ev_atlas_founder_labs_segment] Segment from target list: founder_led_b2b (target_csv; inputs/targets.csv; confidence: high)
 - [ev_atlas_founder_labs_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context
@@ -45,7 +46,7 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Missing Information
 
-- Recent public proof beyond operator notes
+- None after local evidence and contact intake.
 
 ## Disqualifiers Checked
 

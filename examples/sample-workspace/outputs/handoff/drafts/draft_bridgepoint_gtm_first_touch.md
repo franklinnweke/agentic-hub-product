@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_bridgepoint_gtm_website] Website listed for account: https://bridgepoint-gtm.example
-- [ev_bridgepoint_gtm_segment] Segment from target list: solo_consultant
 - [ev_bridgepoint_gtm_note_1] GTM consultant with curated target lists.
+- [ev_bridgepoint_gtm_note_2] wants explicit fit scoring.
 
 ## Risk Flags
 

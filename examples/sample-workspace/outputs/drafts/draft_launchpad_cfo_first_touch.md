@@ -40,13 +40,13 @@ Franklin
 
 ## Personalization Evidence
 
-- [ev_launchpad_cfo_website] Website listed for account: https://launchpad-cfo.example
-- [ev_launchpad_cfo_segment] Segment from target list: professional_services
 - [ev_launchpad_cfo_note_1] Fractional CFO firm with high-ticket retainers.
+- [ev_launchpad_cfo_note_2] many referral introductions.
+- [ev_acct_launchpad_cfo_research_10] Client-provided context says referral follow-up consistency is a bottleneck for fractional CFO services.
 
 ## Risk Flags
 
-- Missing: Recent public proof beyond operator notes
+- No automated risk flags. Operator review still required.
 
 ## Suggested Send Window
 

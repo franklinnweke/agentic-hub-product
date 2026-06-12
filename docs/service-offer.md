@@ -123,13 +123,14 @@ The public fixture sprint demonstrates the workflow on fictional accounts:
 
 - 25 lead briefs
 - 10 local contact records
+- 10 manually captured research evidence rows
 - 6 local previous-interaction notes
 - 24 initial follow-up drafts
 - 1 revised follow-up draft
 - draft types across first touch, warm follow-up, meeting recap, stale opportunity revive, and referral request
 - 1 rejected risky automation request
 - 1 manually recorded meeting outcome
-- 212 audit events
+- 222 audit events
 - 1 static operator console
 - 1 deterministic quality evaluation
 - deterministic fixture evals

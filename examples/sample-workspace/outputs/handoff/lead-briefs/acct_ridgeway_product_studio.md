@@ -33,10 +33,11 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_ridgeway_product_studio_website] Website listed for account: https://ridgeway-product.example (website; https://ridgeway-product.example; confidence: medium)
-- [ev_ridgeway_product_studio_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
+- [ev_acct_ridgeway_product_studio_research_9] Public process page describes proposal follow-up as part of productized discovery. (approved_public_source; https://ridgeway-product.example/process; confidence: high)
 - [ev_ridgeway_product_studio_note_1] Six-person product studio selling discovery sprints. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_ridgeway_product_studio_note_2] tracks prospects in a sheet. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_ridgeway_product_studio_website] Website listed for account: https://ridgeway-product.example (website; https://ridgeway-product.example; confidence: medium)
+- [ev_ridgeway_product_studio_segment] Segment from target list: boutique_agency (target_csv; inputs/targets.csv; confidence: high)
 - [ev_ridgeway_product_studio_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context
@@ -45,7 +46,7 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Missing Information
 
-- Recent public proof beyond operator notes
+- None after local evidence and contact intake.
 
 ## Disqualifiers Checked
 

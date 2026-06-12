@@ -33,10 +33,10 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_vectorops_consulting_website] Website listed for account: https://vectorops.example (website; https://vectorops.example; confidence: medium)
-- [ev_vectorops_consulting_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_vectorops_consulting_note_1] Operations consultant serving SaaS founders. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_vectorops_consulting_note_2] keeps ICP notes in docs. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_vectorops_consulting_website] Website listed for account: https://vectorops.example (website; https://vectorops.example; confidence: medium)
+- [ev_vectorops_consulting_segment] Segment from target list: solo_consultant (target_csv; inputs/targets.csv; confidence: high)
 - [ev_vectorops_consulting_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context

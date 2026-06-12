@@ -88,6 +88,7 @@ As Franklin, I want each workflow to be packaged as a reusable pack so I can pro
 ### Optional
 
 - `contacts.csv`
+- `research.csv`
 - `previous_interactions.md`
 - `approved_sources.md`
 - `blocked_domains.md`

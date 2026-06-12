@@ -40,8 +40,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_orbit_founder_office_website] Website listed for account: https://orbit-founder.example
-- [ev_orbit_founder_office_segment] Segment from target list: founder_led_b2b
 - [ev_orbit_founder_office_note_1] Founder-led software team with customer discovery calls in docs.
+- [ev_orbit_founder_office_note_2] investor updates in email.
 
 ## Risk Flags
 

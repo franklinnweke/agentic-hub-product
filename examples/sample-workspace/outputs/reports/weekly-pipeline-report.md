@@ -32,7 +32,7 @@ The fixture sprint imported 25 accounts, generated 14 high-fit lead briefs, and 
 | Manual sends recorded | 1 |
 | Replies | 1 |
 | Meetings booked | 1 |
-| Audit events | 212 |
+| Audit events | 222 |
 
 ## Lead Quality
 

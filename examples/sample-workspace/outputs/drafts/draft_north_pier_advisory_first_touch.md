@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_north_pier_advisory_website] Website listed for account: https://north-pier.example
-- [ev_north_pier_advisory_segment] Segment from target list: professional_services
 - [ev_north_pier_advisory_note_1] Advisory practice selling compliance retainers.
+- [ev_north_pier_advisory_note_2] relationship-heavy sales motion.
 
 ## Risk Flags
 

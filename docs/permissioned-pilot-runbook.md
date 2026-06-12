@@ -29,9 +29,12 @@ Then replace starter files with permissioned inputs:
 
 - `inputs/targets.csv`
 - `inputs/contacts.csv`
+- `inputs/research.csv`
 - `inputs/previous_interactions.md`
 - `config/icp.md`
 - `config/offer.md`
+
+Use `inputs/research.csv` for manually captured approved-source claims. Do not scrape private systems or bypass platform controls.
 
 Keep private inputs out of Git unless they are fully sanitized and approved for publication.
 

@@ -39,8 +39,8 @@ Franklin
 ## Personalization Evidence
 
 - [ev_fathom_customer_lab_website] Website listed for account: https://fathom-customer.example
-- [ev_fathom_customer_lab_segment] Segment from target list: founder_led_b2b
 - [ev_fathom_customer_lab_note_1] Customer research SaaS founder running founder-led sales.
+- [ev_fathom_customer_lab_note_2] demo recaps live in docs.
 
 ## Risk Flags
 

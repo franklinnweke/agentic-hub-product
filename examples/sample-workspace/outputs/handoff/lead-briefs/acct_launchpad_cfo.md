@@ -33,10 +33,11 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Evidence
 
-- [ev_launchpad_cfo_website] Website listed for account: https://launchpad-cfo.example (website; https://launchpad-cfo.example; confidence: medium)
-- [ev_launchpad_cfo_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
+- [ev_acct_launchpad_cfo_research_10] Client-provided context says referral follow-up consistency is a bottleneck for fractional CFO services. (customer_provided; inputs/research.csv; confidence: high)
 - [ev_launchpad_cfo_note_1] Fractional CFO firm with high-ticket retainers. (operator_note; inputs/targets.csv; confidence: medium)
 - [ev_launchpad_cfo_note_2] many referral introductions. (operator_note; inputs/targets.csv; confidence: medium)
+- [ev_launchpad_cfo_website] Website listed for account: https://launchpad-cfo.example (website; https://launchpad-cfo.example; confidence: medium)
+- [ev_launchpad_cfo_segment] Segment from target list: professional_services (target_csv; inputs/targets.csv; confidence: high)
 - [ev_launchpad_cfo_source] Imported from source: demo fixture (target_csv; inputs/targets.csv; confidence: high)
 
 ## Buyer / Contact Context
@@ -45,7 +46,7 @@ This account appears aligned with the MVP because the target data points to rela
 
 ## Missing Information
 
-- Recent public proof beyond operator notes
+- None after local evidence and contact intake.
 
 ## Disqualifiers Checked
 

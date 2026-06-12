@@ -40,13 +40,13 @@ Franklin
 
 ## Personalization Evidence
 
-- [ev_northstar_ops_studio_website] Website listed for account: https://northstar-ops.example
-- [ev_northstar_ops_studio_segment] Segment from target list: solo_consultant
 - [ev_northstar_ops_studio_note_1] Founder sells RevOps retainers.
+- [ev_acct_northstar_ops_studio_research_1] Public services page says Northstar sells RevOps retainers for founder-led B2B teams.
+- [ev_acct_northstar_ops_studio_research_2] Operator confirmed Northstar tracks lead follow-up in spreadsheets before client calls.
 
 ## Risk Flags
 
-- Missing: Recent public proof beyond operator notes
+- No automated risk flags. Operator review still required.
 
 ## Suggested Send Window
 
