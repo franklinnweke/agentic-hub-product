@@ -967,6 +967,7 @@ function validateWorkspace(workspace) {
   const events = readEvents(workspace);
   const errors = [];
   const reportBody = fs.readFileSync(path.join(workspace, "outputs", "reports", "weekly-pipeline-report.md"), "utf8");
+  const metricsBody = fs.readFileSync(path.join(workspace, "outputs", "reports", "metrics.csv"), "utf8");
 
   for (const account of accounts) {
     if (!account.id || !account.name || !account.website) errors.push(`Invalid account record: ${JSON.stringify(account)}`);
@@ -1029,6 +1030,12 @@ function validateWorkspace(workspace) {
   }
   if (!reportBody.includes("These recommendations are generated from the current local state")) {
     errors.push("weekly-pipeline-report.md does not explain recommendation source");
+  }
+  if (!reportBody.includes("## Cycle Time")) {
+    errors.push("weekly-pipeline-report.md is missing Cycle Time");
+  }
+  for (const metric of ["median_minutes_import_to_brief", "median_minutes_brief_to_draft", "median_minutes_brief_to_approved_draft"]) {
+    if (!metricsBody.includes(metric)) errors.push(`metrics.csv is missing ${metric}`);
   }
 
   if (events.length === 0) errors.push("events.jsonl has no audit events");
@@ -1866,6 +1873,7 @@ function buildMetrics(accounts, drafts, events, outcomes = [], contacts = [], in
   const replies = outcomes.filter((outcome) => outcome.manual_status === "replied" || outcome.reply_at);
   const meetings = outcomes.filter((outcome) => outcome.manual_status === "meeting_booked" || outcome.meeting_at);
   const staleConversations = outcomes.filter((outcome) => outcome.manual_status === "stale").length;
+  const cycleTimes = buildCycleTimeMetrics(accounts, drafts, events);
   const warnings = [];
   if (accounts.length < 10) warnings.push("Tiny fixture sample; do not infer conversion rates.");
   if (outcomes.length === 0) warnings.push("Reply and meeting outcomes are unavailable until inputs/outcomes.csv is populated.");
@@ -1902,9 +1910,79 @@ function buildMetrics(accounts, drafts, events, outcomes = [], contacts = [], in
     meetings_booked: meetings.length,
     reply_rate: rate(replies.length, sentManual.length),
     meeting_rate: rate(meetings.length, sentManual.length),
+    median_minutes_import_to_brief: cycleTimes.median_minutes_import_to_brief,
+    median_minutes_brief_to_draft: cycleTimes.median_minutes_brief_to_draft,
+    median_minutes_brief_to_approved_draft: cycleTimes.median_minutes_brief_to_approved_draft,
+    cycle_time_sample_accounts: cycleTimes.cycle_time_sample_accounts,
+    cycle_time_sample_drafts: cycleTimes.cycle_time_sample_drafts,
+    cycle_time_sample_approved_drafts: cycleTimes.cycle_time_sample_approved_drafts,
     event_count: events.length,
     warnings
   };
+}
+
+function buildCycleTimeMetrics(accounts, drafts, events) {
+  const accountImportEvents = eventsByEntity(events, "account_imported");
+  const briefEvents = eventsByEntity(events, "lead_brief_generated");
+  const draftGeneratedEvents = eventsByEntity(events, "draft_generated_needs_review");
+  const draftApprovedEvents = eventsByEntity(events, "draft_approved");
+  const importToBrief = [];
+  const briefToDraft = [];
+  const briefToApprovedDraft = [];
+
+  for (const account of accounts) {
+    const importedAt = timestampMs(accountImportEvents.get(account.id)?.timestamp);
+    const briefAt = timestampMs(briefEvents.get(account.id)?.timestamp);
+    if (importedAt !== null && briefAt !== null && briefAt >= importedAt) {
+      importToBrief.push(minutesBetween(importedAt, briefAt));
+    }
+  }
+
+  for (const draft of drafts.filter((item) => item.status !== "superseded")) {
+    const briefAt = timestampMs(briefEvents.get(draft.account_id)?.timestamp);
+    const generatedAt = timestampMs(draftGeneratedEvents.get(draft.id)?.timestamp) ?? timestampMs(draft.created_at);
+    const approvedAt = timestampMs(draftApprovedEvents.get(draft.id)?.timestamp);
+    if (briefAt !== null && generatedAt !== null && generatedAt >= briefAt) {
+      briefToDraft.push(minutesBetween(briefAt, generatedAt));
+    }
+    if (briefAt !== null && approvedAt !== null && approvedAt >= briefAt) {
+      briefToApprovedDraft.push(minutesBetween(briefAt, approvedAt));
+    }
+  }
+
+  return {
+    median_minutes_import_to_brief: medianMinutes(importToBrief),
+    median_minutes_brief_to_draft: medianMinutes(briefToDraft),
+    median_minutes_brief_to_approved_draft: medianMinutes(briefToApprovedDraft),
+    cycle_time_sample_accounts: importToBrief.length,
+    cycle_time_sample_drafts: briefToDraft.length,
+    cycle_time_sample_approved_drafts: briefToApprovedDraft.length
+  };
+}
+
+function eventsByEntity(events, eventType) {
+  const byEntity = new Map();
+  for (const event of events.filter((item) => item.event_type === eventType)) {
+    if (!byEntity.has(event.entity_id)) byEntity.set(event.entity_id, event);
+  }
+  return byEntity;
+}
+
+function timestampMs(value) {
+  const time = Date.parse(value ?? "");
+  return Number.isNaN(time) ? null : time;
+}
+
+function minutesBetween(startMs, endMs) {
+  return Math.round((endMs - startMs) / 60000);
+}
+
+function medianMinutes(values) {
+  if (values.length === 0) return "unavailable";
+  const sorted = [...values].sort((left, right) => left - right);
+  const middle = Math.floor(sorted.length / 2);
+  if (sorted.length % 2 === 1) return sorted[middle];
+  return Math.round((sorted[middle - 1] + sorted[middle]) / 2);
 }
 
 function buildQualityEvaluation(accounts, evidence, drafts, contacts, interactions, now) {
@@ -2319,7 +2397,17 @@ The fixture sprint imported ${metrics.accounts_imported} accounts, generated ${m
 | Manual sends recorded | ${metrics.manual_sends_recorded} |
 | Replies | ${metrics.replies} |
 | Meetings booked | ${metrics.meetings_booked} |
+| Median minutes import to brief | ${metrics.median_minutes_import_to_brief} |
+| Median minutes brief to draft | ${metrics.median_minutes_brief_to_draft} |
+| Median minutes brief to approved draft | ${metrics.median_minutes_brief_to_approved_draft} |
 | Audit events | ${metrics.event_count} |
+
+## Cycle Time
+
+- Import to lead brief median: ${metrics.median_minutes_import_to_brief} minutes across ${countLabel(metrics.cycle_time_sample_accounts, "account")}.
+- Lead brief to draft median: ${metrics.median_minutes_brief_to_draft} minutes across ${countLabel(metrics.cycle_time_sample_drafts, "draft")}.
+- Lead brief to approved draft median: ${metrics.median_minutes_brief_to_approved_draft} minutes across ${countLabel(metrics.cycle_time_sample_approved_drafts, "approved draft")}.
+- Denominator: audit events in \`state/events.jsonl\`; unavailable means no matching completed transition exists.
 
 ## Lead Quality
 
@@ -3261,7 +3349,13 @@ function renderMetricsCsv(metrics) {
     ["replies", metrics.replies, "manual sends recorded", "Manual outcome status or reply_at"],
     ["meetings_booked", metrics.meetings_booked, "manual sends recorded", "Manual outcome status or meeting_at"],
     ["reply_rate", metrics.reply_rate, "manual sends recorded", "Replies divided by manual sends recorded"],
-    ["meeting_rate", metrics.meeting_rate, "manual sends recorded", "Meetings divided by manual sends recorded"]
+    ["meeting_rate", metrics.meeting_rate, "manual sends recorded", "Meetings divided by manual sends recorded"],
+    ["median_minutes_import_to_brief", metrics.median_minutes_import_to_brief, "cycle_time_sample_accounts", "Median minutes from account_imported to lead_brief_generated"],
+    ["median_minutes_brief_to_draft", metrics.median_minutes_brief_to_draft, "cycle_time_sample_drafts", "Median minutes from lead_brief_generated to draft_generated_needs_review"],
+    ["median_minutes_brief_to_approved_draft", metrics.median_minutes_brief_to_approved_draft, "cycle_time_sample_approved_drafts", "Median minutes from lead_brief_generated to draft_approved"],
+    ["cycle_time_sample_accounts", metrics.cycle_time_sample_accounts, "accounts with import and brief events", "Sample size for import-to-brief cycle time"],
+    ["cycle_time_sample_drafts", metrics.cycle_time_sample_drafts, "drafts with brief and generated events", "Sample size for brief-to-draft cycle time"],
+    ["cycle_time_sample_approved_drafts", metrics.cycle_time_sample_approved_drafts, "drafts with brief and approved events", "Sample size for brief-to-approved-draft cycle time"]
   ];
 
   return rows.map((row) => row.map(csvCell).join(",")).join("\n") + "\n";

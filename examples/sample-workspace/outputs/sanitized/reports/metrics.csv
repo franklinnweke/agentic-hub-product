@@ -25,3 +25,9 @@ replies,1,manual sends recorded,Manual outcome status or reply_at
 meetings_booked,1,manual sends recorded,Manual outcome status or meeting_at
 reply_rate,100%,manual sends recorded,Replies divided by manual sends recorded
 meeting_rate,100%,manual sends recorded,Meetings divided by manual sends recorded
+median_minutes_import_to_brief,0,cycle_time_sample_accounts,Median minutes from account_imported to lead_brief_generated
+median_minutes_brief_to_draft,0,cycle_time_sample_drafts,Median minutes from lead_brief_generated to draft_generated_needs_review
+median_minutes_brief_to_approved_draft,15,cycle_time_sample_approved_drafts,Median minutes from lead_brief_generated to draft_approved
+cycle_time_sample_accounts,25,accounts with import and brief events,Contact 07ple size for import-to-brief cycle time
+cycle_time_sample_drafts,24,drafts with brief and generated events,Contact 07ple size for brief-to-draft cycle time
+cycle_time_sample_approved_drafts,1,drafts with brief and approved events,Contact 07ple size for brief-to-approved-draft cycle time

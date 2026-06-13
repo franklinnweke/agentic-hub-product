@@ -32,7 +32,17 @@ The fixture sprint imported 25 accounts, generated 14 high-fit lead briefs, and 
 | Manual sends recorded | 1 |
 | Replies | 1 |
 | Meetings booked | 1 |
+| Median minutes import to brief | 0 |
+| Median minutes brief to draft | 0 |
+| Median minutes brief to approved draft | 15 |
 | Audit events | 222 |
+
+## Cycle Time
+
+- Import to lead brief median: 0 minutes across 25 accounts.
+- Lead brief to draft median: 0 minutes across 24 drafts.
+- Lead brief to approved draft median: 15 minutes across 1 approved draft.
+- Denominator: audit events in `state/events.jsonl`; unavailable means no matching completed transition exists.
 
 ## Lead Quality
 
